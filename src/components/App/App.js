@@ -17,6 +17,7 @@ import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import WorkoutOverview from '../WorkoutOverview/WorkoutOverview';
+import WeeksPage from '../WeeksPage/weeksPage';
 
 import './App.css';
 
@@ -60,6 +61,12 @@ class App extends Component {
               exact
               path="/overview"
               component={WorkoutOverview}
+            {/* This route is to show all the routes to the user
+            */}
+            <ProtectedRoute
+              exact
+              path="/weeks"
+              component={WeeksPage}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
