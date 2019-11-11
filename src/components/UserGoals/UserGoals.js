@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import AddGoalModal from '../AddGoalModal/AddGoalModal';
 
 class Goals extends Component {
     // componentDidMount() {
@@ -24,6 +25,7 @@ class Goals extends Component {
                 <h2>Streaks:</h2>
                 <h3>Current: 0 </h3>
                 <h3>Longest: 420</h3>
+                <AddGoalModal/>
             </>
         )
     }

@@ -30,3 +30,8 @@ h1 {
     margin: 5px;
     padding: 100px;
 }
+
+.add-button {
+    display: flex;
+    justify-content: center;
+}
