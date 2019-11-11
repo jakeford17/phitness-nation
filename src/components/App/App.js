@@ -16,6 +16,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
+import WorkoutOverview from '../WorkoutOverview/WorkoutOverview';
 import WeeksPage from '../WeeksPage/weeksPage';
 
 import './App.css';
@@ -56,6 +57,10 @@ class App extends Component {
               path="/info"
               component={InfoPage}
             />
+            <ProtectedRoute
+              exact
+              path="/overview"
+              component={WorkoutOverview}
             {/* This route is to show all the routes to the user
             */}
             <ProtectedRoute
