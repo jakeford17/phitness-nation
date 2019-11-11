@@ -1,0 +1,32 @@
+h1 {
+    text-align: center;
+}
+
+.placeholder {
+    width: 200px;
+}
+
+.placeholder-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.inputs-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+}
+
+.save-buttons {
+    display: flex;
+    padding: 5px;
+    margin: 5px;
+    justify-content: center;
+}
+
+.user-buttons {
+    margin: 5px;
+    padding: 100px;
+}

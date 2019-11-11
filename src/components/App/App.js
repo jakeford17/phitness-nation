@@ -19,6 +19,8 @@ import InfoPage from '../InfoPage/InfoPage';
 import WorkoutOverview from '../WorkoutOverview/WorkoutOverview';
 import WeeksPage from '../WeeksPage/weeksPage';
 
+import UserProfile from '../UserProfile/UserProfile';
+
 import './App.css';
 
 class App extends Component {
@@ -30,7 +32,6 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Nav />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
@@ -59,8 +60,14 @@ class App extends Component {
             />
             <ProtectedRoute
               exact
+              path="/profile"
+              component={UserProfile}
+      />
+                  <ProtectedRoute
+              exact
               path="/overview"
               component={WorkoutOverview}
+      />
             {/* This route is to show all the routes to the user
             */}
             <ProtectedRoute
