@@ -16,6 +16,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
+import WorkoutsPage from '../WorkoutsPage/WorkoutsPage';
 import WorkoutOverview from '../WorkoutOverview/WorkoutOverview';
 import WeeksPage from '../WeeksPage/weeksPage';
 
@@ -60,6 +61,11 @@ class App extends Component {
             />
             <ProtectedRoute
               exact
+              path="/workouts"
+              component={WorkoutsPage}
+             />
+            <ProtectedRoute
+               exact
               path="/profile"
               component={UserProfile}
       />
