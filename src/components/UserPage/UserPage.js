@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
-import Workout from '../WorkoutComponent/WorkoutsComponent';
-
 
 class UserPage extends Component{
   componentDidMount = () =>{
