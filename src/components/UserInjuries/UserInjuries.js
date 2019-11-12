@@ -5,6 +5,7 @@ import { styled } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import { flexbox } from '@material-ui/system';
 import { connect } from 'react-redux';
+import './UserInjuries.css'
 
 const mapStateToProps = reduxState => ({
     reduxState,
@@ -69,6 +70,20 @@ const SevereInjuryCard = styled(Card)({
     display: flexbox,
     textAlign: "center"
 });
+const HealedInjuryCard = styled(Card)({
+    background: '#8df542',
+    border: 0,
+    borderRadius: 3,
+    // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    // // color: 'white',
+    // height: 60,
+    width: "40%",
+    padding: 10,
+    margin: 5,
+    fontSize: 16,
+    display: flexbox,
+    textAlign: "center"
+});
 
 class Injuries extends Component {
     // componentDidMount() {
@@ -79,6 +94,7 @@ class Injuries extends Component {
         let value = 'test'
         return (
             <>
+                <h2>Current Injuries</h2>
             <div className="injury-wrapper">
                     {this.props.reduxState.injuries.injuriesReducer.map((injury) => {
                         if (injury.severity == 1) {
@@ -116,7 +132,24 @@ class Injuries extends Component {
                         }
                     }
                     )}
-                <AddInjuriesModal />
+                    <AddInjuriesModal />
+            </div>
+                <h2>Prior Injuries</h2>
+            <div className="injury-wrapper">
+                    {this.props.reduxState.injuries.injuriesReducer.map((injury) => {
+                        if (injury.severity == 0) {
+                            return (
+                                <HealedInjuryCard>
+                                    <div className="injury-display">
+                                        <h3>{injury.type}</h3>
+                                        <EditInjuriesModal />
+                                    </div>
+                                    {injury.description}
+                                </HealedInjuryCard>
+                            )
+                        }}
+                    )}
+                    <AddInjuriesModal />
             </div>
             </>
         )
