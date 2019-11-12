@@ -4,14 +4,11 @@ import { connect } from 'react-redux';
 class  Test extends Component {
     state = {
         id: 1,
-        completed_sets: 1,
-        completed_reps: 3,
-        completed_weight: 100,
-        feedback: 4
+        feedback: "wow what a great workout"
     }
     test = () =>{
         console.log('test')
-        this.props.dispatch({type: 'UPDATE_EXERCISE_WORKOUTS', payload: this.state})
+        this.props.dispatch({type: 'UPDATE_WORKOUTS', payload: this.state})
     }
   render() {
     return (

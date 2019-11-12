@@ -13,5 +13,17 @@ router.get('/', (req, res) => {
             console.log('GET WORKOUTS ERROR:', error);
         })
 });
+//update workouts router, send: { workout id: int, feedback: int }
+router.put('/', (req, res) =>{
+    let queryText = 'UPDATE "workouts" SET "feedback" = $1 WHERE "id" = $2;';
+    let queryInfo = [ req.body.feedback, req.body.id ];
+    pool.query(queryText, queryInfo)
+        .then(() =>{
+            res.sendStatus(200)
+        }).catch((error) =>{
+            res.sendStatus(500);
+            console.log('UPDATE WORKOUTS ERROR:', error);
+        })
+})
 
 module.exports = router;

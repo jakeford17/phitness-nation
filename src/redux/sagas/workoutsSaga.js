@@ -10,10 +10,18 @@ function* fetchWorkouts(){
         console.log('FETCH GOALS ERROR:', error);
     }
 }
-
+function* updateWorkouts(action){
+    try{
+        yield axios.put('/api/workouts', action.payload)
+        yield put ({ type: 'FETCH_WORKOUTS' })
+    }catch (error) {
+        console.log('FETCH GOALS ERROR:', error);
+    }
+}
 
 function* workoutsSaga(){
     yield takeLatest('FETCH_WORKOUTS', fetchWorkouts);
+    yield takeLatest('UPDATE_WORKOUTS', updateWorkouts);
 }
 
 export default workoutsSaga;
