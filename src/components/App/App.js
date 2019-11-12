@@ -20,6 +20,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import WorkoutsPage from '../WorkoutsPage/WorkoutsPage';
 import WorkoutOverview from '../WorkoutOverview/WorkoutOverview';
 import WeeksPage from '../WeeksPage/weeksPage';
+import Test from '../testRoutesPage/testRoutesPage';
 
 import UserProfile from '../UserProfile/UserProfile';
 
@@ -81,6 +82,11 @@ class App extends Component {
               exact
               path="/weeks"
               component={WeeksPage}
+            />
+            <ProtectedRoute
+              exact
+              path="/test"
+              component={Test}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
