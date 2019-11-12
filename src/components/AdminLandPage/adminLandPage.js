@@ -1,6 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+
+const styles = {
+    palette: {
+      backgroundColor: "navy",
+      color: "white"
+    },
+    fab: {
+      width: "100%",
+      position: "fixed",
+      bottom: "0",
+      height: "21%",
+      left: "0%",
+      size: "large"
+  
+    },
+    add: {
+      color: "white",
+      fontSize: "large"
+    }
+  };
 
 class AdminLandPage extends Component {
 
@@ -40,7 +62,6 @@ class AdminLandPage extends Component {
 
     listExercises = () => {
         axios.get('/api/admin/exercise').then((response) => {
-            console.log("grabbing exercise list:", response.data)
             this.setState({
                 listExercises: response.data
             })
@@ -72,6 +93,7 @@ class AdminLandPage extends Component {
                         })}
                     </div>
                     : <div>
+                        <h1>Exercise List</h1>
                         <table>
                             <tbody>
                                 {this.state.listExercises.map((exercise) => {
@@ -87,39 +109,16 @@ class AdminLandPage extends Component {
                                 })}
                             </tbody>
                         </table>
-                        {/* <h1>Exercise List</h1>
-                        {this.state.listExercises.map((exercise) => {
-                            return (
-                                <div key={exercise.id}>
-                                    <p>{exercise.name}</p>
-                                    <p>{exercise.default_sets}</p>
-                                    <p>{exercise.default_reps}</p>
-                                    <p>{exercise.default_weight}</p>
-                                    
-                                </div>
-                            );
-                        })} */}
+                        <Fab style={styles.palette} aria-label="Add" onClick={() => this.addPtsFunction()}>
+                        <AddIcon color={styles.palette.color} size="large" />
+                    </Fab>
                     </div>}
             </div>
         );
     }
 }
 
-{/* <table>
-<tbody>
-  {this.state.listExercises.map((exercise) => {
-    return (
-      <tr key={exercise.id}>
-        <td>{exercise.name}</td>
-        <div>
-          <button>Edit</button>
-          <button>Archive</button>
-        </div>
-      </tr>
-    );
-  })}
-</tbody>
-</table> */}
+
 const mapStateToProps = state => ({
     user: state.user
 });

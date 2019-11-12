@@ -21,7 +21,6 @@ import WorkoutsPage from '../WorkoutsPage/WorkoutsPage';
 import WorkoutSummary from '../WorkoutSummary/WorkoutSummary';
 import WorkoutPreview from '../WorkoutPreview/WorkoutPreview';
 import WeeksPage from '../WeeksPage/weeksPage';
-import AdminLandPage from '../AdminLandPage/adminLandPage'
 import Test from '../testRoutesPage/testRoutesPage';
 import Archived from '../Archived/Archived';
 
@@ -31,6 +30,8 @@ import AdminViewUser from '../AdminViewUser/AdminViewUser';
 
 import './App.css';
 import UserExercise from '../UserExercise/UserExercise';
+import adminLandPage from '../AdminLandPage/adminLandPage';
+import AddExercise from '../AddExercise/AddExercise';
 import AdminAddUser from '../AdminAddUser/AdminAddUser';
 
 class App extends Component {
@@ -103,7 +104,7 @@ class App extends Component {
              <ProtectedRoute
               exact
               path="/admin"
-              component={AdminLandPage}
+              component={adminLandPage}
               />
             <ProtectedRoute
               exact
@@ -121,6 +122,8 @@ class App extends Component {
               component={AdminViewUser}
             />
             <ProtectedRoute
+              path="/addExercise"
+              component={AddExercise}
               exact
               path="/adminadduser"
               component={AdminAddUser}
