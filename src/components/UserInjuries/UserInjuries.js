@@ -94,7 +94,7 @@ class Injuries extends Component {
         let value = 'test'
         return (
             <>
-                <h2>Current Injuries</h2>
+                <h2 className="header-injuries">Current Injuries</h2>
             <div className="injury-wrapper">
                     {this.props.reduxState.injuries.injuriesReducer.map((injury) => {
                         if (injury.severity == 1) {
@@ -102,7 +102,7 @@ class Injuries extends Component {
                             <MildInjuryCard>
                                 <div className="injury-display">
                                     <h3>{injury.type}</h3>
-                                    <EditInjuriesModal />
+                                        <EditInjuriesModal injury={injury}/>
                                     </div>
                                     {injury.description}
                                     </MildInjuryCard>
@@ -113,7 +113,7 @@ class Injuries extends Component {
                                 <ModerateInjuryCard>
                                     <div className="injury-display">
                                         <h3>{injury.type}</h3>
-                                        <EditInjuriesModal />
+                                        <EditInjuriesModal injury={injury}/>
                                     </div>
                                     {injury.description}
                                 </ModerateInjuryCard>
@@ -124,7 +124,7 @@ class Injuries extends Component {
                                 <SevereInjuryCard>
                                     <div className="injury-display">
                                         <h3>{injury.type}</h3>
-                                        <EditInjuriesModal />
+                                        <EditInjuriesModal injury={injury}/>
                                     </div>
                                     {injury.description}
                                 </SevereInjuryCard>
@@ -134,7 +134,7 @@ class Injuries extends Component {
                     )}
                     <AddInjuriesModal />
             </div>
-                <h2>Prior Injuries</h2>
+                <h2 className="header-injuries">Prior Injuries</h2>
             <div className="injury-wrapper">
                     {this.props.reduxState.injuries.injuriesReducer.map((injury) => {
                         if (injury.severity == 0) {
@@ -142,7 +142,7 @@ class Injuries extends Component {
                                 <HealedInjuryCard>
                                     <div className="injury-display">
                                         <h3>{injury.type}</h3>
-                                        <EditInjuriesModal />
+                                        <EditInjuriesModal injury={injury}/>
                                     </div>
                                     {injury.description}
                                 </HealedInjuryCard>
