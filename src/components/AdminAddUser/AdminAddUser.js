@@ -17,7 +17,8 @@ class AdminAddUser extends Component {
                     username: this.state.username,
                     password: this.state.password,
                 },
-            });
+            })
+            this.props.history.push('/adminviewuser');
         } else {
             this.props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
         }
