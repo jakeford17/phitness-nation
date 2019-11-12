@@ -14,6 +14,11 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import { makeStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+
+const mapStateToProps = reduxState => ({
+    reduxState,
+});
 
 const useStyles = makeStyles(theme => ({
     fab: {
@@ -44,7 +49,7 @@ const MyTextField = styled(TextField)({
     textAlign: "center"
 });
 
-export default function FormDialog(props) {
+export default connect(mapStateToProps)(function FormDialog(props) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -59,10 +64,22 @@ export default function FormDialog(props) {
         type: props.injury.type,
         severity: props.injury.severity,
         description: props.injury.description,
+        id: props.injury.id
     });
 
     const handleChange = name => event => {
         setValues({ ...values, [name]: event.target.value });
+    };
+
+    const handleSubmit = () => {
+        props.dispatch({ type: 'UPDATE_INJURY', payload: values });
+        handleClose();
+        setValues({
+            type: props.injury.type,
+            severity: props.injury.severity,
+            description: props.injury.description,
+            id: props.injury.id
+        })
     };
 
     const classes = useStyles();
@@ -113,11 +130,11 @@ export default function FormDialog(props) {
                     <Button onClick={handleClose} color="primary">
                         Cancel
           </Button>
-                    <Button onClick={handleClose} color="primary">
+                    <Button onClick={handleSubmit} color="primary">
                         Save
           </Button>
                 </DialogActions>
             </Dialog>
         </>
     );
-}
+})
