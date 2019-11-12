@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   HashRouter as Router,
   Route,
@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
@@ -21,6 +21,7 @@ import WorkoutsPage from '../WorkoutsPage/WorkoutsPage';
 import WorkoutSummary from '../WorkoutSummary/WorkoutSummary';
 import WorkoutPreview from '../WorkoutPreview/WorkoutPreview';
 import WeeksPage from '../WeeksPage/weeksPage';
+import AdminLandPage from '../AdminLandPage/adminLandPage'
 import Test from '../testRoutesPage/testRoutesPage';
 
 import UserProfile from '../UserProfile/UserProfile';
@@ -29,8 +30,8 @@ import './App.css';
 import UserExercise from '../UserExercise/UserExercise';
 
 class App extends Component {
-  componentDidMount () {
-    this.props.dispatch({type: 'FETCH_USER'})
+  componentDidMount() {
+    this.props.dispatch({ type: 'FETCH_USER' })
   }
 
   render() {
@@ -74,7 +75,7 @@ class App extends Component {
               component={UserExercise}
             />
             <ProtectedRoute
-               exact
+              exact
               path="/profile"
               component={UserProfile}
             />
@@ -95,6 +96,10 @@ class App extends Component {
               path="/weeks"
               component={WeeksPage}
             />
+             <ProtectedRoute
+              exact
+              path="/admin"
+              component={AdminLandPage}
             <ProtectedRoute
               exact
               path="/test"
@@ -106,7 +111,8 @@ class App extends Component {
           <Footer />
         </div>
       </Router>
-  )}
+    )
+  }
 }
 
 export default connect()(App);
