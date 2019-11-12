@@ -27,6 +27,7 @@ import UserProfile from '../UserProfile/UserProfile';
 
 import './App.css';
 import UserExercise from '../UserExercise/UserExercise';
+import adminLandPage from '../AdminLandPage/adminLandPage';
 
 class App extends Component {
   componentDidMount() {
@@ -99,6 +100,11 @@ class App extends Component {
               exact
               path="/test"
               component={Test}
+            />
+            <ProtectedRoute
+              exact
+              path="/admin"
+              component={adminLandPage}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
