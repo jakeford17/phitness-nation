@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 
 class  Test extends Component {
     state = {
-        id: 1,
-        feedback: "wow what a great workout"
+        id: 9,
+        type: "long",
+        description: "PULL A SEMI WITH MY TEETH"
     }
     test = () =>{
         console.log('test')
-        this.props.dispatch({type: 'UPDATE_WORKOUTS', payload: this.state})
+        this.props.dispatch({type: 'UPDATE_GOAL', payload: this.state})
     }
   render() {
     return (
