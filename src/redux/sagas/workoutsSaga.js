@@ -17,8 +17,9 @@ function* updateWorkouts(action){
         yield axios.put('/api/workouts', action.payload)
         if(connect.admin()){
             yield put ({ type: 'ADMIN_FETCH_WORKOUTS', payload: connect.id() })
+        }else{
+            yield put ({ type: 'FETCH_WORKOUTS' })
         }
-        yield put ({ type: 'FETCH_WORKOUTS' })
     }catch (error) {
         console.log('FETCH GOALS ERROR:', error);
     }
