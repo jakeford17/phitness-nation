@@ -66,3 +66,14 @@ h1 {
     display: flex;
     flex-wrap: wrap;
 }
+
+.goal-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.single-goal-button {
+   padding: 3px;
+}

@@ -13,6 +13,7 @@ import { styled } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const mapStateToProps = reduxState => ({
     reduxState,
@@ -70,7 +71,7 @@ export default connect(mapStateToProps)(function FormDialog(props) {
                 <EditIcon />
             </Fab>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Add Goal</DialogTitle>
+                <DialogTitle id="form-dialog-title">Edit</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         <MySelect
@@ -84,7 +85,7 @@ export default connect(mapStateToProps)(function FormDialog(props) {
                             <MenuItem value={"long term"}>Long Term</MenuItem>
                             <MenuItem value={"completed"}>Mark as Completed</MenuItem>
                         </MySelect>
-                        <FormHelperText>Short term or long term goal?</FormHelperText>
+                        <FormHelperText>Change goal type?</FormHelperText>
                         <MyTextField
                             label="Description"
                             value={values.description}
@@ -93,7 +94,7 @@ export default connect(mapStateToProps)(function FormDialog(props) {
                             onChange={handleChange('description')}
                             margin="normal"
                         />
-                        <FormHelperText>Add a short description of your goal.</FormHelperText>
+                        <FormHelperText>Edit goal description?</FormHelperText>
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>

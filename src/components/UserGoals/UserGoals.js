@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import { styled } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import { flexbox } from '@material-ui/system';
-import EditGoalModal from'../EditGoalModal/EditGoalModal.js'
+import EditGoalModal from'../EditGoalModal/EditGoalModal.js';
+import Fab from '@material-ui/core/Fab';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const mapStateToProps = reduxState => ({
     reduxState,
@@ -31,7 +34,10 @@ class Goals extends Component {
     }
 
     render() {
-        let value = 'test'
+        const handleDelete = () => {
+            console.log('beep beep handle delete')
+        }
+
         return (
             <>
                 <h2>Short Term Goals:</h2>
@@ -40,8 +46,17 @@ class Goals extends Component {
                     if (goal.type == 'short term'){
                     return (
                         <MyCard>{goal.description}
-                            <EditGoalModal goal={goal} />
-                            </MyCard>
+                            <div className="goal-buttons">
+                                <div className="single-goal-button">
+                                    <EditGoalModal goal={goal} />
+                                </div>
+                                <div className="single-goal-button">
+                                    <Fab color="primary" aria-label="delete" onClick={handleDelete} size="small">
+                                        <DeleteIcon />
+                                    </Fab>
+                                </div>
+                            </div>
+                        </MyCard>
                     )
                     }
                 }
@@ -54,7 +69,17 @@ class Goals extends Component {
                         if (goal.type == 'long term') {
                             return (
                                 <MyCard>{goal.description}
-                                    <EditGoalModal goal={goal}/></MyCard>
+                                    <div className="goal-buttons">
+                                        <div className="single-goal-button">
+                                            <EditGoalModal goal={goal} />
+                                        </div>
+                                        <div className="single-goal-button">
+                                            <Fab color="primary" aria-label="delete" onClick={handleDelete} size="small">
+                                                <DeleteIcon />
+                                            </Fab>
+                                        </div>
+                                    </div>
+                                </MyCard>
                             )
                         }
                     }
@@ -67,7 +92,17 @@ class Goals extends Component {
                     if (goal.type == 'completed') {
                         return (
                             <MyCard>{goal.description}
-                                <EditGoalModal goal={goal} /></MyCard>
+                                <div className="goal-buttons">
+                                    <div className="single-goal-button">
+                                        <EditGoalModal goal={goal} />
+                                    </div>
+                                    <div className="single-goal-button">
+                                    <Fab color="primary" aria-label="delete" onClick={handleDelete} size="small">
+                                        <DeleteIcon />
+                                    </Fab>
+                                    </div>
+                                </div>
+                            </MyCard>
                         )
                     }
                 }
