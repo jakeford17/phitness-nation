@@ -39,8 +39,8 @@ class Goals extends Component {
                     )}
                 </ul>
                 <h2>Streaks:</h2>
-                <h3>Current: 0 </h3>
-                <h3>Longest: 420</h3>
+                <h3>Current: {this.props.reduxState.user.current_streak}</h3>
+                <h3>Longest: {this.props.reduxState.user.longest_streak}</h3>
                 <AddGoalModal/>
             </>
         )
