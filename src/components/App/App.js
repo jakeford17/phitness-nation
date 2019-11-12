@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   HashRouter as Router,
   Route,
@@ -6,7 +6,7 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
@@ -19,14 +19,14 @@ import InfoPage from '../InfoPage/InfoPage';
 import WorkoutsPage from '../WorkoutsPage/WorkoutsPage';
 import WorkoutOverview from '../WorkoutOverview/WorkoutOverview';
 import WeeksPage from '../WeeksPage/weeksPage';
-
+import AdminLandPage from '../AdminLandPage/adminLandPage'
 import UserProfile from '../UserProfile/UserProfile';
 
 import './App.css';
 
 class App extends Component {
-  componentDidMount () {
-    this.props.dispatch({type: 'FETCH_USER'})
+  componentDidMount() {
+    this.props.dispatch({ type: 'FETCH_USER' })
   }
 
   render() {
@@ -63,17 +63,17 @@ class App extends Component {
               exact
               path="/workouts"
               component={WorkoutsPage}
-             />
+            />
             <ProtectedRoute
-               exact
+              exact
               path="/profile"
               component={UserProfile}
-      />
-                  <ProtectedRoute
+            />
+            <ProtectedRoute
               exact
               path="/overview"
               component={WorkoutOverview}
-      />
+            />
             {/* This route is to show all the routes to the user
             */}
             <ProtectedRoute
@@ -81,13 +81,19 @@ class App extends Component {
               path="/weeks"
               component={WeeksPage}
             />
+             <ProtectedRoute
+              exact
+              path="/admin"
+              component={AdminLandPage}
+            />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>
           <Footer />
         </div>
       </Router>
-  )}
+    )
+  }
 }
 
 export default connect()(App);
