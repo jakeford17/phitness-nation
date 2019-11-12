@@ -100,6 +100,7 @@ class App extends Component {
               exact
               path="/admin"
               component={AdminLandPage}
+              />
             <ProtectedRoute
               exact
               path="/test"
