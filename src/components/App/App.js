@@ -118,8 +118,11 @@ class App extends Component {
               path="/addExercise"
               component={AddExercise}
               exact
+            />
+            <ProtectedRoute
               path="/adminadduser"
               component={AdminAddUser}
+              exact
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
