@@ -4,6 +4,11 @@ import EditInjuriesModal from '../EditInjuriesModal/EditInjuriesModal.js';
 import { styled } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import { flexbox } from '@material-ui/system';
+import { connect } from 'react-redux';
+
+const mapStateToProps = reduxState => ({
+    reduxState,
+});
 
 const MyCard = styled(Card)({
     background: '#F1EDBF',
@@ -75,9 +80,42 @@ class Injuries extends Component {
         return (
             <>
             <div className="injury-wrapper">
-                    <MildInjuryCard><div className="injury-display"><h3>Injury 1</h3><EditInjuriesModal /></div>A brief description of the injury goes here.</MildInjuryCard>
-                    <ModerateInjuryCard><div className="injury-display"><h3>Injury 2</h3><EditInjuriesModal /></div>A brief description of the injury goes here.</ModerateInjuryCard>
-                    <SevereInjuryCard><div className="injury-display"><h3>Injury 3</h3><EditInjuriesModal /></div>A brief description of the injury goes here.</SevereInjuryCard>
+                    {this.props.reduxState.injuries.injuriesReducer.map((injury) => {
+                        if (injury.severity == 1) {
+                            return (
+                            <MildInjuryCard>
+                                <div className="injury-display">
+                                    <h3>{injury.type}</h3>
+                                    <EditInjuriesModal />
+                                    </div>
+                                    {injury.description}
+                                    </MildInjuryCard>
+                            )
+                        }
+                        else if (injury.severity == 2) {
+                            return (
+                                <ModerateInjuryCard>
+                                    <div className="injury-display">
+                                        <h3>{injury.type}</h3>
+                                        <EditInjuriesModal />
+                                    </div>
+                                    {injury.description}
+                                </ModerateInjuryCard>
+                            )
+                        }
+                        else if (injury.severity == 3) {
+                            return (
+                                <SevereInjuryCard>
+                                    <div className="injury-display">
+                                        <h3>{injury.type}</h3>
+                                        <EditInjuriesModal />
+                                    </div>
+                                    {injury.description}
+                                </SevereInjuryCard>
+                            )
+                        }
+                    }
+                    )}
                 <AddInjuriesModal />
             </div>
             </>
@@ -85,4 +123,4 @@ class Injuries extends Component {
     }
 }
 
-export default Injuries;
+export default connect(mapStateToProps)(Injuries);
