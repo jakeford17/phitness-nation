@@ -1,5 +1,6 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
+import connect from './connect';
 
 //fetch injuries. automatically fetches goals for the logged in user
 function* fetchInjuries(){
@@ -14,7 +15,11 @@ function* fetchInjuries(){
 function* postInjury(action){
     try{
         yield axios.post('/api/injury', action.payload)
-        yield put ({ type: 'FETCH_INJURIES'})
+        if(connect.admin()){
+            yield put ({ type: 'ADMIN_FETCH_INJURIES', payload: connect.id()})
+        }else{
+            yield put ({ type: 'FETCH_INJURIES'})
+        }
     }catch (error) {
         console.log('POST INJURIES ERROR:', error);
     }
@@ -23,7 +28,11 @@ function* postInjury(action){
 function* updateInjury(action){
     try{
         axios.put('/api/injury', action.payload)
-        yield put ({ type: 'FETCH_INJURIES'})
+        if(connect.admin()){
+            yield put ({ type: 'ADMIN_FETCH_INJURIES', payload: connect.id()})
+        }else{
+            yield put ({ type: 'FETCH_INJURIES'})
+        }
     }catch (error) {
         console.log('PUT INJURIES ERROR:', error);
     }
@@ -32,17 +41,31 @@ function* updateInjury(action){
 function* deleteInjury(action){
     try{
         axios.delete('/api/injury/' + action.payload)
-        yield put ({ type: 'FETCH_INJURIES'})
+        if(connect.admin()){
+            yield put ({ type: 'ADMIN_FETCH_INJURIES', payload: connect.id()})
+        }else{
+            yield put ({ type: 'FETCH_INJURIES'})
+        }
     }catch (error) {
         console.log('DELETE INJURIES ERROR:', error);
     }
 }
-
+//admin get injuries saga, send the id of the user you want the injuries for
+function* adminGetInjuries(action){
+    try{
+        const response = yield axios.get('/api/admin/injuries/' + action.payload)
+        console.log(response)
+        yield put ({ type: 'SET_INJURIES', payload: response.data})
+    }catch (error) {
+        console.log('ADMIN GET INJURIES ERROR:', error)
+    }
+}
 function* injuriesSaga() {
     yield takeLatest('FETCH_INJURIES', fetchInjuries);
     yield takeLatest('POST_INJURY', postInjury);
     yield takeLatest('UPDATE_INJURY', updateInjury);
-    yield takeLatest('DELETE_INJURY', deleteInjury)
+    yield takeLatest('DELETE_INJURY', deleteInjury);
+    yield takeLatest('ADMIN_FETCH_INJURIES', adminGetInjuries);
 }
 
 export default injuriesSaga;
