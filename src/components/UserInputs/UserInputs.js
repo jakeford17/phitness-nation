@@ -4,6 +4,11 @@ import clsx from 'clsx';
 import TextField from '@material-ui/core/TextField';
 import { styled } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux';
+
+const mapStateToProps = reduxState => ({
+    reduxState,
+});
 
 const MyTextField = styled(TextField)({
     // background: '#F1EDBF',
@@ -14,19 +19,24 @@ const MyTextField = styled(TextField)({
     textAlign: "center"
 });
 
-export default function TextFields() {
+export default connect(mapStateToProps)(function TextFields(props) {
 
     const [values, setValues] = React.useState({
-        name: 'Client Name',
-        pronouns: 'she/her/hers',
-        phone: '555-555-5555',
-        email: 'test@test.com',
-        emergencyContact: 'John Cena, 666-666-6666',
-        dateOfBirth: new Date('2014-08-18T21:11:54')
+        name: props.reduxState.user.username,
+        pronouns: props.reduxState.user.pronouns,
+        phone: props.reduxState.user.phone,
+        email: props.reduxState.user.email,
+        emergencyContactName: props.reduxState.user.emergency_contact_name,
+        emergencyContactPhone: props.reduxState.user.emergency_contact_phone,
+        dateOfBirth: props.reduxState.user.age
     });
 
     const handleChange = name => event => {
         setValues({ ...values, [name]: event.target.value });
+    };
+
+    const handleSubmit = event => {
+        console.log('the user info to change is:', values)
     };
 
     return (
@@ -38,7 +48,7 @@ export default function TextFields() {
                 margin="normal"
             />
             <MyTextField
-                label="Pronouns"
+                label="Pronouns (ex.: she/her/hers)"
                 value={values.pronouns}
                 onChange={handleChange('pronouns')}
                 margin="normal"
@@ -56,9 +66,15 @@ export default function TextFields() {
                 margin="normal"
             />
             <MyTextField
-                label="Emergency Contact"
-                value={values.emergencyContact}
-                onChange={handleChange('emergencyContact')}
+                label="Emergency Contact Name"
+                value={values.emergencyContactName}
+                onChange={handleChange('emergencyContactName')}
+                margin="normal"
+            />
+            <MyTextField
+                label="Emergency Contact Phone"
+                value={values.emergencyContactPhone}
+                onChange={handleChange('emergencyContactPhone')}
                 margin="normal"
             />
             <MyTextField
@@ -72,7 +88,7 @@ export default function TextFields() {
                 }}
             />
             <div className="save-buttons">
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={handleSubmit}>
                 Save Changes
             </Button>
             </div>
@@ -83,4 +99,4 @@ export default function TextFields() {
             </div>
          </div>
     );
-}
+})

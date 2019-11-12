@@ -2,11 +2,17 @@ import React, { Component } from 'react';
 import UserTabs from '../UserTabs/UserTabs';
 import './UserProfile.css';
 import Placeholder from './Placeholder-Woman-img-1.jpg';
+import { connect } from 'react-redux';
+
+const mapStateToProps = reduxState => ({
+    reduxState,
+});
 
 class Profile extends Component {
-    // componentDidMount() {
-    //     this.props.dispatch({ type: 'FETCH_USER' })
-    // }
+    
+    componentDidMount() {
+        this.props.dispatch({ type: 'FETCH_USER' })
+    }
 
     render() {
         let value = 'test'
@@ -21,4 +27,4 @@ class Profile extends Component {
     }
 }
 
-export default Profile;
+export default connect(mapStateToProps)(Profile);
