@@ -14,6 +14,11 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import { makeStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+
+const mapStateToProps = reduxState => ({
+    reduxState,
+});
 
 const useStyles = makeStyles(theme => ({
     fab: {
@@ -44,7 +49,7 @@ const MyTextField = styled(TextField)({
     textAlign: "center"
 });
 
-export default function FormDialog() {
+export default connect(mapStateToProps)(function FormDialog(props) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -56,19 +61,32 @@ export default function FormDialog() {
     };
 
     const [values, setValues] = React.useState({
-        injuryType: 'Injury 1',
-        injurySeverity: '',
-        injuryDescription: '',
+        type: props.injury.type,
+        severity: props.injury.severity,
+        description: props.injury.description,
+        id: props.injury.id
     });
 
     const handleChange = name => event => {
         setValues({ ...values, [name]: event.target.value });
     };
 
+    const handleSubmit = () => {
+        props.dispatch({ type: 'UPDATE_INJURY', payload: values });
+        handleClose();
+        setValues({
+            type: props.injury.type,
+            severity: props.injury.severity,
+            description: props.injury.description,
+            id: props.injury.id
+        })
+    };
+
     const classes = useStyles();
 
     return (
         <>
+        {/* {JSON.stringify(props.injury.type)} */}
             <Fab color="primary" aria-label="edit" className={classes.fab} onClick={handleClickOpen} size="small">
                 <EditIcon />
             </Fab>
@@ -78,31 +96,32 @@ export default function FormDialog() {
                     <DialogContentText>
                         <FormHelperText>Type of Injury:</FormHelperText>
                         <MyTextField
-                            value={values.injuryType}
+                            value={values.type}
                             multiline
                             rowsMax="4"
-                            onChange={handleChange('injuryType')}
+                            onChange={handleChange('type')}
                             margin="normal"
                         />
                         <FormHelperText>Severity:</FormHelperText>
                         <MySelect
                             label="Severity"
-                            value={values.injurySeverity}
-                            onChange={handleChange('injurySeverity')}
+                            value={values.severity}
+                            onChange={handleChange('severity')}
                         >
                             <MenuItem value="">
                                 <em></em>
                             </MenuItem>
-                            <MenuItem value={"mild"}>Mild</MenuItem>
-                            <MenuItem value={"moderate"}>Moderate</MenuItem>
-                            <MenuItem value={"severe"}>Severe</MenuItem>
+                            <MenuItem value={1}>Mild</MenuItem>
+                            <MenuItem value={2}>Moderate</MenuItem>
+                            <MenuItem value={3}>Severe</MenuItem>
+                            <MenuItem value={0}>Healed</MenuItem>
                         </MySelect>
                         <FormHelperText>Description of Injury:</FormHelperText>
                         <MyTextField
-                            value={values.injuryDescription}
+                            value={values.description}
                             multiline
                             rowsMax="4"
-                            onChange={handleChange('injuryDescription')}
+                            onChange={handleChange('description')}
                             margin="normal"
                         />
                     </DialogContentText>
@@ -111,11 +130,11 @@ export default function FormDialog() {
                     <Button onClick={handleClose} color="primary">
                         Cancel
           </Button>
-                    <Button onClick={handleClose} color="primary">
+                    <Button onClick={handleSubmit} color="primary">
                         Save
           </Button>
                 </DialogActions>
             </Dialog>
         </>
     );
-}
+})
