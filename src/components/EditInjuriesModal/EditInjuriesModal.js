@@ -10,9 +10,19 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Select from '@material-ui/core/Select';
 import { styled } from '@material-ui/core/styles';
-import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+    fab: {
+        margin: theme.spacing(1),
+    },
+    extendedIcon: {
+        marginRight: theme.spacing(1),
+    },
+}));
 
 const MySelect = styled(Select)({
     // background: '#F1EDBF',
@@ -34,19 +44,7 @@ const MyTextField = styled(TextField)({
     textAlign: "center"
 });
 
-const useStyles = makeStyles(theme => ({
-    fab: {
-        margin: theme.spacing(1),
-    },
-    extendedIcon: {
-        marginRight: theme.spacing(1),
-    },
-}));
-
 export default function FormDialog() {
-
-    
-
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -59,8 +57,8 @@ export default function FormDialog() {
 
     const [values, setValues] = React.useState({
         injuryType: 'Injury 1',
-        injurySeverity: 'Mild',
-        injuryDescription: 'A description of the injury would go here.',
+        injurySeverity: '',
+        injuryDescription: '',
     });
 
     const handleChange = name => event => {
@@ -71,12 +69,11 @@ export default function FormDialog() {
 
     return (
         <>
-            <div className="add-injury"><Fab color="primary" onClick={handleClickOpen}>
-                <AddIcon/>
+            <Fab color="primary" aria-label="edit" className={classes.fab} onClick={handleClickOpen} size="small">
+                <EditIcon />
             </Fab>
-            </div>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Add Injury</DialogTitle>
+                <DialogTitle id="form-dialog-title">Edit Injury</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         <FormHelperText>Type of Injury:</FormHelperText>
@@ -90,7 +87,7 @@ export default function FormDialog() {
                         <FormHelperText>Severity:</FormHelperText>
                         <MySelect
                             label="Severity"
-                            value={values.goalLength}
+                            value={values.injurySeverity}
                             onChange={handleChange('injurySeverity')}
                         >
                             <MenuItem value="">
