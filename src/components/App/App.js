@@ -18,7 +18,8 @@ import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import WorkoutsPage from '../WorkoutsPage/WorkoutsPage';
-import WorkoutOverview from '../WorkoutOverview/WorkoutOverview';
+import WorkoutSummary from '../WorkoutSummary/WorkoutSummary';
+import WorkoutPreview from '../WorkoutPreview/WorkoutPreview';
 import WeeksPage from '../WeeksPage/weeksPage';
 import Test from '../testRoutesPage/testRoutesPage';
 
@@ -66,22 +67,27 @@ class App extends Component {
               exact
               path="/workouts"
               component={WorkoutsPage}
-             />
-             <ProtectedRoute
+            />
+            <ProtectedRoute
               exact
               path="/exercise"
               component={UserExercise}
-             />
+            />
             <ProtectedRoute
                exact
               path="/profile"
               component={UserProfile}
-      />
-                  <ProtectedRoute
+            />
+            <ProtectedRoute
               exact
-              path="/overview"
-              component={WorkoutOverview}
-      />
+              path="/preview"
+              component={WorkoutPreview}
+            />
+            <ProtectedRoute
+              exact
+              path="/summary"
+              component={WorkoutSummary}
+            />
             {/* This route is to show all the routes to the user
             */}
             <ProtectedRoute

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-class WorkoutOverview extends Component {
+class WorkoutSummary extends Component {
 
   render() {
     return (
@@ -29,4 +29,4 @@ const mapStateToProps = reduxState => ({
   reduxState,
 });
 
-export default connect(mapStateToProps)(WorkoutOverview);
+export default connect(mapStateToProps)(WorkoutSummary);
