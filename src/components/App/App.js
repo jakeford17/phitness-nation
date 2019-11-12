@@ -31,6 +31,7 @@ import AdminViewUser from '../AdminViewUser/AdminViewUser';
 
 import './App.css';
 import UserExercise from '../UserExercise/UserExercise';
+import AdminAddUser from '../AdminAddUser/AdminAddUser';
 
 class App extends Component {
   componentDidMount() {
@@ -118,6 +119,11 @@ class App extends Component {
               exact
               path="/adminviewuser"
               component={AdminViewUser}
+            />
+            <ProtectedRoute
+              exact
+              path="/adminadduser"
+              component={AdminAddUser}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />

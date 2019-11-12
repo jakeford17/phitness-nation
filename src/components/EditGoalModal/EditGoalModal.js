@@ -12,7 +12,9 @@ import Select from '@material-ui/core/Select';
 import { styled } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+
 const mapStateToProps = reduxState => ({
     reduxState,
 });
@@ -49,13 +51,14 @@ export default connect(mapStateToProps)(function FormDialog(props) {
     };
 
     const handleSubmit = () => {
-        props.dispatch({type:'POST_GOAL', payload: values});
+        props.dispatch({ type: 'UPDATE_GOAL', payload: values });
         handleClose()
     }
 
     const [values, setValues] = React.useState({
-        type: '',
-        description: '',
+        type: props.goal.type,
+        description: props.goal.description,
+        id: props.goal.id
     });
 
     const handleChange = name => event => {
@@ -64,11 +67,11 @@ export default connect(mapStateToProps)(function FormDialog(props) {
 
     return (
         <div>
-            <Fab color="primary" onClick={handleClickOpen} size="small">
-                <AddIcon size="small"/>
+            <Fab color="primary" aria-label="edit" onClick={handleClickOpen} size="small">
+                <EditIcon />
             </Fab>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Add Goal</DialogTitle>
+                <DialogTitle id="form-dialog-title">Edit</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         <MySelect
@@ -80,8 +83,9 @@ export default connect(mapStateToProps)(function FormDialog(props) {
                             </MenuItem>
                             <MenuItem value={"short term"}>Short Term</MenuItem>
                             <MenuItem value={"long term"}>Long Term</MenuItem>
+                            <MenuItem value={"completed"}>Mark as Completed</MenuItem>
                         </MySelect>
-                        <FormHelperText>Short term or long term goal?</FormHelperText>
+                        <FormHelperText>Change goal type?</FormHelperText>
                         <MyTextField
                             label="Description"
                             value={values.description}
@@ -90,8 +94,8 @@ export default connect(mapStateToProps)(function FormDialog(props) {
                             onChange={handleChange('description')}
                             margin="normal"
                         />
-                        <FormHelperText>Add a short description of your goal.</FormHelperText>
-          </DialogContentText>
+                        <FormHelperText>Edit goal description?</FormHelperText>
+                    </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">

@@ -47,6 +47,13 @@ class AdminLandPage extends Component {
                 {/* {JSON.stringify(this.state.listUser)} */}
                 <div onClick={() => this.toggleTab(true)}>User</div>
                 <div onClick={() => this.toggleTab(false)}>Workout</div>
+                <button
+                    type="button"
+                    className="link-button"
+                    onClick={() => { this.props.dispatch({ type: 'SET_TO_ADD_USER_MODE' }) }}
+                >
+                    Add User
+          </button>
                 {(this.state.UsertoExercise) ?
                     <div>
                         <h1>User List</h1>
