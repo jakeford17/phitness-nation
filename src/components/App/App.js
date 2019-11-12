@@ -25,6 +25,7 @@ import Test from '../testRoutesPage/testRoutesPage';
 import UserProfile from '../UserProfile/UserProfile';
 
 import './App.css';
+import UserExercise from '../UserExercise/UserExercise';
 
 class App extends Component {
   componentDidMount () {
@@ -65,6 +66,11 @@ class App extends Component {
               exact
               path="/workouts"
               component={WorkoutsPage}
+             />
+             <ProtectedRoute
+              exact
+              path="/exercise"
+              component={UserExercise}
              />
             <ProtectedRoute
                exact
