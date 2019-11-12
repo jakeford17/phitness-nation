@@ -25,6 +25,7 @@ import AdminLandPage from '../AdminLandPage/adminLandPage'
 import Test from '../testRoutesPage/testRoutesPage';
 
 import UserProfile from '../UserProfile/UserProfile';
+import AdminViewUser from '../AdminViewUser/AdminViewUser';
 
 import './App.css';
 import UserExercise from '../UserExercise/UserExercise';
@@ -105,6 +106,11 @@ class App extends Component {
               exact
               path="/test"
               component={Test}
+            />
+            <ProtectedRoute
+              exact
+              path="/adminviewuser"
+              component={AdminViewUser}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
