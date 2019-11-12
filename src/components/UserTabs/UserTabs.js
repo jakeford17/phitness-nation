@@ -12,6 +12,8 @@ import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import HealingIcon from '@material-ui/icons/Healing';
 import UserInputs from '../UserInputs/UserInputs';
+import UserGoals from '../UserGoals/UserGoals';
+import UserInjuries from '../UserInjuries/UserInjuries';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -88,10 +90,10 @@ export default function FullWidthTabs() {
                     <UserInputs/>
         </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
-                    Item Two
+                    <UserGoals/>
         </TabPanel>
                 <TabPanel value={value} index={2} dir={theme.direction}>
-                    Item Three
+                    <UserInjuries/>
         </TabPanel>
             </SwipeableViews>
         </div>

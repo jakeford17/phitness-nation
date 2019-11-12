@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import UserTabs from '../UserTabs/UserTabs';
 import './UserProfile.css';
-import Placeholder from './Placeholder-Woman-img-1.jpg'
+import Placeholder from './Placeholder-Woman-img-1.jpg';
 
 class Profile extends Component {
     // componentDidMount() {

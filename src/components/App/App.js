@@ -5,6 +5,7 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { connect } from 'react-redux';
 
@@ -17,12 +18,16 @@ import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import WorkoutsPage from '../WorkoutsPage/WorkoutsPage';
-import WorkoutOverview from '../WorkoutOverview/WorkoutOverview';
+import WorkoutSummary from '../WorkoutSummary/WorkoutSummary';
+import WorkoutPreview from '../WorkoutPreview/WorkoutPreview';
 import WeeksPage from '../WeeksPage/weeksPage';
 import AdminLandPage from '../AdminLandPage/adminLandPage'
+import Test from '../testRoutesPage/testRoutesPage';
+
 import UserProfile from '../UserProfile/UserProfile';
 
 import './App.css';
+import UserExercise from '../UserExercise/UserExercise';
 
 class App extends Component {
   componentDidMount() {
@@ -66,13 +71,23 @@ class App extends Component {
             />
             <ProtectedRoute
               exact
+              path="/exercise"
+              component={UserExercise}
+            />
+            <ProtectedRoute
+              exact
               path="/profile"
               component={UserProfile}
             />
             <ProtectedRoute
               exact
-              path="/overview"
-              component={WorkoutOverview}
+              path="/preview"
+              component={WorkoutPreview}
+            />
+            <ProtectedRoute
+              exact
+              path="/summary"
+              component={WorkoutSummary}
             />
             {/* This route is to show all the routes to the user
             */}
@@ -85,6 +100,10 @@ class App extends Component {
               exact
               path="/admin"
               component={AdminLandPage}
+            <ProtectedRoute
+              exact
+              path="/test"
+              component={Test}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
