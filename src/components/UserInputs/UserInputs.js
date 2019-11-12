@@ -18,6 +18,7 @@ export default function TextFields() {
 
     const [values, setValues] = React.useState({
         name: 'Client Name',
+        pronouns: 'she/her/hers',
         phone: '555-555-5555',
         email: 'test@test.com',
         emergencyContact: 'John Cena, 666-666-6666',
@@ -34,6 +35,12 @@ export default function TextFields() {
                 label="Name"
                 value={values.name}
                 onChange={handleChange('name')}
+                margin="normal"
+            />
+            <MyTextField
+                label="Pronouns"
+                value={values.pronouns}
+                onChange={handleChange('pronouns')}
                 margin="normal"
             />
             <MyTextField

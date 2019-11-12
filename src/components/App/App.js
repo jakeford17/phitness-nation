@@ -5,6 +5,7 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import {connect} from 'react-redux';
 
