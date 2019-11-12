@@ -32,6 +32,12 @@ class AdminLandPage extends Component {
         })
     }
 
+    addUserBtn = () => {
+        this.props.dispatch({ type: 'SET_TO_ADD_USER_MODE' });
+        this.props.history.push('/adminadduser')
+    }
+
+
     listExercises = () => {
         axios.get('/api/admin/exercise').then((response) => {
             console.log("grabbing exercise list:", response.data)
@@ -50,7 +56,7 @@ class AdminLandPage extends Component {
                 <button
                     type="button"
                     className="link-button"
-                    onClick={() => { this.props.dispatch({ type: 'SET_TO_ADD_USER_MODE' }) }}
+                    onClick={() => this.addUserBtn() }
                 >
                     Add User
           </button>
