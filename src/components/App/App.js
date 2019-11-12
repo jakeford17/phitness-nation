@@ -28,6 +28,7 @@ import UserProfile from '../UserProfile/UserProfile';
 import './App.css';
 import UserExercise from '../UserExercise/UserExercise';
 import adminLandPage from '../AdminLandPage/adminLandPage';
+import AddExercise from '../AddExercise/AddExercise'
 
 class App extends Component {
   componentDidMount() {
@@ -96,6 +97,11 @@ class App extends Component {
               path="/weeks"
               component={WeeksPage}
             />
+             <ProtectedRoute
+              exact
+              path="/admin"
+              component={adminLandPage}
+              />
             <ProtectedRoute
               exact
               path="/test"
@@ -103,8 +109,8 @@ class App extends Component {
             />
             <ProtectedRoute
               exact
-              path="/admin"
-              component={adminLandPage}
+              path="/addExercise"
+              component={AddExercise}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
