@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 //post injury router, send: {user_id: int, type: "String", description: "String", severity: int }
 router.post('/', (req, res) => {
     let queryText = `INSERT INTO "injuries" ( "user_id", "type", "description", "severity" ) VALUES ( $1, $2, $3, $4 );`;
-    let queryInfo = [ req.body.id, req.body.type, req.body.description, req.body.severity ];
+    let queryInfo = [ req.user.id, req.body.type, req.body.description, req.body.severity ];
     console.log(queryInfo);
     pool.query(queryText, queryInfo)
         .then(() =>{

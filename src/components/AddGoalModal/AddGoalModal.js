@@ -10,6 +10,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Select from '@material-ui/core/Select';
 import { styled } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+
+const mapStateToProps = reduxState => ({
+    reduxState,
+});
 
 const MySelect = styled(Select)({
     // background: '#F1EDBF',
@@ -31,7 +36,7 @@ const MyTextField = styled(TextField)({
     textAlign: "center"
 });
 
-export default function FormDialog() {
+export default connect(mapStateToProps)(function FormDialog(props) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -42,9 +47,14 @@ export default function FormDialog() {
         setOpen(false);
     };
 
+    const handleSubmit = () => {
+        props.dispatch({type:'POST_GOAL', payload: values});
+        handleClose()
+    }
+
     const [values, setValues] = React.useState({
-        goalLength: '',
-        goalDescription: '',
+        type: '',
+        description: '',
     });
 
     const handleChange = name => event => {
@@ -61,8 +71,8 @@ export default function FormDialog() {
                 <DialogContent>
                     <DialogContentText>
                         <MySelect
-                            value={values.goalLength}
-                            onChange={handleChange('goalLength')}
+                            value={values.type}
+                            onChange={handleChange('type')}
                         >
                             <MenuItem value="">
                                 <em></em>
@@ -73,10 +83,10 @@ export default function FormDialog() {
                         <FormHelperText>Short term or long term goal?</FormHelperText>
                         <MyTextField
                             label="Description"
-                            value={values.goalDescription}
+                            value={values.description}
                             multiline
                             rowsMax="4"
-                            onChange={handleChange('goalDescription')}
+                            onChange={handleChange('description')}
                             margin="normal"
                         />
                         <FormHelperText>Add a short description of your goal.</FormHelperText>
@@ -86,11 +96,11 @@ export default function FormDialog() {
                     <Button onClick={handleClose} color="primary">
                         Cancel
           </Button>
-                    <Button onClick={handleClose} color="primary">
+                    <Button onClick={handleSubmit} color="primary">
                         Save
           </Button>
                 </DialogActions>
             </Dialog>
         </div>
     );
-}
+})

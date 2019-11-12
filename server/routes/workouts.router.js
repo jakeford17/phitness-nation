@@ -24,6 +24,6 @@ router.put('/', (req, res) =>{
             res.sendStatus(500);
             console.log('UPDATE WORKOUTS ERROR:', error);
         })
-})
+});
 
 module.exports = router;
