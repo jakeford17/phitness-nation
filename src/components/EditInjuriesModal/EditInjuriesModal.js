@@ -10,6 +10,19 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Select from '@material-ui/core/Select';
 import { styled } from '@material-ui/core/styles';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+    fab: {
+        margin: theme.spacing(1),
+    },
+    extendedIcon: {
+        marginRight: theme.spacing(1),
+    },
+}));
 
 const MySelect = styled(Select)({
     // background: '#F1EDBF',
@@ -18,7 +31,7 @@ const MySelect = styled(Select)({
     padding: 10,
     margin: 5,
     textAlign: "center",
-    width: "75%"
+    width: "100%"
 });
 
 const MyTextField = styled(TextField)({
@@ -27,7 +40,7 @@ const MyTextField = styled(TextField)({
     // borderRadius: 3,
     padding: 10,
     margin: 5,
-    width: "75%",
+    width: "100%",
     textAlign: "center"
 });
 
@@ -43,44 +56,56 @@ export default function FormDialog() {
     };
 
     const [values, setValues] = React.useState({
-        goalLength: '',
-        goalDescription: '',
+        injuryType: 'Injury 1',
+        injurySeverity: '',
+        injuryDescription: '',
     });
 
     const handleChange = name => event => {
         setValues({ ...values, [name]: event.target.value });
     };
 
+    const classes = useStyles();
+
     return (
-        <div>
-            <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-                Add Goal
-            </Button>
+        <>
+            <Fab color="primary" aria-label="edit" className={classes.fab} onClick={handleClickOpen} size="small">
+                <EditIcon />
+            </Fab>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Add Goal</DialogTitle>
+                <DialogTitle id="form-dialog-title">Edit Injury</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
+                        <FormHelperText>Type of Injury:</FormHelperText>
+                        <MyTextField
+                            value={values.injuryType}
+                            multiline
+                            rowsMax="4"
+                            onChange={handleChange('injuryType')}
+                            margin="normal"
+                        />
+                        <FormHelperText>Severity:</FormHelperText>
                         <MySelect
-                            value={values.goalLength}
-                            onChange={handleChange('goalLength')}
+                            label="Severity"
+                            value={values.injurySeverity}
+                            onChange={handleChange('injurySeverity')}
                         >
                             <MenuItem value="">
                                 <em></em>
                             </MenuItem>
-                            <MenuItem value={"short term"}>Short Term</MenuItem>
-                            <MenuItem value={"long term"}>Long Term</MenuItem>
+                            <MenuItem value={"mild"}>Mild</MenuItem>
+                            <MenuItem value={"moderate"}>Moderate</MenuItem>
+                            <MenuItem value={"severe"}>Severe</MenuItem>
                         </MySelect>
-                        <FormHelperText>Short term or long term goal?</FormHelperText>
+                        <FormHelperText>Description of Injury:</FormHelperText>
                         <MyTextField
-                            label="Description"
-                            value={values.goalDescription}
+                            value={values.injuryDescription}
                             multiline
                             rowsMax="4"
-                            onChange={handleChange('goalDescription')}
+                            onChange={handleChange('injuryDescription')}
                             margin="normal"
                         />
-                        <FormHelperText>Add a short description of your goal.</FormHelperText>
-          </DialogContentText>
+                    </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">
@@ -91,6 +116,6 @@ export default function FormDialog() {
           </Button>
                 </DialogActions>
             </Dialog>
-        </div>
+        </>
     );
 }
