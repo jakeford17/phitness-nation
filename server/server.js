@@ -11,10 +11,15 @@ const passport = require('./strategies/user.strategy');
 // Route includes
 const userRouter = require('./routes/user.router');
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 const adminRouter = require ('./routes/admin.router');
 
 >>>>>>> 32087a0b4f62f420d08249ab23b2da842a2635d6
+=======
+const adminRouter = require ('./routes/admin.router');
+
+>>>>>>> adminBranch
 const goalsRouter = require('./routes/goals.router');
 const injuriesRouter = require('./routes/injuries.router');
 const workoutsRouter = require('./routes/workouts.router');
@@ -38,10 +43,15 @@ app.use(passport.session());
 /* Routes */
 app.use('/api/user', userRouter);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 app.use('/api/admin', adminRouter);
 
 >>>>>>> 32087a0b4f62f420d08249ab23b2da842a2635d6
+=======
+app.use('/api/admin', adminRouter);
+
+>>>>>>> adminBranch
 app.use('/api/goals', goalsRouter);
 app.use('/api/injury', injuriesRouter);
 app.use('/api/workouts', workoutsRouter);
