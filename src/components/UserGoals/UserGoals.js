@@ -8,6 +8,7 @@ import EditGoalModal from'../EditGoalModal/EditGoalModal.js';
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteGoalModal from '../DeleteGoalModal/DeleteGoalModal.js'
 
 const mapStateToProps = reduxState => ({
     reduxState,
@@ -34,10 +35,6 @@ class Goals extends Component {
     }
 
     render() {
-        const handleDelete = () => {
-            console.log('beep beep handle delete')
-        }
-
         return (
             <>
                 <h2>Short Term Goals:</h2>
@@ -51,9 +48,7 @@ class Goals extends Component {
                                     <EditGoalModal goal={goal} />
                                 </div>
                                 <div className="single-goal-button">
-                                    <Fab color="primary" aria-label="delete" onClick={handleDelete} size="small">
-                                        <DeleteIcon />
-                                    </Fab>
+                                    <DeleteGoalModal goal={goal}/>
                                 </div>
                             </div>
                         </MyCard>
@@ -74,9 +69,7 @@ class Goals extends Component {
                                             <EditGoalModal goal={goal} />
                                         </div>
                                         <div className="single-goal-button">
-                                            <Fab color="primary" aria-label="delete" onClick={handleDelete} size="small">
-                                                <DeleteIcon />
-                                            </Fab>
+                                            <DeleteGoalModal goal={goal} />
                                         </div>
                                     </div>
                                 </MyCard>
@@ -97,9 +90,7 @@ class Goals extends Component {
                                         <EditGoalModal goal={goal} />
                                     </div>
                                     <div className="single-goal-button">
-                                    <Fab color="primary" aria-label="delete" onClick={handleDelete} size="small">
-                                        <DeleteIcon />
-                                    </Fab>
+                                        <DeleteGoalModal goal={goal} />
                                     </div>
                                 </div>
                             </MyCard>
