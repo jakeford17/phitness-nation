@@ -112,6 +112,7 @@ export default connect(mapStateToProps)(function FormDialog(props) {
                             <MenuItem value={1}>Mild</MenuItem>
                             <MenuItem value={2}>Moderate</MenuItem>
                             <MenuItem value={3}>Severe</MenuItem>
+                            <MenuItem value={0}>Healed</MenuItem>
                         </MySelect>
                         <FormHelperText>Description of Injury:</FormHelperText>
                         <MyTextField
