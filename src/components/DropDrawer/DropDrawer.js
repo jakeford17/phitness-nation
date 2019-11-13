@@ -80,8 +80,8 @@ function SideDrawer(props) {
                 <ListItem component={Link} to="" button><AssessmentIcon className="icon" />History</ListItem>
                 </div>
                 : (props.user.admin && props.user.username) ? <div>
-                        <ListItem component={Link} to="/admin" button><HomeIcon className="icon" />Home</ListItem>
-                <ListItem component={Link} to="/deactivate" 
+                <ListItem component={Link} to="/admin" button><AccountIcon className="icon" />Home</ListItem>
+                <ListItem component={Link} to="/archived" 
                     button><AccountIcon className="icon" />Archived
                 </ListItem> </div>: <div></div>}
                 <ListItem component={Link} to="/about" button><InfoIcon className="icon" />About</ListItem>

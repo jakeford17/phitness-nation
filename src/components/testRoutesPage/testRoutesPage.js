@@ -3,12 +3,11 @@ import { connect } from 'react-redux';
 
 class  Test extends Component {
     state = {
-        id: 3,
-        week: 10
+        
     }
     test = () =>{
         console.log('test')
-        this.props.dispatch({type: 'FETCH_COMPLIANCE'})
+        this.props.dispatch({type: 'POST_EXERCISE_WORKOUTS'})
     }
   render() {
     return (

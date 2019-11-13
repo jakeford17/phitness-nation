@@ -13,7 +13,8 @@ class ArchivedExercises extends Component {
     }
 
     listExercises = () => {
-        axios.get('/api/admin/exercise').then((response) => {
+        const active = false;
+        axios.get(`/api/admin/exercise/${active}`).then((response) => {
             console.log("grabbing exercise list:", response.data)
             this.setState({
                 listExercises: response.data

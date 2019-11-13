@@ -2,6 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
+
 //get workouts router, automatically gets the currently logged in users workouts
 router.get('/:id', (req, res) => {
     let queryText = `SELECT * FROM "exercise_workouts"

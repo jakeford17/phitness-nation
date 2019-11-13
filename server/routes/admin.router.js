@@ -17,9 +17,10 @@ router.get('/', (req, res) => {
 })
 
 //Admin GET request to grab exercise list from databbase to display on dashboard
-router.get('/exercise', (req, res) => {
-    const queryText = `SELECT * FROM "exercises";`;
-    pool.query(queryText).then((response) => {
+router.get('/exercise/:active', (req, res) => {
+    const active = req.params.active;
+    const queryText = `SELECT * FROM "exercises" WHERE "active" = $1;`;
+    pool.query(queryText, [active]).then((response) => {
         res.send(response.rows)
     }).catch((err) => {
         console.log('Error ---------> GETTING list of Exercises', err);
@@ -62,6 +63,21 @@ router.put('/exerciseDetail/:id', (req, res) => {
     });
 });
 
+//PUT REQUEST for ADMIN to archive exercises
+router.put('/exerciseArchive/:id', (req, res) => {
+    const exerciseId = req.params.id;
+    const active = false;
+    const queryText = `UPDATE "exercises" SET "active" = $1 WHERE "id" = $2;`;
+    pool.query(queryText, [active, exerciseId])
+    .then(() => {
+        res.sendStatus(201)
+    }).catch((err) => {
+        console.log('Error ---------> archive exercise ', err);
+        res.sendStatus(500);
+    });
+});
+
+
 //DELETE exercise from Admin's library in database
 router.delete('/exerciseDetail/:id', (req, res) => {
     const exerciseId = req.params.id
@@ -71,7 +87,7 @@ router.delete('/exerciseDetail/:id', (req, res) => {
     .then(() => {
         res.sendStatus(201)
     }).catch((err) => {
-        console.log('Error ---------> updating points from query', err);
+        console.log('Error ---------> deleting exercises from library', err);
         res.sendStatus(500);
     });
 });
@@ -129,7 +145,7 @@ router.post('/workouts', (req, res) =>{
             res.sendStatus(500)
         })
 })
-//Admin GET request to get workouts for a user
+//Admin GET request to get workouts for a user send the user_id
 router.get('/workouts/:id', (req, res) =>{
     const queryText = `SELECT * FROM "workouts" WHERE "user_id" = $1;`
     pool.query(queryText, [req.params.id])
@@ -153,16 +169,16 @@ router.put('/workouts', (req, res) =>{
         })
 })
 //admin GET request to get exercise workouts for a user send user id as a URL param
-router.get('/exerciseWorkouts/:id', (req, res) =>{
-    const queryText = `SELECT "exercise_workouts".* FROM "exercise_workouts" JOIN "workouts" ON "exercise_workouts".workout_id = "workouts".id WHERE "workouts".user_id = $1;`
-    pool.query(queryText, [req.params.id])
-        .then((result) =>{
-            res.send((result.rows))
-        }).catch((error) =>{
-            console.log('ERROR GETTING LIST OF EXERCISE WORKOUTS FOR A USER:', error);
-            res.sendStatus(500);
-        })
-})
+// router.get('/exerciseWorkouts/:id', (req, res) =>{
+//     const queryText = `SELECT "exercise_workouts".* FROM "exercise_workouts" JOIN "workouts" ON "exercise_workouts".workout_id = "workouts".id WHERE "workouts".user_id = $1;`
+//     pool.query(queryText, [req.params.id])
+//         .then((result) =>{
+//             res.send((result.rows))
+//         }).catch((error) =>{
+//             console.log('ERROR GETTING LIST OF EXERCISE WORKOUTS FOR A USER:', error);
+//             res.sendStatus(500);
+//         })
+// })
 //admin POST request to add exercise workouts for a user, send: { workout_id: int, exercise_id: int, assigned_sets: int, assigned_reps: int, assigned_weight: int, tips: "String" }
 router.post('/exerciseWorkouts', (req, res) =>{
     const queryText = 'INSERT INTO "exercise_workouts" ("workout_id", "exercise_id", "assigned_sets", "assigned_reps", "assigned_weight", "tips") VALUES ( $1, $2, $3, $4, $5, $6);';
