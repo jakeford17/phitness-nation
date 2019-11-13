@@ -44,10 +44,14 @@ class AddExercise extends Component {
         })
     }
 
+   
+
+
     render() {
+
         return (
             <div>
-                <h1>add exercise page</h1>
+                  <h1>add exercise page</h1>
                 <input onChange = {(event) => this.inputValueChange(event, 'exerciseName')}placeholder="Exercise Name"></input>
                 <input onChange = {(event) => this.inputValueChange(event, 'weight')}placeholder="Weight"></input>
                 <input onChange = {(event) => this.inputValueChange(event, 'set')}placeholder="Set"></input>
