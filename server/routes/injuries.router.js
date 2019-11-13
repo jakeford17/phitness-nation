@@ -26,7 +26,7 @@ router.post('/', (req, res) => {
             console.log('POST INJURIES ERROR:', error);
         })
 });
-//PUT GOALS ROUTE, SEND DESCRIPTION AND GOAL ID
+//update goals route, send: { description: "String", type: "String", severity: int, id: int}
 router.put('/', (req, res) =>{
     let queryText = `UPDATE "injuries" SET "description" = $1, "type" = $2, "severity" = $3 WHERE "id" = $4;`
     let queryInfo = [req.body.description, req.body.type, req.body.severity, req.body.id];
