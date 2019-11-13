@@ -1,3 +1,9 @@
+# Color Palette
+84c8b9 - light teal
+3d6363 - dark teal
+313b47 - dark gray
+d2d2d4 - light gray
+
 # Prime Project
 This version uses React, Redux, Express, Passport, and PostgreSQL (a full list of dependencies can be found in `package.json`).
 

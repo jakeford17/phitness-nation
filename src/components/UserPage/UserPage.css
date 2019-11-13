@@ -6,4 +6,10 @@
 .user-page {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    padding: 5%;
+}
+
+h1 {
+    font-family: 'Roboto Slab', serif;
 }
