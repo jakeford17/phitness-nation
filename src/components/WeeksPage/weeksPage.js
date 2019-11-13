@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import './weeksPage.css';
 
 class  UserDashboard extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Weeks</h1>
+      <div className="weeks-page">
+        <h1>Workouts by Week</h1>
         <button onClick ={() => alert("redirect to this weeks workouts")}>Week 1</button>
         <button onClick ={() => alert("redirect to this weeks workouts")}>Week 2</button>
         <button onClick ={() => alert("redirect to this weeks workouts")}>Week 3</button>
