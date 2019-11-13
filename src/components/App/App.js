@@ -135,6 +135,11 @@ class App extends Component {
               exact
             />
             <ProtectedRoute
+              path="/adminviewuser/:id"
+              component={AdminViewUser}
+              exact
+            />
+            <ProtectedRoute
               path="/exerciseDetail/:id"
               component={ExerciseDetail}
               exact
