@@ -13,12 +13,12 @@ const MyCard = styled(Card)({
   // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
   // // color: 'white',
   // height: 60,
-  width: "90%",
+  width: "100%",
   padding: 10,
   margin: 5,
-  fontSize: 20,
+  fontSize: 100,
   display: flexbox,
-  textAlign: "left"
+  textAlign: "left",
 });
 
 class  UserDashboard extends Component {
@@ -33,7 +33,7 @@ class  UserDashboard extends Component {
         <h1>Workouts by Week</h1>
         {this.props.reduxState.workouts.workoutsReducer.map((workout) => {
             return (
-              <MyCard onClick={() => alert("redirect to this weeks workouts")}>
+              <MyCard className="workout-weeks" onClick={(props) => this.props.history.push(`/workouts/week/${workout.week}`)}>
                 <div>
                   <h4>Week {workout.week}</h4>
                 </div>

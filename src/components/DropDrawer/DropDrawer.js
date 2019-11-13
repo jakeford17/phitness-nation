@@ -45,7 +45,9 @@ const useStyles = makeStyles({
     list: {
         width: 145,
         backgroundColor: "#d2d2d4",
-        height: '100%'
+        height: '100%',
+        fontFamily: 'PT Sans Narrow, sans-serif',
+        fontSize: 24
     },
     fullList: {
         width: 'auto',
