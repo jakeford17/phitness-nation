@@ -63,7 +63,6 @@ class AddExercise extends Component {
                 </select>
                 <input onChange = {(event) => this.inputValueChange(event, 'link')} placeholder = "link"/>
                 <button onClick = {() => this.AddExercise()}>Add Exercise</button>
-                <input placeholder = "notes"/>
             </div>
         )
     }
