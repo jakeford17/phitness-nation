@@ -24,22 +24,29 @@ const MyCard = styled(Card)({
 class  UserDashboard extends Component {
 
   componentDidMount = () => {
-    this.props.dispatch({type: 'FETCH_WORKOUTS'})
+    this.props.dispatch({type: 'FETCH_WORKOUTS'});
   }
 
+
   render() {
+    const weeksArray = []
+    this.props.reduxState.workouts.workoutsReducer.map((workout) => {
+        weeksArray.push(workout.week)
+      })
+   let weeksArrayObject = new Set(weeksArray)
+    let newWeeksArray = [...weeksArrayObject]
     return (
       <div className="weeks-page">
         <h1>Workouts by Week</h1>
-        {this.props.reduxState.workouts.workoutsReducer.map((workout) => {
-            return (
-              <MyCard className="workout-weeks" onClick={(props) => this.props.history.push(`/workouts/week/${workout.week}`)}>
-                <div>
-                  <h4>Week {workout.week}</h4>
-                </div>
-              </MyCard>
-            )
-          })}
+        {newWeeksArray.map((week) => {
+                return(
+                  <MyCard className="workout-weeks" onClick={(props) => this.props.history.push(`/workouts/week/${week}`)}>
+                    <div>
+                      <h4>Week {week}</h4>
+                    </div>
+                  </MyCard>
+               )})
+          }
       </div>
     );
   }
