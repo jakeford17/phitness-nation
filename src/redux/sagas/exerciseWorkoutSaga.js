@@ -23,7 +23,6 @@ function* updateExerciseWorkouts(action){
 //admin post exercise workouts, send: {workout_id: int, exercise_id: int, assigned_sets: int, assigned_reps: int, assigned_weight: int, tips: "String" }
 function* postExerciseWorkouts(action){
     try{
-        console.log(action.payload)
         for(let i = 0; i<action.payload.length; i++){
             yield axios.post('/api/admin/exerciseWorkouts', action.payload[i])
         }

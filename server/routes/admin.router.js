@@ -129,7 +129,7 @@ router.post('/workouts', (req, res) =>{
             res.sendStatus(500)
         })
 })
-//Admin GET request to get workouts for a user
+//Admin GET request to get workouts for a user send the user_id
 router.get('/workouts/:id', (req, res) =>{
     const queryText = `SELECT * FROM "workouts" WHERE "user_id" = $1;`
     pool.query(queryText, [req.params.id])
