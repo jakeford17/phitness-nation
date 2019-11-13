@@ -25,7 +25,25 @@ const styles = {
         fontSize: "large"
     }
 };
-
+const styles = {
+    palette: {
+      backgroundColor: "navy",
+      color: "white"
+    },
+    fab: {
+      width: "100%",
+      position: "fixed",
+      bottom: "0",
+      height: "21%",
+      left: "0%",
+      size: "large"
+  
+    },
+    add: {
+      color: "white",
+      fontSize: "large"
+    }
+  };
 class AdminLandPage extends Component {
 
     state = {
@@ -62,6 +80,11 @@ class AdminLandPage extends Component {
         this.props.history.push(`/exerciseDetail/${exercise.id}`)
     }
 
+    addUserBtn = () => {
+        this.props.dispatch({ type: 'SET_TO_ADD_USER_MODE' });
+        this.props.history.push('/adminadduser')
+    }
+
     listExercises = () => {
         axios.get('/api/admin/exercise').then((response) => {
             this.setState({
@@ -70,8 +93,7 @@ class AdminLandPage extends Component {
         })
     }
 
-   
-    //Delete alert before deleting exercise
+
     deleteAlert = (exercise) => {
         confirmAlert({
             message: `Are you sure you want to delete this exercise?`,
@@ -110,7 +132,13 @@ class AdminLandPage extends Component {
                 {/* {JSON.stringify(this.state.listUser)} */}
                 <div onClick={() => this.toggleTab(true)}>User</div>
                 <div onClick={() => this.toggleTab(false)}>Workout</div>
-                
+                <button
+                    type="button"
+                    className="link-button"
+                    onClick={() => this.addUserBtn() }
+                >
+                    Add User
+          </button>
                 {(this.state.UsertoExercise) ?
                     <div>
                         <h1>User List</h1>
@@ -145,6 +173,9 @@ class AdminLandPage extends Component {
                         <Fab style={styles.palette} aria-label="Add" onClick={() => this.fabFunction()}>
                             <AddIcon color={styles.palette.color} size="large" />
                         </Fab>
+                        <Fab style={styles.palette} aria-label="Add" onClick={() => this.addPtsFunction()}>
+                        <AddIcon color={styles.palette.color} size="large" />
+                    </Fab>
                     </div>}
             </div>
         );
