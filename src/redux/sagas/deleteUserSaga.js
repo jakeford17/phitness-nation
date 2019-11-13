@@ -12,8 +12,8 @@ function* deleteUser(action) {
     }
 }
 
-function* deleteGoalieSaga() {
+function* deleteUserSaga() {
     yield takeEvery('DELETE_USER', deleteUser);
 }
 
-export default deleteGoalieSaga;
+export default deleteUserSaga;
