@@ -110,13 +110,7 @@ class AdminLandPage extends Component {
                 {/* {JSON.stringify(this.state.listUser)} */}
                 <div onClick={() => this.toggleTab(true)}>User</div>
                 <div onClick={() => this.toggleTab(false)}>Workout</div>
-                <button
-                    type="button"
-                    className="link-button"
-                    onClick={() => { this.props.dispatch({ type: 'SET_TO_ADD_USER_MODE' }) }}
-                >
-                    Add User
-          </button>
+                
                 {(this.state.UsertoExercise) ?
                     <div>
                         <h1>User List</h1>
@@ -127,6 +121,9 @@ class AdminLandPage extends Component {
                                 </div>
                             );
                         })}
+                        <Fab style={styles.palette} aria-label="Add" onClick={() => this.props.history.push('/adminadduser')}>
+                            <AddIcon color={styles.palette.color} size="large" />
+                        </Fab>
                     </div>
                     : <div>
                         <h1>Exercise List</h1>

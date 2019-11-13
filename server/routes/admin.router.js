@@ -32,12 +32,35 @@ router.get('/exerciseDetail/:id', (req, res) => {
     const exerciseId = req.params.id
     const queryText = `SELECT * FROM "exercises" WHERE "id" = $1;`;
     pool.query(queryText, [exerciseId]).then((response) => {
-        res.send(response.rows)
+        res.send(response.rows[0])
     }).catch((err) => {
         console.log('Error ---------> GETTING Exercise Detail', err);
         res.sendStatus(500);
     });
 })
+
+//PUT request to update specific exercise detail changes
+router.put('/exerciseDetail/:id', (req, res) => {
+    const exerciseId = req.params.id
+    const exercise = req.body
+    const queryValues = [
+        exercise.name,
+        exercise.default_sets,
+        exercise.default_reps,
+        exercise.default_weight,
+        exercise.links,
+        exercise.units,
+        exerciseId
+    ]
+    const queryText = `UPDATE "exercises" SET ("name", "default_sets", "default_reps", "default_weight", "links", "units") = ($1, $2, $3, $4, $5, $6) WHERE "id" = $7;`;
+    pool.query(queryText, queryValues)
+    .then(() => {
+        res.sendStatus(201)
+    }).catch((err) => {
+        console.log('Error ---------> updating exercise from library', err);
+        res.sendStatus(500);
+    });
+});
 
 //DELETE exercise from Admin's library in database
 router.delete('/exerciseDetail/:id', (req, res) => {

@@ -32,6 +32,7 @@ import adminLandPage from '../AdminLandPage/adminLandPage';
 import AddExercise from '../AddExercise/AddExercise';
 import AdminAddUser from '../AdminAddUser/AdminAddUser';
 import ExerciseDetail from '../ExerciseDetail/ExerciseDetail';
+import DropDrawer from '../DropDrawer/DropDrawer';
 
 class App extends Component {
   componentDidMount() {
@@ -42,6 +43,7 @@ class App extends Component {
     return (
       <Router>
         <div>
+          <DropDrawer />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
