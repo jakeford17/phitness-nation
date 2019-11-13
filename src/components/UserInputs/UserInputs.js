@@ -81,7 +81,7 @@ export default connect(mapStateToProps)(function TextFields(props) {
                 id="date"
                 label="Date of Birth"
                 type="date"
-                defaultValue="2017-05-24"
+                value={values.dateOfBirth}
                 onChange={handleChange('dateOfBirth')}
                 InputLabelProps={{
                     shrink: true,

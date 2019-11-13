@@ -54,6 +54,8 @@ class AdminLandPage extends Component {
             clientID: event.target.value
         })
         this.props.dispatch({ type: 'ACCESS_USER_INFO', payload: event.target.value })
+        this.props.history.push(`/adminviewuser/${event.target.value}`);
+
     }
 
     //GET request displaying admin's list of clients (users)

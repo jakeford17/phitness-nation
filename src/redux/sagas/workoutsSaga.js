@@ -42,11 +42,20 @@ function* adminGetWorkouts(action){
         console.log('ADMIN GET WORKOUTS ERROR:', error)
     }
 }
+function* adminUpdateWorkouts(action){
+    try{
+        yield axios.put('/api/admin/workouts', action.payload)
+        yield put ({ type: 'ADMIN_FETCH_WORKOUTS', payload: connect.id()})
+    }catch(error) {
+        console.log('ADMIN UPDATE WORKOUTS ERROR', error)
+    }
+}
 function* workoutsSaga(){
     yield takeLatest('FETCH_WORKOUTS', fetchWorkouts);
     yield takeLatest('UPDATE_WORKOUTS', updateWorkouts);
     yield takeLatest('POST_WORKOUTS', postWorkouts);
     yield takeLatest('ADMIN_FETCH_WORKOUTS', adminGetWorkouts);
+    yield takeLatest('ADMIN_UPDATE_WORKOUTS', adminUpdateWorkouts);
 }
 
 export default workoutsSaga;
