@@ -13,13 +13,12 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import InfoIcon from '@material-ui/icons/Info';
 import AccountIcon from '@material-ui/icons/AccountCircle';
-import ListIcon from '@material-ui/icons/ListAlt';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 
 
 const useStyles = makeStyles({
     list: {
-        width: 124,
+        width: 145,
     },
     fullList: {
         width: 'auto',
@@ -45,9 +44,11 @@ function SideDrawer(props) {
         >
 
             <List>
-                <ListItem component={Link} to="/profile" button><AccountIcon className="icon" /> Profile </ListItem>
-                <ListItem component={Link} to="/home" button><AssessmentIcon className="icon" /> Stats</ListItem>
-                <ListItem component={Link} to="/about" button><InfoIcon className="icon" /> About</ListItem>
+                <ListItem component={Link} to="/profile" button><AccountIcon className="icon" />Profile </ListItem>
+                <ListItem component={Link} to="/home" button><AssessmentIcon className="icon" />Workout</ListItem>
+                <ListItem component={Link} to="/home" button><AssessmentIcon className="icon" />History</ListItem>
+                {props.user.admin ? <ListItem component={Link} to="/manage" button><AccountIcon className="icon" />Archived</ListItem> : <div></div>}
+                <ListItem component={Link} to="/about" button><InfoIcon className="icon" />About</ListItem>
             </List>
             <Divider />
             {props.user.username ?
