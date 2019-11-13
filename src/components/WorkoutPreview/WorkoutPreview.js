@@ -46,7 +46,7 @@ class WorkoutPreview extends Component {
         <br/><br/>
         <div className="workout-preview-btns">
         <button onClick ={(props) => this.props.history.push(`/workouts/week/${this.props.match.params.id}`)}>Back</button>
-          <button onClick={(props) => this.props.history.push(`/exercise/${firstExerciseArray[0]}`)}>Begin Workout</button>
+          <button onClick={(props) => this.props.history.push(`/exercise/${this.props.match.params.id}-${firstExerciseArray[0]}`)}>Begin Workout</button>
         </div>
       </div>
     );
