@@ -3,26 +3,28 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 const styles = {
     palette: {
-      backgroundColor: "navy",
-      color: "white"
+        backgroundColor: "navy",
+        color: "white"
     },
     fab: {
-      width: "100%",
-      position: "fixed",
-      bottom: "0",
-      height: "21%",
-      left: "0%",
-      size: "large"
-  
+        width: "100%",
+        position: "fixed",
+        bottom: "0",
+        height: "21%",
+        left: "0%",
+        size: "large"
+
     },
     add: {
-      color: "white",
-      fontSize: "large"
+        color: "white",
+        fontSize: "large"
     }
-  };
+};
 
 class AdminLandPage extends Component {
 
@@ -45,6 +47,7 @@ class AdminLandPage extends Component {
         })
     }
 
+    //GET request displaying admin's list of clients (users)
     listUsers = () => {
         axios.get('/api/admin').then((response) => {
             console.log("grabbing user list:", response.data)
@@ -52,6 +55,11 @@ class AdminLandPage extends Component {
                 listUser: response.data
             })
         })
+    }
+
+    // onCick function directing Admin to exercise detail's page
+    exerciseDescription = (exercise) => {
+        this.props.history.push(`/exerciseDetail/${exercise.id}`)
     }
 
     listExercises = () => {
@@ -62,9 +70,39 @@ class AdminLandPage extends Component {
         })
     }
 
+   
+    //Delete alert before deleting exercise
+    deleteAlert = (exercise) => {
+        confirmAlert({
+            message: `Are you sure you want to delete this exercise?`,
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => this.deleteExerciseFunction(exercise)
+                },
+                {
+                    label: 'No',
+                }
+            ]
+        })
+    };
+
+     //DELETE exercise from library in database
+     deleteExerciseFunction = (exercise) => {
+        axios.delete(`/api/admin/exerciseDetail/${exercise.id}`).then(() => {
+            this.listExercises();
+        }
+        ).catch((err) => {
+            alert('delete exercise from library error', err)
+        })
+    }
+
+    //Add Exercise button directing admin to addExercise Page
     fabFunction = () => {
         this.props.history.push('/addExercise');
     }
+
+
     render() {
 
         return (
@@ -92,24 +130,24 @@ class AdminLandPage extends Component {
                     </div>
                     : <div>
                         <h1>Exercise List</h1>
+                        <div><input placeholder = "Search Exercise"/> <button>Search</button></div>
                         <table>
                             <tbody>
                                 {this.state.listExercises.map((exercise) => {
                                     return (
                                         <tr key={exercise.id}>
-                                            <td>{exercise.name}</td>
-                                                <td>
-                                                <button>Edit</button>
-                                                <button>Archive</button>
-                                                </td>
+                                            <td onClick={() => this.exerciseDescription(exercise)}>{exercise.name}</td>
+                                            <td>
+                                                <button onClick={() => this.deleteAlert(exercise)}>Delete</button>
+                                            </td>
                                         </tr>
                                     );
                                 })}
                             </tbody>
                         </table>
                         <Fab style={styles.palette} aria-label="Add" onClick={() => this.fabFunction()}>
-                        <AddIcon color={styles.palette.color} size="large" />
-                    </Fab>
+                            <AddIcon color={styles.palette.color} size="large" />
+                        </Fab>
                     </div>}
             </div>
         );

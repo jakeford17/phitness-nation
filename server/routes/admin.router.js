@@ -27,6 +27,32 @@ router.get('/exercise', (req, res) => {
     });
 })
 
+//GET request to display exercise Details
+router.get('/exerciseDetail/:id', (req, res) => {
+    const exerciseId = req.params.id
+    const queryText = `SELECT * FROM "exercises" WHERE "id" = $1;`;
+    pool.query(queryText, [exerciseId]).then((response) => {
+        res.send(response.rows)
+    }).catch((err) => {
+        console.log('Error ---------> GETTING Exercise Detail', err);
+        res.sendStatus(500);
+    });
+})
+
+//DELETE exercise from Admin's library in database
+router.delete('/exerciseDetail/:id', (req, res) => {
+    const exerciseId = req.params.id
+    const queryText = `DELETE FROM "exercises" WHERE "id" = $1;`;
+    //console.log(`getting id: ${id} and req.body: ${points}`);
+    pool.query(queryText, [exerciseId])
+    .then(() => {
+        res.sendStatus(201)
+    }).catch((err) => {
+        console.log('Error ---------> updating points from query', err);
+        res.sendStatus(500);
+    });
+});
+
 //Admin POST request to add new exercise to list in database
 router.post('/addExercise', (req, res) => {
     const exercise = req.body;

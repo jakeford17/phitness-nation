@@ -31,6 +31,7 @@ import UserExercise from '../UserExercise/UserExercise';
 import adminLandPage from '../AdminLandPage/adminLandPage';
 import AddExercise from '../AddExercise/AddExercise';
 import AdminAddUser from '../AdminAddUser/AdminAddUser';
+import ExerciseDetail from '../ExerciseDetail/ExerciseDetail';
 
 class App extends Component {
   componentDidMount() {
@@ -122,6 +123,11 @@ class App extends Component {
             <ProtectedRoute
               path="/adminadduser"
               component={AdminAddUser}
+              exact
+            />
+            <ProtectedRoute
+              path="/exerciseDetail/:id"
+              component={ExerciseDetail}
               exact
             />
             {/* If none of the other routes matched, we will show a 404. */}

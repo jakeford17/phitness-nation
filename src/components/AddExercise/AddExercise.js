@@ -29,7 +29,7 @@ class AddExercise extends Component {
                 units: 'reps',
                 link: ''
             })
-            swal("Saved!", "Task edit complete", "success");
+            swal("Saved!", "Added Exercise to library", "success");
             this.props.history.push('/admin')
         }).catch((error) => {
             console.log('Error adding exercise', error)
