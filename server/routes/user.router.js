@@ -51,4 +51,16 @@ router.put('/', (req, res) =>{
           console.log('PUT USER INFO ERROR:', error);
       })
 })
+
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+  const queryText = `DELETE FROM "user" WHERE "id" = $1;`;
+  pool.query(queryText, [req.params.id])
+      .then((result) => {
+          res.sendStatus(200);
+      }).catch((err) => {
+          console.log(err);
+          res.sendStatus(500);
+      })
+})
+
 module.exports = router;
