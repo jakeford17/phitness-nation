@@ -8,6 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import { styled } from '@material-ui/core/styles';
 import { flexbox } from '@material-ui/system';
+import HomeIcon from '@material-ui/icons/Home';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -15,6 +16,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import InfoIcon from '@material-ui/icons/Info';
 import AccountIcon from '@material-ui/icons/AccountCircle';
+import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 
 const MyMenu = styled(MenuIcon)({
@@ -42,6 +44,8 @@ const MyIconButton = styled(IconButton)({
 const useStyles = makeStyles({
     list: {
         width: 145,
+        backgroundColor: "#d2d2d4",
+        height: '100%'
     },
     fullList: {
         width: 'auto',
@@ -68,13 +72,13 @@ function SideDrawer(props) {
 
             <List>
                 {(props.user.username && !props.user.admin) ? <div>
-                <ListItem component={Link} to="/home" button><AccountIcon className="icon" />Home</ListItem>
-                <ListItem component={Link} to="/profile" button><AccountIcon className="icon" />Profile </ListItem>
-                <ListItem component={Link} to="/workouts" button><AssessmentIcon className="icon" />Workouts</ListItem>
+                <ListItem component={Link} to="/home" button><HomeIcon className="icon" />Home</ListItem>
+                    <ListItem component={Link} to="/profile" button><AccountIcon className="icon" />Profile </ListItem>
+                    <ListItem component={Link} to="/workouts" button><FitnessCenterIcon className="icon" />Workouts</ListItem>
                 <ListItem component={Link} to="" button><AssessmentIcon className="icon" />History</ListItem>
                 </div>
                 : (props.user.admin && props.user.username) ? <div>
-                <ListItem component={Link} to="/admin" button><AccountIcon className="icon" />Home</ListItem>
+                        <ListItem component={Link} to="/admin" button><HomeIcon className="icon" />Home</ListItem>
                 <ListItem component={Link} to="/deactivate" 
                     button><AccountIcon className="icon" />Archived
                 </ListItem> </div>: <div></div>}
