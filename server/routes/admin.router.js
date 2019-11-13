@@ -18,8 +18,9 @@ router.get('/', (req, res) => {
 
 //Admin GET request to grab exercise list from databbase to display on dashboard
 router.get('/exercise', (req, res) => {
-    const queryText = `SELECT * FROM "exercises";`;
-    pool.query(queryText).then((response) => {
+    const archived = false;
+    const queryText = `SELECT * FROM "exercises" WHERE "archive" = $1;`;
+    pool.query(queryText, [archived]).then((response) => {
         res.send(response.rows)
     }).catch((err) => {
         console.log('Error ---------> GETTING list of Exercises', err);
@@ -61,6 +62,21 @@ router.put('/exerciseDetail/:id', (req, res) => {
         res.sendStatus(500);
     });
 });
+
+//PUT REQUEST for ADMIN to archive exercises
+router.put('/exerciseArchive/:id', (req, res) => {
+    const exerciseId = req.params.id;
+    const archive = true;
+    const queryText = `UPDATE "exercises" SET "archive" = $1 WHERE "id" = $2;`;
+    pool.query(queryText, [archive, exerciseId])
+    .then(() => {
+        res.sendStatus(201)
+    }).catch((err) => {
+        console.log('Error ---------> archive exercise ', err);
+        res.sendStatus(500);
+    });
+});
+
 
 //DELETE exercise from Admin's library in database
 router.delete('/exerciseDetail/:id', (req, res) => {

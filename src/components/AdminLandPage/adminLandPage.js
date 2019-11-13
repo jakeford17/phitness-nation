@@ -5,6 +5,7 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import swal from 'sweetalert';
 
 const styles = {
     palette: {
@@ -106,6 +107,16 @@ class AdminLandPage extends Component {
         this.props.history.push('/addExercise');
     }
 
+    //Archive exercise, allow admin to remove exercise from library
+    //but save it in archive component
+    archiveExercise = (exercise) => {
+        axios.put(`/api/admin/exerciseArchive/${exercise.id}`).then((response) => {
+            swal("Updated!", "Archiving Exercise Complete");
+            this.listExercises();
+        }).catch((err) => {
+            console.log('error when archiving exercise', err)
+        })
+    }
 
     render() {
 
@@ -146,6 +157,7 @@ class AdminLandPage extends Component {
                                             <td onClick={() => this.exerciseDescription(exercise)}>{exercise.name}</td>
                                             <td>
                                                 <button onClick={() => this.deleteAlert(exercise)}>Delete</button>
+                                                <button onClick={() => this.archiveExercise(exercise)}>Archived</button>
                                             </td>
                                         </tr>
                                     );
@@ -155,9 +167,7 @@ class AdminLandPage extends Component {
                         <Fab style={styles.palette} aria-label="Add" onClick={() => this.fabFunction()}>
                             <AddIcon color={styles.palette.color} size="large" />
                         </Fab>
-                        <Fab style={styles.palette} aria-label="Add" onClick={() => this.addPtsFunction()}>
-                        <AddIcon color={styles.palette.color} size="large" />
-                    </Fab>
+                       
                     </div>}
             </div>
         );
