@@ -41,8 +41,10 @@ class WorkoutPreview extends Component {
           )
         })}
         <br/><br/>
+        <div className="workout-preview-btns">
         <button onClick ={(props) => this.props.history.push(`/workouts/week/${this.props.match.params.id}`)}>Back</button>
         <button onClick ={() => alert("Begin Workout...navigate to first exercise of workout; add an alert asking if user is sure they want to begin the workout")}>Begin Workout</button>
+        </div>
       </div>
     );
   }

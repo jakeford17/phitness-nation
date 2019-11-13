@@ -68,3 +68,8 @@ input {
     padding: 5%;
 }
 
+.workout-preview-btns {
+    display: flex;
+    justify-content: space-around;
+}
+
