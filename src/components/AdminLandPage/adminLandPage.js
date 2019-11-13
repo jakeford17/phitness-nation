@@ -69,7 +69,8 @@ class AdminLandPage extends Component {
     }
 
     listExercises = () => {
-        axios.get('/api/admin/exercise').then((response) => {
+        const active = true
+        axios.get(`/api/admin/exercise/${active}`).then((response) => {
             this.setState({
                 listExercises: response.data
             })

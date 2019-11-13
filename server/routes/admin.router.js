@@ -17,10 +17,10 @@ router.get('/', (req, res) => {
 })
 
 //Admin GET request to grab exercise list from databbase to display on dashboard
-router.get('/exercise', (req, res) => {
-    const archived = false;
-    const queryText = `SELECT * FROM "exercises" WHERE "archive" = $1;`;
-    pool.query(queryText, [archived]).then((response) => {
+router.get('/exercise/:active', (req, res) => {
+    const active = req.params.active;
+    const queryText = `SELECT * FROM "exercises" WHERE "active" = $1;`;
+    pool.query(queryText, [active]).then((response) => {
         res.send(response.rows)
     }).catch((err) => {
         console.log('Error ---------> GETTING list of Exercises', err);
