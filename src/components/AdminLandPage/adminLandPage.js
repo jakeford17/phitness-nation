@@ -25,25 +25,7 @@ const styles = {
         fontSize: "large"
     }
 };
-const styles = {
-    palette: {
-      backgroundColor: "navy",
-      color: "white"
-    },
-    fab: {
-      width: "100%",
-      position: "fixed",
-      bottom: "0",
-      height: "21%",
-      left: "0%",
-      size: "large"
-  
-    },
-    add: {
-      color: "white",
-      fontSize: "large"
-    }
-  };
+
 class AdminLandPage extends Component {
 
     state = {
