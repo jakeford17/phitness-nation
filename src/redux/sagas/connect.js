@@ -2,7 +2,7 @@ import { store } from '../../index';
 
 const connect = {
     id: function getStore(){
-        return store.getState().user.id
+        return parseInt(store.getState().adminToUserReducer)
     },
     admin: function getAdmin(){
         return store.getState().user.admin
