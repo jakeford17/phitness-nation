@@ -48,18 +48,17 @@ class AddExercise extends Component {
         return (
             <div>
                 <h1>add exercise page</h1>
-                <input placeholder="Exercise Name"></input>
-                <input placeholder="Weight"></input>
-                <input placeholder="Set"></input>
-                <input placeholder="Frequency"></input>
-                <select>
+                <input onChange = {(event) => this.inputValueChange(event, 'exerciseName')}placeholder="Exercise Name"></input>
+                <input onChange = {(event) => this.inputValueChange(event, 'weight')}placeholder="Weight"></input>
+                <input onChange = {(event) => this.inputValueChange(event, 'set')}placeholder="Set"></input>
+                <input onChange = {(event) => this.inputValueChange(event, 'frequency')}placeholder="frequency"></input>
+                <select onChange = {(event) => this.inputValueChange(event, 'units')}>
                     <option value="reps">reps</option>
                     <option value="sec">sec</option>
                     <option value="min">min</option>
                 </select>
                 <input onChange = {(event) => this.inputValueChange(event, 'link')} placeholder = "link"/>
                 <button onClick = {() => this.AddExercise()}>Add Exercise</button>
-                <input placeholder = "notes"/>
             </div>
         )
     }
