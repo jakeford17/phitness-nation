@@ -46,6 +46,14 @@ class AdminLandPage extends Component {
             UsertoExercise: toggle
         })
     }
+    //GET  client id and sends to reducer  
+    fetchClientID = (event) => {
+        this.setState({
+            ...this.state.clientID,
+            clientID: event.target.value
+        })
+        this.props.dispatch({ type: 'ACCESS_USER_INFO', payload: event.target.value })
+    }
 
     //GET request displaying admin's list of clients (users)
     listUsers = () => {
