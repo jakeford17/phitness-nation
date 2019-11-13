@@ -3,17 +3,15 @@ import { connect } from 'react-redux';
 
 class  Test extends Component {
     state = {
-        username: 'JOHN CENA',
-        pronouns: 'he/him',
-        phone: '452-533-9134',
-        email: 'jcena@thebestwrestler.com',
-        emergencyContactName: 'JCENA',
-        emergencyContactPhone: '452-234-2342',
-        dateOfBirth: '4/2/1234'
+        id: 24,
+        assigned_sets: 4,
+        assigned_reps: 3,
+        assigned_weight: 140,
+        tips: "YOU ARE JUST A SLUG, TRY HARDER"
     }
     test = () =>{
         console.log('test')
-        this.props.dispatch({type: 'UPDATE_USER', payload: this.state})
+        this.props.dispatch({type: 'DELETE_EXERCISE_WORKOUTS', payload: this.state.id})
     }
   render() {
     return (
