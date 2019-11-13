@@ -45,7 +45,9 @@ class App extends Component {
     return (
       <Router>
         <div>
+          <header className="app-header">
           <DropDrawer/>
+          </header>
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             {(!this.props.user.admin) ? <Redirect exact from="/" to="/home" /> : <Redirect exact from="/home" to="/admin" />}

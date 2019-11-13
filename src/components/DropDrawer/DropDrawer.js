@@ -25,7 +25,8 @@ const MyMenu = styled(MenuIcon)({
     justifyContent: "right",
     margin: 5,
     textAlign: "center",
-    fontSize: 60
+    fontSize: 60,
+    color: "#d2d2d4"
 });
 
 const MyIconButton = styled(IconButton)({

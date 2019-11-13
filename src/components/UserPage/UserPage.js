@@ -8,7 +8,7 @@ import { flexbox } from '@material-ui/system';
 import {ProgressBar} from 'react-bootstrap'
 
 const MyCard = styled(Card)({
-  background: 'transparent',
+  background: '#d2d2d4',
   border: 0,
   borderRadius: 3,
   // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
@@ -17,9 +17,9 @@ const MyCard = styled(Card)({
   width: "90%",
   padding: 10,
   margin: 5,
-  fontSize: 16,
+  fontSize: 20,
   display: flexbox,
-  textAlign: "center"
+  textAlign: "left"
 });
 
 class UserPage extends Component{
@@ -36,20 +36,16 @@ class UserPage extends Component{
         <h1 >
           Welcome, { this.props.reduxState.user.name }!
         </h1>
-        <h2>
-          Weekly PHILosophy: 
-        </h2>
           <MyCard>
-            {this.props.reduxState.user.philosophy}
+            {this.props.reduxState.user.philosophy}—Phil
           </MyCard>
         <h3>
           Streak:
+          </h3>
           <div className="streak">
-              <ProgressBar striped variant="success" now={this.props.reduxState.user.current_streak} />
+              <ProgressBar now={this.props.reduxState.user.current_streak} />
+            <p>{this.props.reduxState.user.current_streak} workouts in a row!</p>
             </div>
-        </h3>
-
-        <LogOutButton className="log-in" />
       </div>
       </>
     )

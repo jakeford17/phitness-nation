@@ -1,6 +1,18 @@
 body {
 font-family: 'PT Sans Narrow', sans-serif;
     margin: 0px;
+    background-color: #84c8b9
+}
+
+.app-header {
+    background-image: URL('./phitnessnationheader.png');
+    background-size: 120%;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-color: #313b47;
+    padding-top: 5%;
+    width: 100%;
+    padding-right: 5%;
 }
 
 .alert {
