@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import './DropDrawer.css'
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
+import { styled } from '@material-ui/core/styles';
+import { flexbox } from '@material-ui/system';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -15,6 +17,26 @@ import InfoIcon from '@material-ui/icons/Info';
 import AccountIcon from '@material-ui/icons/AccountCircle';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 
+const MyMenu = styled(MenuIcon)({
+    border: 0,
+    borderRadius: 3,
+    height: 50,
+    display: "flexbox",
+    justifyContent: "right",
+    margin: 5,
+    textAlign: "center",
+    fontSize: 60
+});
+
+const MyIconButton = styled(IconButton)({
+    border: 0,
+    borderRadius: 3,
+    height: 30,
+    display: "flexbox",
+    justifyContent: "right",
+    margin: 5,
+    paddingLeft: "80%",
+});
 
 const useStyles = makeStyles({
     list: {
@@ -73,8 +95,8 @@ function SideDrawer(props) {
         </div>
     );
     return (
-        <div>
-            <IconButton onClick={toggleDrawer('right', true)}><MenuIcon /></IconButton>
+        <div className="drawer">
+            <MyIconButton onClick={toggleDrawer('right', true)}><MyMenu/></MyIconButton>
             <Drawer anchor ="right" open={state.right} onClose={toggleDrawer('right', false)}>
                 {sideList('right')}
             </Drawer>
