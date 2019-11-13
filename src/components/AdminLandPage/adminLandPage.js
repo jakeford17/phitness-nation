@@ -61,6 +61,10 @@ class AdminLandPage extends Component {
             })
         })
     }
+
+    fabFunction = () => {
+        this.props.history.push('/addExercise');
+    }
     render() {
 
         return (
@@ -103,7 +107,7 @@ class AdminLandPage extends Component {
                                 })}
                             </tbody>
                         </table>
-                        <Fab style={styles.palette} aria-label="Add" onClick={() => this.addPtsFunction()}>
+                        <Fab style={styles.palette} aria-label="Add" onClick={() => this.fabFunction()}>
                         <AddIcon color={styles.palette.color} size="large" />
                     </Fab>
                     </div>}

@@ -26,6 +26,27 @@ router.get('/exercise', (req, res) => {
         res.sendStatus(500);
     });
 })
+
+//Admin POST request to add new exercise to list in database
+router.post('/addExercise', (req, res) => {
+    const exercise = req.body;
+    const queryValue = [
+        exercise.exerciseName,
+        exercise.set,
+        exercise.frequency,
+        exercise.weight,
+        exercise.link,
+        exercise.units,
+    ]
+    const queryText = `INSERT INTO "exercises" ("name", "default_sets", "default_reps", "default_weight", "links", "units") VALUES ($1, $2, $3, $4, $5, $6);`;
+    pool.query(queryText, queryValue).then(() => {
+        res.sendStatus(200);
+    }).catch((err) => {
+        console.log('Error adding exercis to list', err);
+        res.sendStatus(500);
+    });
+})
+
 //Admin GET request to get goals for a specific user
 router.get('/goals/:id', (req, res) =>{
     const queryText = `SELECT * FROM "goals" WHERE "user_id" = $1;`
