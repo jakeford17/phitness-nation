@@ -57,23 +57,16 @@ class AdminLandPage extends Component {
         })
     }
 
-<<<<<<< HEAD
-=======
     // onCick function directing Admin to exercise detail's page
     exerciseDescription = (exercise) => {
         this.props.history.push(`/exerciseDetail/${exercise.id}`)
     }
 
->>>>>>> 1ce25119f353594b796308cb8201d73ded180271
     addUserBtn = () => {
         this.props.dispatch({ type: 'SET_TO_ADD_USER_MODE' });
         this.props.history.push('/adminadduser')
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 1ce25119f353594b796308cb8201d73ded180271
     listExercises = () => {
         axios.get('/api/admin/exercise').then((response) => {
             this.setState({
