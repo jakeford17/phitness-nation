@@ -91,7 +91,7 @@ class App extends Component {
             />
             <ProtectedRoute
               exact
-              path="/preview"
+              path="/preview/:id"
               component={WorkoutPreview}
             />
             <ProtectedRoute

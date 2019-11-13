@@ -3,9 +3,9 @@ import axios from 'axios';
 import connect from './connect';
 
 //fetch exercise workouts. automatically fetches goals for the logged in user
-function* fetchExerciseWorkouts(){
+function* fetchExerciseWorkouts(action){
     try{
-        const response = yield axios.get('/api/exerciseWorkouts')
+        const response = yield axios.get(`/api/exerciseWorkouts/${action.payload}`)
         yield put ({ type: 'SET_EXERCISE_WORKOUTS', payload: response.data})
     }catch (error) {
         console.log('FETCH EXERCISE WORKOUTS ERROR:', error);

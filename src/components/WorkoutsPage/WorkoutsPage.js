@@ -33,7 +33,7 @@ class  WorkoutsPage extends Component {
         {this.props.reduxState.workouts.workoutsReducer.map((workout) => {
           if (workout.week == this.props.match.params.id){
           return (
-            <MyCard className="workout-weeks" onClick={() => alert("redirect to this workouts exercises")}>
+            <MyCard className="workout-weeks" onClick={(props) => this.props.history.push(`/preview/${workout.id}`)}>
               <div>
                 <h4>Workout {workout.id}</h4>
               </div>
