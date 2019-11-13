@@ -66,9 +66,9 @@ router.put('/exerciseDetail/:id', (req, res) => {
 //PUT REQUEST for ADMIN to archive exercises
 router.put('/exerciseArchive/:id', (req, res) => {
     const exerciseId = req.params.id;
-    const archive = true;
-    const queryText = `UPDATE "exercises" SET "archive" = $1 WHERE "id" = $2;`;
-    pool.query(queryText, [archive, exerciseId])
+    const active = false;
+    const queryText = `UPDATE "exercises" SET "active" = $1 WHERE "id" = $2;`;
+    pool.query(queryText, [active, exerciseId])
     .then(() => {
         res.sendStatus(201)
     }).catch((err) => {
@@ -87,7 +87,7 @@ router.delete('/exerciseDetail/:id', (req, res) => {
     .then(() => {
         res.sendStatus(201)
     }).catch((err) => {
-        console.log('Error ---------> updating points from query', err);
+        console.log('Error ---------> deleting exercises from library', err);
         res.sendStatus(500);
     });
 });
