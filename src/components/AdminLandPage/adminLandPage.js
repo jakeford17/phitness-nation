@@ -5,6 +5,7 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import swal from 'sweetalert';
 
 const styles = {
     palette: {
@@ -46,6 +47,16 @@ class AdminLandPage extends Component {
             UsertoExercise: toggle
         })
     }
+    //GET  client id and sends to reducer  
+    fetchClientID = (event) => {
+        this.setState({
+            ...this.state.clientID,
+            clientID: event.target.value
+        })
+        this.props.dispatch({ type: 'ACCESS_USER_INFO', payload: event.target.value })
+        this.props.history.push(`/adminviewuser/${event.target.value}`);
+
+    }
 
     //GET request displaying admin's list of clients (users)
     listUsers = () => {
@@ -68,7 +79,8 @@ class AdminLandPage extends Component {
     }
 
     listExercises = () => {
-        axios.get('/api/admin/exercise').then((response) => {
+        const active = true
+        axios.get(`/api/admin/exercise/${active}`).then((response) => {
             this.setState({
                 listExercises: response.data
             })
@@ -106,6 +118,16 @@ class AdminLandPage extends Component {
         this.props.history.push('/addExercise');
     }
 
+    //Archive exercise, allow admin to remove exercise from library
+    //but save it in archive component
+    archiveExercise = (exercise) => {
+        axios.put(`/api/admin/exerciseArchive/${exercise.id}`).then((response) => {
+            swal("Updated!", "Archiving Exercise Complete");
+            this.listExercises();
+        }).catch((err) => {
+            console.log('error when archiving exercise', err)
+        })
+    }
 
     render() {
 
@@ -128,6 +150,7 @@ class AdminLandPage extends Component {
                             return (
                                 <div key={user.id}>
                                     <p>{user.name}</p><p>{user.age}</p>
+                                    <button className="clientCard" onClick={this.fetchClientID} value={user.id} >{user.name}</button>
                                 </div>
                             );
                         })}
@@ -146,6 +169,7 @@ class AdminLandPage extends Component {
                                             <td onClick={() => this.exerciseDescription(exercise)}>{exercise.name}</td>
                                             <td>
                                                 <button onClick={() => this.deleteAlert(exercise)}>Delete</button>
+                                                <button onClick={() => this.archiveExercise(exercise)}>Archived</button>
                                             </td>
                                         </tr>
                                     );
@@ -155,9 +179,7 @@ class AdminLandPage extends Component {
                         <Fab style={styles.palette} aria-label="Add" onClick={() => this.fabFunction()}>
                             <AddIcon color={styles.palette.color} size="large" />
                         </Fab>
-                        <Fab style={styles.palette} aria-label="Add" onClick={() => this.addPtsFunction()}>
-                        <AddIcon color={styles.palette.color} size="large" />
-                    </Fab>
+                       
                     </div>}
             </div>
         );
@@ -165,8 +187,8 @@ class AdminLandPage extends Component {
 }
 
 
-const mapStateToProps = state => ({
-    user: state.user
+const mapStateToProps = reduxStore => ({
+    reduxStore 
 });
 
 export default connect(mapStateToProps)(AdminLandPage);
