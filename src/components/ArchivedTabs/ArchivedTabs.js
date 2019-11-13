@@ -7,8 +7,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import TrendingUpIcon from '@material-ui/icons/TrendingUp';
-import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
+import ArchivedUsers from '../ArchivedUsers/ArchivedUsers'
+import ArchivedExercises from '../ArchivedExercises/ArchivedExercises'
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -71,8 +71,8 @@ export default function FullWidthTabs() {
                     variant="fullWidth"
                     aria-label="full width tabs example"
                 >
-                    <Tab label="WORKOUTS" {...a11yProps(0)} icon={<FitnessCenterIcon />} />
-                    <Tab label="DATA" {...a11yProps(1)} icon={<TrendingUpIcon />} />
+                    <Tab label="USERS" {...a11yProps(0)} />
+                    <Tab label="EXERCISES" {...a11yProps(1)} />
                 </Tabs>
             </AppBar>
             <SwipeableViews
@@ -81,12 +81,10 @@ export default function FullWidthTabs() {
                 onChangeIndex={handleChangeIndex}
             >
                 <TabPanel value={value} index={0} dir={theme.direction}>
-                    {/* <UserInputs /> */}
-                    USER WORKOUTS
+                    <ArchivedUsers />
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
-                    {/* <UserGoals /> */}
-                    USER DATA
+                    <ArchivedExercises />
                 </TabPanel>
             </SwipeableViews>
         </div>

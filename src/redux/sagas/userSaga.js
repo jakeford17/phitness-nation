@@ -23,9 +23,18 @@ function* fetchUser() {
     console.log('User get request failed', error);
   }
 }
+function* updateUserSaga(action){
+  try{
+    yield axios.put('/api/user', action.payload)
+    yield put ({ type: 'FETCH_USER' })
+  }catch (error) {
+    console.log('UPDATE USER PROFILE ERROR:', error);
+  }
 
+}
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
+  yield takeLatest('UPDATE_USER', updateUserSaga);
 }
 
 export default userSaga;

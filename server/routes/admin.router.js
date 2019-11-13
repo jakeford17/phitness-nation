@@ -91,4 +91,15 @@ router.get('/workouts/:id', (req, res) =>{
             res.sendStatus(500);
         })
 })
+//admin GET request to get exercise workouts for a user
+router.get('/exerciseWorkouts/:id', (req, res) =>{
+    const queryText = `SELECT * FROM "exercise_workouts" WHERE "user_id" = $1;`
+    pool.query(queryText, [req.params.id])
+        .then((result) =>{
+            res.send((result.rows))
+        }).catch((error) =>{
+            console.log('ERROR GETTING LIST OF EXERCISE WORKOUTS FOR A USER:', error);
+            res.sendStatus(500);
+        })
+})
 module.exports = router;

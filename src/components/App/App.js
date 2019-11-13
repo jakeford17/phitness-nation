@@ -22,6 +22,8 @@ import WorkoutSummary from '../WorkoutSummary/WorkoutSummary';
 import WorkoutPreview from '../WorkoutPreview/WorkoutPreview';
 import WeeksPage from '../WeeksPage/weeksPage';
 import Test from '../testRoutesPage/testRoutesPage';
+import Archived from '../Archived/Archived';
+
 
 import UserProfile from '../UserProfile/UserProfile';
 import AdminViewUser from '../AdminViewUser/AdminViewUser';
@@ -108,6 +110,11 @@ class App extends Component {
               exact
               path="/test"
               component={Test}
+            />
+            <ProtectedRoute
+              exact
+              path="/archived"
+              component={Archived}
             />
             <ProtectedRoute
               exact

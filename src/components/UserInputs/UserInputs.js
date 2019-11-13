@@ -22,7 +22,7 @@ const MyTextField = styled(TextField)({
 export default connect(mapStateToProps)(function TextFields(props) {
 
     const [values, setValues] = React.useState({
-        name: props.reduxState.user.username,
+        name: props.reduxState.user.name,
         pronouns: props.reduxState.user.pronouns,
         phone: props.reduxState.user.phone,
         email: props.reduxState.user.email,

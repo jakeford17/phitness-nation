@@ -1,0 +1,9 @@
+.streak {
+    width: 80%;
+    text-align: center;
+}
+
+.user-page {
+    display: flex;
+    flex-direction: column;
+}
