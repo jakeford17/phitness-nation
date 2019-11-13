@@ -33,6 +33,8 @@ import UserExercise from '../UserExercise/UserExercise';
 import adminLandPage from '../AdminLandPage/adminLandPage';
 import AddExercise from '../AddExercise/AddExercise';
 import AdminAddUser from '../AdminAddUser/AdminAddUser';
+import ExerciseDetail from '../ExerciseDetail/ExerciseDetail';
+import DropDrawer from '../DropDrawer/DropDrawer';
 
 class App extends Component {
   componentDidMount() {
@@ -43,9 +45,10 @@ class App extends Component {
     return (
       <Router>
         <div>
+          <DropDrawer/>
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-            <Redirect exact from="/" to="/home" />
+            {(!this.props.user.admin) ? <Redirect exact from="/" to="/home" /> : <Redirect exact from="/home" to="/admin" />}
             {/* Visiting localhost:3000/about will show the about page.
             This is a route anyone can see, no login necessary */}
             <Route
@@ -125,8 +128,16 @@ class App extends Component {
               path="/addExercise"
               component={AddExercise}
               exact
+            />
+            <ProtectedRoute
               path="/adminadduser"
               component={AdminAddUser}
+              exact
+            />
+            <ProtectedRoute
+              path="/exerciseDetail/:id"
+              component={ExerciseDetail}
+              exact
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
@@ -138,4 +149,7 @@ class App extends Component {
   }
 }
 
-export default connect()(App);
+const mapStateToProps = state => ({
+  user: state.user
+});
+export default connect(mapStateToProps)(App);
