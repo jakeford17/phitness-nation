@@ -56,6 +56,15 @@ function* deleteExerciseWorkouts(action){
         console.log('ADMIN DELETE EXERCISE WORKOUTS ERROR:', error)
     }
 }
+//admin get exercise workouts compliance data, automatically get the "current" users compliance data
+function* getComplianceData(){
+    try{
+        const response = yield axios.get('/api/admin/data/' + connect.id())
+        yield put ({ type: 'SET_COMPLIANCE', payload: response.data })
+    }catch (error){
+        console.log('ERROR GETTING COMPLIANCE DATA:', error)
+    }
+}
 function* workoutsSaga(){
     yield takeLatest('FETCH_EXERCISE_WORKOUTS', fetchExerciseWorkouts);
     yield takeLatest('UPDATE_EXERCISE_WORKOUTS', updateExerciseWorkouts);
@@ -63,6 +72,7 @@ function* workoutsSaga(){
     yield takeLatest('ADMIN_FETCH_EXERCISE_WORKOUTS', adminFetchExerciseWorkouts)
     yield takeLatest('ADMIN_UPDATE_EXERCISE_WORKOUTS', adminUpdatedExerciseWorkouts)
     yield takeLatest('DELETE_EXERCISE_WORKOUTS', deleteExerciseWorkouts)
+    yield takeLatest('FETCH_COMPLIANCE', getComplianceData)
 }
 
 export default workoutsSaga;
