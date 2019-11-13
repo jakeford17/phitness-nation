@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import swal from 'sweetalert';
+
 //import axios from 'axios';
 // import Fab from '@material-ui/core/Fab';
 // import AddIcon from '@material-ui/icons/Add';
@@ -29,7 +30,7 @@ class AddExercise extends Component {
                 units: 'reps',
                 link: ''
             })
-            swal("Saved!", "Task edit complete", "success");
+            swal("Saved!", "Added Exercise to library", "success");
             this.props.history.push('/admin')
         }).catch((error) => {
             console.log('Error adding exercise', error)
@@ -43,11 +44,14 @@ class AddExercise extends Component {
         })
     }
 
+   
+
+
     render() {
+
         return (
             <div>
-                <h1>add exercise page</h1>
-                {JSON.stringify(this.state)}
+                  <h1>add exercise page</h1>
                 <input onChange = {(event) => this.inputValueChange(event, 'exerciseName')}placeholder="Exercise Name"></input>
                 <input onChange = {(event) => this.inputValueChange(event, 'weight')}placeholder="Weight"></input>
                 <input onChange = {(event) => this.inputValueChange(event, 'set')}placeholder="Set"></input>
@@ -59,6 +63,7 @@ class AddExercise extends Component {
                 </select>
                 <input onChange = {(event) => this.inputValueChange(event, 'link')} placeholder = "link"/>
                 <button onClick = {() => this.AddExercise()}>Add Exercise</button>
+                <input placeholder = "notes"/>
             </div>
         )
     }
