@@ -7,13 +7,14 @@ class AdminViewUser extends Component {
     // componentDidMount() {
     //     this.props.dispatch({ type: 'FETCH_USER' })
     // }
-
+    goEditUser = (id) =>{
+        this.props.history.push(`/admin/edituser/${id}`)
+    }
     render() {
-        let value = 'test'
         return (
             <>
             <div className="placeholder-wrapper">
-                <img onClick={() => alert("Direct to User's Information/Edit User Info")} className="placeholder" src={Placeholder}></img>
+                <img onClick={() => this.goEditUser(this.props.match.params.id)} className="placeholder" src={Placeholder}></img>
             </div>
             <AdminViewUserTabs/>
         </>

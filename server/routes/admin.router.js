@@ -15,7 +15,16 @@ router.get('/', (req, res) => {
         res.sendStatus(500);
     });
 })
-
+router.get('/user/:id', (req, res) =>{
+    const queryText = 'SELECT * FROM "user" WHERE "id" = $1;';
+    pool.query(queryText, [req.params.id])
+        .then((result) =>{
+            res.send(result.rows)
+        }).catch((error) =>{
+            res.sendStatus(500)
+            console.log('ADMIN GET USER ERROR:', error)
+        })
+})
 //Admin GET request to grab exercise list from databbase to display on dashboard
 router.get('/exercise/:active', (req, res) => {
     const active = req.params.active;

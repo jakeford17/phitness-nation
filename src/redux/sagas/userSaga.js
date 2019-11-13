@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
+import connect from './connect';
 
 // worker Saga: will be fired on "FETCH_USER" actions
 function* fetchUser() {
@@ -32,9 +33,19 @@ function* updateUserSaga(action){
   }
 
 }
+function* adminFetchUser(){
+  try{
+    console.log('HI FROM CONNECT JS:', connect.id())
+    const response = yield axios.get('/api/admin/user/' + connect.id())
+    yield put ({ type: 'SET_ADMIN_EDIT_USER', payload: response.data })
+  }catch(error) {
+    console.log('ADMIN GET USER ERROR:', error)
+  }
+}
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
   yield takeLatest('UPDATE_USER', updateUserSaga);
+  yield takeLatest('ADMIN_FETCH_USER', adminFetchUser);
 }
 
 export default userSaga;
