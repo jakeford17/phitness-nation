@@ -136,6 +136,7 @@ class AdminLandPage extends Component {
                             return (
                                 <div key={user.id}>
                                     <p>{user.name}</p><p>{user.age}</p>
+                                    <button className="clientCard" onClick={this.fetchClientID} value={user.id} >{user.name}</button>
                                 </div>
                             );
                         })}
@@ -173,8 +174,8 @@ class AdminLandPage extends Component {
 }
 
 
-const mapStateToProps = state => ({
-    user: state.user
+const mapStateToProps = reduxStore => ({
+    reduxStore 
 });
 
 export default connect(mapStateToProps)(AdminLandPage);
