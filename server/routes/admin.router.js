@@ -153,16 +153,16 @@ router.put('/workouts', (req, res) =>{
         })
 })
 //admin GET request to get exercise workouts for a user send user id as a URL param
-router.get('/exerciseWorkouts/:id', (req, res) =>{
-    const queryText = `SELECT "exercise_workouts".* FROM "exercise_workouts" JOIN "workouts" ON "exercise_workouts".workout_id = "workouts".id WHERE "workouts".user_id = $1;`
-    pool.query(queryText, [req.params.id])
-        .then((result) =>{
-            res.send((result.rows))
-        }).catch((error) =>{
-            console.log('ERROR GETTING LIST OF EXERCISE WORKOUTS FOR A USER:', error);
-            res.sendStatus(500);
-        })
-})
+// router.get('/exerciseWorkouts/:id', (req, res) =>{
+//     const queryText = `SELECT "exercise_workouts".* FROM "exercise_workouts" JOIN "workouts" ON "exercise_workouts".workout_id = "workouts".id WHERE "workouts".user_id = $1;`
+//     pool.query(queryText, [req.params.id])
+//         .then((result) =>{
+//             res.send((result.rows))
+//         }).catch((error) =>{
+//             console.log('ERROR GETTING LIST OF EXERCISE WORKOUTS FOR A USER:', error);
+//             res.sendStatus(500);
+//         })
+// })
 //admin POST request to add exercise workouts for a user, send: { workout_id: int, exercise_id: int, assigned_sets: int, assigned_reps: int, assigned_weight: int, tips: "String" }
 router.post('/exerciseWorkouts', (req, res) =>{
     const queryText = 'INSERT INTO "exercise_workouts" ("workout_id", "exercise_id", "assigned_sets", "assigned_reps", "assigned_weight", "tips") VALUES ( $1, $2, $3, $4, $5, $6);';
