@@ -1,14 +1,11 @@
-const adminToUserReducer = (state = [], action) => {
-    switch (action.type) {
-      case 'ACCESS_USER_INFO':
-          state = action.payload;
-        return state;
-      
-      default:
-        return state;
-    }
-  };
+let responses = ""
+const adminToUserReducer = (state = responses, action) => {
+  if (action.type === 'ACCESS_USER_INFO') {
+    return action.payload
+  }
+  return state;
+}
 
 
-  export default adminToUserReducer;
-  
+
+export default adminToUserReducer;

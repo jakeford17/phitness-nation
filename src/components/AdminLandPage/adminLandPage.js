@@ -46,6 +46,14 @@ class AdminLandPage extends Component {
             UsertoExercise: toggle
         })
     }
+    //GET  client id and sends to reducer  
+    fetchClientID = (event) => {
+        this.setState({
+            ...this.state.clientID,
+            clientID: event.target.value
+        })
+        this.props.dispatch({ type: 'ACCESS_USER_INFO', payload: event.target.value })
+    }
 
     //GET request displaying admin's list of clients (users)
     listUsers = () => {
@@ -128,6 +136,7 @@ class AdminLandPage extends Component {
                             return (
                                 <div key={user.id}>
                                     <p>{user.name}</p><p>{user.age}</p>
+                                    <button className="clientCard" onClick={this.fetchClientID} value={user.id} >{user.name}</button>
                                 </div>
                             );
                         })}
@@ -165,8 +174,8 @@ class AdminLandPage extends Component {
 }
 
 
-const mapStateToProps = state => ({
-    user: state.user
+const mapStateToProps = reduxStore => ({
+    reduxStore 
 });
 
 export default connect(mapStateToProps)(AdminLandPage);
