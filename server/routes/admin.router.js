@@ -15,15 +15,17 @@ router.get('/', (req, res) => {
         res.sendStatus(500);
     });
 })
-router.get('/user/:id', (req, res) =>{
-    const queryText = 'SELECT * FROM "user" WHERE "id" = $1;';
-    pool.query(queryText, [req.params.id])
-        .then((result) =>{
-            res.send(result.rows)
-        }).catch((error) =>{
-            res.sendStatus(500)
-            console.log('ADMIN GET USER ERROR:', error)
-        })
+//Admin GET request to grab SELECTED user from database to display on dashboard
+
+router.get('/user/:id', (req, res) => {
+    const id = req.params.id;
+    const queryText = `SELECT * FROM "user" WHERE  "id" = $1;`;
+    pool.query(queryText, [id]).then((response) => {
+        res.send(response.rows[0])
+    }).catch((err) => {
+        console.log('Error ---------> GETTING list of Users', err);
+        res.sendStatus(500);
+    });
 })
 //Admin GET request to grab exercise list from databbase to display on dashboard
 router.get('/exercise/:active', (req, res) => {

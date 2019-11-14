@@ -5,11 +5,17 @@ import Placeholder from './Placeholder-Woman-img-1.jpg';
 import { connect } from 'react-redux';
 
 class AdminViewUser extends Component {
+    state = {
+   
+        selectedUserId: this.props.match.params.id,
+
+    }
     componentDidMount() {
         this.props.dispatch({ type: 'ADMIN_FETCH_USER', payload: this.props.match.params.id })
     }
-    goEditUser = (id) =>{
-        this.props.history.push(`/admin/edituser/${id}`)
+
+    goToUserProfile = () => {
+        this.props.history.push(`/adminuserprofile/${this.state.selectedUserId}`);
     }
 
     render() {
