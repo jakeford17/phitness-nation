@@ -120,8 +120,9 @@ class AdminLandPage extends Component {
 
     //Archive exercise, allow admin to remove exercise from library
     //but save it in archive component
-    archiveExercise = (exercise) => {
-        axios.put(`/api/admin/exerciseArchive/${exercise.id}`).then((response) => {
+    archiveExercise = (exercise, archive) => {
+        const active = {active: archive};
+        axios.put(`/api/admin/exerciseArchive/${exercise.id}`, active).then((response) => {
             swal("Updated!", "Archiving Exercise Complete");
             this.listExercises();
         }).catch((err) => {
@@ -169,7 +170,7 @@ class AdminLandPage extends Component {
                                             <td onClick={() => this.exerciseDescription(exercise)}>{exercise.name}</td>
                                             <td>
                                                 <button onClick={() => this.deleteAlert(exercise)}>Delete</button>
-                                                <button onClick={() => this.archiveExercise(exercise)}>Archived</button>
+                                                <button onClick={() => this.archiveExercise(exercise, false)}>Archived</button>
                                             </td>
                                         </tr>
                                     );
