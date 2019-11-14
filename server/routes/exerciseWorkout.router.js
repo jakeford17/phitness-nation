@@ -7,7 +7,8 @@ const router = express.Router();
 router.get('/:id', (req, res) => {
     let queryText = `SELECT * FROM "exercise_workouts"
                     JOIN "exercises" on "exercises".id = "exercise_workouts".exercise_id
-                    WHERE workout_id = $1`
+                    WHERE workout_id = $1
+                    ORDER BY "exercise_workouts".order;`
     pool.query(queryText, [req.params.id])
         .then((result) =>{
             res.send(result.rows)

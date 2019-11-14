@@ -21,12 +21,19 @@ const MyCard = styled(Card)({
 });
 
 class WorkoutPreview extends Component {
-
   componentDidMount = () => {
     this.props.dispatch({ type: 'FETCH_EXERCISE_WORKOUTS', payload: this.props.match.params.id})
   }
-
   render() {
+
+    let firstExerciseArray = this.props.reduxState.exerciseWorkouts.exerciseWorkoutReducer.map((exercise) => {
+      return exercise.id
+    });
+
+    let exerciseOrderArray = this.props.reduxState.exerciseWorkouts.exerciseWorkoutReducer.map((exercise) => {
+      return exercise.order
+    });
+
     return (
       <div className="workout-preview">
         <h1>Workout {this.props.match.params.id} Overview:</h1>
@@ -42,8 +49,8 @@ class WorkoutPreview extends Component {
         })}
         <br/><br/>
         <div className="workout-preview-btns">
-        <button onClick ={(props) => this.props.history.push(`/workouts/week/${this.props.match.params.id}`)}>Back</button>
-        <button onClick ={() => alert("Begin Workout...navigate to first exercise of workout; add an alert asking if user is sure they want to begin the workout")}>Begin Workout</button>
+        <button onClick ={(props) => this.props.history.push(`/workouts/week/${this.props.match.params.id}`)}>BACK</button>
+          <button onClick={(props) => this.props.history.push(`/exercise/${this.props.match.params.id}-${firstExerciseArray[0]}-${exerciseOrderArray[0]}`)}>BEGIN WORKOUT</button>
         </div>
       </div>
     );
