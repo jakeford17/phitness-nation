@@ -5,6 +5,9 @@ import TextField from '@material-ui/core/TextField';
 import { styled } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
+import axios from 'axios'
+
+
 
 
 const MyTextField = styled(TextField)({
@@ -28,6 +31,12 @@ const handleSubmit = event => {
 
 class AdminUserProfile extends Component {
 
+
+    componentDidMount() {
+        this.userDetail();
+    }
+
+
     state = {
 
         selectedUserId: this.props.match.params.id,
@@ -44,8 +53,8 @@ class AdminUserProfile extends Component {
     }
 
 
-    exerciseDetail = () => {
-        axios.get(`/api/admin/exerciseDetail/${this.state.exerciseId}`).then((response) => {
+    userDetail = () => {
+        axios.get(`/api/admin/user/${this.state.selectedUserId}`).then((response) => {
             this.setState({
                 user: {
                     name: response.data.name,
@@ -66,40 +75,41 @@ class AdminUserProfile extends Component {
     render() {
 
         return (
+        
             <div className="inputs-wrapper">
                 <MyTextField
                     label="Name"
-                    // value={values.name}
+                    value={this.state.user.name}
                     onChange={handleChange('name')}
                     margin="normal"
                 />
                 <MyTextField
                     label="Pronouns (ex.: she/her/hers)"
-                    // value={values.pronouns}
+                    value={this.state.user.pronouns}
                     onChange={handleChange('pronouns')}
                     margin="normal"
                 />
                 <MyTextField
                     label="Phone"
-                    // value={values.phone}
+                    value={this.state.user.phone}
                     onChange={handleChange('phone')}
                     margin="normal"
                 />
                 <MyTextField
                     label="Email"
-                    // value={values.email}
+                    value={this.state.user.email}
                     onChange={handleChange('email')}
                     margin="normal"
                 />
                 <MyTextField
                     label="Emergency Contact Name"
-                    // value={values.emergencyContactName}
+                    value={this.state.user.emergency_contact_name}
                     onChange={handleChange('emergencyContactName')}
                     margin="normal"
                 />
                 <MyTextField
                     label="Emergency Contact Phone"
-                    // value={values.emergencyContactPhone}
+                    value={this.state.user.emergency_contact_phone}
                     onChange={handleChange('emergencyContactPhone')}
                     margin="normal"
                 />
@@ -107,7 +117,7 @@ class AdminUserProfile extends Component {
                     id="date"
                     label="Date of Birth"
                     type="date"
-                    defaultValue="2017-05-24"
+                    value={this.state.user.age}
                     onChange={handleChange('dateOfBirth')}
                     InputLabelProps={{
                         shrink: true,
@@ -123,6 +133,8 @@ class AdminUserProfile extends Component {
                         Cancel
             </Button>
                 </div>
+
+
             </div>
         );
     }
