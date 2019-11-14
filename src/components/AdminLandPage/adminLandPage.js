@@ -72,7 +72,7 @@ class AdminLandPage extends Component {
         
         this.props.dispatch({ type: 'ACCESS_USER_INFO', payload: event.target.value });
         // this.props.dispatch({ type: 'ACCESS_USER_PROFILE', payload: event})
-        this.props.history.push(`/adminviewuser/${event.target.value.id}`);
+        this.props.history.push(`/adminviewuser/${event.target.value}`);
 
     }
 

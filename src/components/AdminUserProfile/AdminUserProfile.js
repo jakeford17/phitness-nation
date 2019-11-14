@@ -27,6 +27,42 @@ const handleSubmit = event => {
 
 
 class AdminUserProfile extends Component {
+
+    state = {
+
+        selectedUserId: this.props.match.params.id,
+        user: {
+            name: '',
+            phone: '',
+            email: '',
+            emergency_contact_name: '',
+            emergency_contact_phone: '',
+            age: '',
+            pronouns:''
+        }
+
+    }
+
+
+    exerciseDetail = () => {
+        axios.get(`/api/admin/exerciseDetail/${this.state.exerciseId}`).then((response) => {
+            this.setState({
+                user: {
+                    name: response.data.name,
+                    phone: response.data.phone,
+                    email: response.data.email,
+                    emergency_contact_name: response.data.emergency_contact_name,
+                    emergency_contact_phone: response.data.emergency_contact_phone,
+                    age: response.data.age,
+                    pronouns: response.data.pronouns,
+                }
+            });
+        }).catch((error) => {
+            console.log('Error adding exercise', error)
+        });
+    }
+
+
     render() {
 
         return (
