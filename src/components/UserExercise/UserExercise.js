@@ -68,9 +68,14 @@ class UserExercise extends Component {
     }
 
     handleSubmit = () => {
-        console.log('submitting the following data:', this.state)
-        // props.dispatch({ type: 'POST_GOAL', payload: values });
-        this.handleClose()
+        this.props.dispatch({ type: 'UPDATE_EXERCISE_WORKOUTS', payload:{
+            id: this.state.exerciseId,
+            completed_reps: this.state.repsAchieved,
+            completed_sets: this.state.setsAchieved,
+            completed_weight: this.state.weightAchieved,
+            feedback: this.state.feedback }});
+        this.handleClick();
+        this.handleClose();
     }
 
     handleWeightChange = (name, value) => {
@@ -177,7 +182,7 @@ class UserExercise extends Component {
             <button onClick={(props) => this.handleBack(props)}>BACK</button>
             <button onClick={this.handleClickOpen}>NEXT</button>
                 <Dialog open={this.state.feedbackOpen} onClose={this.handleClose}>
-                                <DialogTitle id="form-dialog-title">How did this exercise feel?</DialogTitle>
+                                <DialogTitle id="form-dialog-title">How did this exercise pheel?</DialogTitle>
                                 <DialogContent>
                                     <Radio
                                         checked={this.state.feedback === 1}
@@ -185,8 +190,6 @@ class UserExercise extends Component {
                                         value="1"
                                         color="default"
                                         name="radio-button-demo"
-                                        label="1"
-                                        labelPlacement="bottom"
                                     />
                                     <label>1</label>
                                     <Radio
