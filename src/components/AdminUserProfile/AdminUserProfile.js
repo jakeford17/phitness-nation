@@ -20,9 +20,7 @@ const MyTextField = styled(TextField)({
 });
 
 
-const handleChange = name => event => {
-    // setValues({ ...values, [name]: event.target.value });
-};
+
 
 const handleSubmit = event => {
     console.log('the user info to change is:', )
@@ -31,6 +29,13 @@ const handleSubmit = event => {
 
 class AdminUserProfile extends Component {
 
+    handleChange = (event, propertyName)  => {
+        this.setState({
+            user: {
+                [propertyName]: event.target.value
+            }
+        });
+    };
 
     componentDidMount() {
         this.userDetail();
@@ -80,37 +85,37 @@ class AdminUserProfile extends Component {
                 <MyTextField
                     label="Name"
                     value={this.state.user.name}
-                    onChange={handleChange('name')}
+                    onChange={(event)=> this.handleChange(event , 'name')}
                     margin="normal"
                 />
                 <MyTextField
                     label="Pronouns (ex.: she/her/hers)"
                     value={this.state.user.pronouns}
-                    onChange={handleChange('pronouns')}
+                    onChange={(event) => this.handleChange(event , 'pronouns')}
                     margin="normal"
                 />
                 <MyTextField
                     label="Phone"
                     value={this.state.user.phone}
-                    onChange={handleChange('phone')}
+                    onChange={(event) => this.handleChange(event ,'phone')}
                     margin="normal"
                 />
                 <MyTextField
                     label="Email"
                     value={this.state.user.email}
-                    onChange={handleChange('email')}
+                    onChange={(event) => this.handleChange(event ,'email')}
                     margin="normal"
                 />
                 <MyTextField
                     label="Emergency Contact Name"
                     value={this.state.user.emergency_contact_name}
-                    onChange={handleChange('emergencyContactName')}
+                    onChange={(event) => this.handleChange(event ,'emergencyContactName')}
                     margin="normal"
                 />
                 <MyTextField
                     label="Emergency Contact Phone"
                     value={this.state.user.emergency_contact_phone}
-                    onChange={handleChange('emergencyContactPhone')}
+                    onChange={(event) => this.handleChange(event ,'emergencyContactPhone')}
                     margin="normal"
                 />
                 <MyTextField
@@ -118,7 +123,7 @@ class AdminUserProfile extends Component {
                     label="Date of Birth"
                     type="date"
                     value={this.state.user.age}
-                    onChange={handleChange('dateOfBirth')}
+                    onChange={() => this.state.handleChange('dateOfBirth')}
                     InputLabelProps={{
                         shrink: true,
                     }}

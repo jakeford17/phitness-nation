@@ -97,6 +97,7 @@ export default connect(mapStateToProps)(function TextFields(props) {
                 Cancel
             </Button>
             </div>
+
          </div>
     );
 })
