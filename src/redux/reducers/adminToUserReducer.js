@@ -10,7 +10,7 @@ const adminToUserReducer = (state = responses, action) => {
 const adminEditUserReducer = (state = {}, action) =>{
   switch(action.type){
     case 'SET_ADMIN_EDIT_USER':
-      return action.payload[0]
+      return action.payload
     default:
       return state
   }
