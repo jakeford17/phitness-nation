@@ -88,14 +88,12 @@ export default connect(mapStateToProps)(function TextFields(props) {
                 }}
             />
             <div className="save-buttons">
-            <Button variant="contained" color="primary" onClick={handleSubmit}>
-                Save Changes
-            </Button>
-            </div>
-            <div className="save-buttons">
-            <Button variant="contained" color="secondary">
-                Cancel
-            </Button>
+            <button onClick={handleSubmit}>
+                SAVE CHANGES
+            </button>
+            <button>
+                CANCEL
+            </button>
             </div>
 
          </div>

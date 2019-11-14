@@ -97,7 +97,7 @@ class App extends Component {
             />
             <ProtectedRoute
               exact
-              path="/summary"
+              path="/summary/:id"
               component={WorkoutSummary}
             />
             <ProtectedRoute

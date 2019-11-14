@@ -22,7 +22,9 @@ class Profile extends Component {
             <div className="placeholder-wrapper">
                 <img className="placeholder" src={Placeholder}></img>
             </div>
+            <div>
             <UserTabs/>
+                </div>
         </>
         )
     }
