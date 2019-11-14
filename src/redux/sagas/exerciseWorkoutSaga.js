@@ -15,7 +15,6 @@ function* fetchExerciseWorkouts(action){
 function* updateExerciseWorkouts(action){
     try{
         yield axios.put('/api/exerciseWorkouts', action.payload)
-        yield put ({ type: 'FETCH_EXERCISE_WORKOUTS' })
     }catch (error) {
         console.log('UPDATE EXERCISE WORKOUTS ERROR')
     }

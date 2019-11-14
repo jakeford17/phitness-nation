@@ -73,7 +73,7 @@ class UserExercise extends Component {
             completed_reps: this.state.repsAchieved,
             completed_sets: this.state.setsAchieved,
             completed_weight: this.state.weightAchieved,
-            feedback: this.state.feedback }});
+            feedback: this.state.feedback}});
         this.handleClick();
         this.handleClose();
     }
