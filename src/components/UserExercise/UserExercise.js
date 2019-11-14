@@ -4,6 +4,7 @@ import { styled } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import { flexbox } from '@material-ui/system';
 import Slider from '@material-ui/core/Slider';
+import { ProgressBar } from 'react-bootstrap';
 
 const MySlider = styled(Slider)({
     color: '#3d6363',
@@ -39,19 +40,16 @@ class UserExercise extends Component {
     handleWeightChange = (name, value) => {
         let newWeight = parseInt(value.target.innerText)
         this.setState({ ...this.state, [name]: newWeight});
-        console.log('the new state is:', this.state)
     };
 
     handleRepsChange = (name, value) => {
         let newReps = parseInt(value.target.innerText)
         this.setState({ ...this.state, [name]: newReps });
-        console.log('the new state is:', this.state)
     };
 
     handleSetsChange = (name, value) => {
         let newSets = parseInt(value.target.innerText)
         this.setState({ ...this.state, [name]: newSets });
-        console.log('the new state is:', this.state)
     };
 
     handleClick = (props) => {
@@ -139,10 +137,12 @@ class UserExercise extends Component {
                         // valueLabelDisplay="on"
                         />
                         </div>
-                 < br /> <br />
+            <div className="exercise-buttons-wrapper">
             <button onClick={(props) => this.handleBack(props)}>BACK</button>
-                        <button onClick={(props) => this.handleClick(props)}>NEXT</button> <br /> <br />
-                PROGRESS BAR
+            <button onClick={(props) => this.handleClick(props)}>NEXT</button>
+            </div>
+                        <ProgressBar now={((this.state.exerciseOrder-1) / (this.props.reduxState.exerciseWorkouts.exerciseWorkoutReducer.length)*100)} />
+                        <p>You are on exercise {this.state.exerciseOrder} out of {this.props.reduxState.exerciseWorkouts.exerciseWorkoutReducer.length}.</p>
                 </>
                     )
                 })}
