@@ -30,18 +30,35 @@ class  WorkoutsPage extends Component {
     return (
       <div>
         <h1>Your Workouts For Week {this.props.match.params.id}</h1>
+        <h2>Incomplete:</h2>
         {this.props.reduxState.workouts.workoutsReducer.map((workout) => {
-          if (workout.week == this.props.match.params.id){
+          if (workout.week == this.props.match.params.id && workout.complete == false){
           return (
+            <>
             <MyCard className="workout-weeks" onClick={(props) => this.props.history.push(`/preview/${workout.id}`)}>
               <div>
                 <h4>Workout {workout.id}</h4>
               </div>
             </MyCard>
+            </>
           )
           }
-        })
-        }
+        })}
+
+        <h2>Complete:</h2>
+        {this.props.reduxState.workouts.workoutsReducer.map((workout) => {
+          if (workout.week == this.props.match.params.id && workout.complete == true) {
+            return (
+              <>
+                <MyCard className="workout-weeks" onClick={(props) => this.props.history.push(`/preview/${workout.id}`)}>
+                  <div>
+                    <h4>Workout {workout.id}</h4>
+                  </div>
+                </MyCard>
+              </>
+            )
+          }
+        })}
       </div>
     );
   }

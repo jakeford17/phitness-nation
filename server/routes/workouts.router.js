@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 });
 //update workouts router, send: { workout id: int, feedback: int }
 router.put('/', (req, res) =>{
-    let queryText = 'UPDATE "workouts" SET "feedback" = $1 WHERE "id" = $2;';
+    let queryText = 'UPDATE "workouts" SET "feedback" = $1, "complete" = true WHERE "id" = $2;';
     let queryInfo = [ req.body.feedback, req.body.id ];
     pool.query(queryText, queryInfo)
         .then(() =>{

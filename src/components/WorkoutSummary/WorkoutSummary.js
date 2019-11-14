@@ -56,6 +56,7 @@ class WorkoutSummary extends Component {
 
   handleSubmit = () => {
     console.log('handling submit')
+    this.props.dispatch({ type: 'UPDATE_WORKOUTS', payload: {id: this.props.match.params.id, feedback: this.state.feedback}})
   }
 
   render() {
