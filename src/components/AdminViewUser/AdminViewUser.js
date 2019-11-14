@@ -6,20 +6,19 @@ import { connect } from 'react-redux';
 
 class AdminViewUser extends Component {
     componentDidMount() {
-        this.props.dispatch({ type: 'FETCH_USER' })
+        this.props.dispatch({ type: 'ADMIN_FETCH_USER', payload: this.props.match.params.id })
     }
-
-    goToUserProfile = () => {
-        this.props.history.push(`/adminuserprofile/${this.props.match.params.id}`);
-
+    goEditUser = (id) =>{
+        this.props.history.push(`/admin/edituser/${id}`)
     }
 
     render() {
-        let value = 'test'
         return (
             <>
             <div className="placeholder-wrapper">
-                    <img onClick={() => this.goToUserProfile()} className="placeholder" src={Placeholder}></img>
+
+                <img onClick={() => this.goEditUser(this.props.match.params.id)} className="placeholder" src={Placeholder}></img>
+
             </div>
                 <AdminViewUserTabs />
 
@@ -27,9 +26,8 @@ class AdminViewUser extends Component {
         )
     }
 }
-
-const mapStateToProps = reduxStore => ({
-    reduxStore
+const mapStateToProps = reduxState => ({
+    reduxState,
 });
 
 export default connect(mapStateToProps)(AdminViewUser);
