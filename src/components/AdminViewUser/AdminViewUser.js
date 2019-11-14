@@ -2,23 +2,34 @@ import React, { Component } from 'react';
 import AdminViewUserTabs from '../AdminViewUserTabs/AdminViewUserTabs';
 import './AdminViewUser.css';
 import Placeholder from './Placeholder-Woman-img-1.jpg';
+import { connect } from 'react-redux';
 
 class AdminViewUser extends Component {
-    // componentDidMount() {
-    //     this.props.dispatch({ type: 'FETCH_USER' })
-    // }
+    componentDidMount() {
+        this.props.dispatch({ type: 'FETCH_USER' })
+    }
+
+    goToUserProfile = () => {
+        this.props.history.push(`/adminuserprofile/${this.props.match.params.id}`);
+
+    }
 
     render() {
         let value = 'test'
         return (
             <>
             <div className="placeholder-wrapper">
-                <img onClick={() => alert("Direct to User's Information/Edit User Info")} className="placeholder" src={Placeholder}></img>
+                    <img onClick={() => this.goToUserProfile()} className="placeholder" src={Placeholder}></img>
             </div>
-            <AdminViewUserTabs/>
+                <AdminViewUserTabs />
+
         </>
         )
     }
 }
 
-export default AdminViewUser;
+const mapStateToProps = reduxStore => ({
+    reduxStore
+});
+
+export default connect(mapStateToProps)(AdminViewUser);

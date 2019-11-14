@@ -35,6 +35,7 @@ import AddExercise from '../AddExercise/AddExercise';
 import AdminAddUser from '../AdminAddUser/AdminAddUser';
 import ExerciseDetail from '../ExerciseDetail/ExerciseDetail';
 import DropDrawer from '../DropDrawer/DropDrawer';
+import AdminUserProfile from '../AdminUserProfile/AdminUserProfile';
 
 class App extends Component {
   componentDidMount() {
@@ -137,6 +138,11 @@ class App extends Component {
             <ProtectedRoute
               path="/adminviewuser/:id"
               component={AdminViewUser}
+              exact
+            />
+            <ProtectedRoute
+              path="/adminuserprofile/:id"
+              component={AdminUserProfile}
               exact
             />
             <ProtectedRoute
