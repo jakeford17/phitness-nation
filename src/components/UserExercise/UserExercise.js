@@ -1,6 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { styled } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import { flexbox } from '@material-ui/system';
+import Slider from '@material-ui/core/Slider';
 
+const MySlider = styled(Slider)({
+    color: '#3d6363',
+})
+
+const MyCard = styled(Card)({
+    background: '#d2d2d4',
+    border: 0,
+    borderRadius: 3,
+    // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    // // color: 'white',
+    // height: 60,
+    width: "100%",
+    padding: 15,
+    margin: 5,
+    fontSize: 24,
+    display: flexbox,
+    textAlign: "center",
+});
 
 
 class UserExercise extends Component {
@@ -54,11 +76,47 @@ class UserExercise extends Component {
                 {this.props.reduxState.exerciseWorkouts.exerciseWorkoutReducer.map((exercise) => {
                     if (exercise.id == this.state.exerciseId)
                     return (<>
+                    <MyCard>
                             <h1>{exercise.name}</h1>
-                                <h2>Weight:</h2> {exercise.assigned_weight}
-                                < h2 > Reps / Duration:</h2> {exercise.assigned_reps}
-                    < h2 > Instructor Notes</h2 > {exercise.tips}< br /> <br />
-        SLIDERS WITH PHIL PRESET VALUES HERE < br /> <br />
+                                <h5>Weight: {exercise.assigned_weight} |
+                                Reps / Duration: {exercise.assigned_reps} |
+                                Sets: {exercise.assigned_sets}</h5>
+                    < h3 > Instructor Notes:</h3 > {exercise.tips}
+                    </MyCard>
+                    <div className="exercise-feedback">
+                    <h2>How did you do?</h2>
+                        Weight: <MySlider
+                            defaultValue={exercise.assigned_weight}
+                            aria-labelledby="discrete-slider"
+                            valueLabelDisplay="auto"
+                            step={((exercise.assigned_weight)/5)}
+                            marks
+                            min={0}
+                            max={(exercise.assigned_weight*1.5)}
+                            // valueLabelDisplay="on"
+                        />
+                        Reps / Duration: <MySlider
+                            defaultValue={exercise.assigned_reps}
+                            aria-labelledby="discrete-slider"
+                            valueLabelDisplay="auto"
+                            step={1}
+                            marks
+                            min={0}
+                            max={(exercise.assigned_reps * 1.5)}
+                        // valueLabelDisplay="on"
+                        />
+                        Sets: <MySlider
+                            defaultValue={exercise.assigned_sets}
+                            aria-labelledby="discrete-slider"
+                            valueLabelDisplay="auto"
+                            step={1}
+                            marks
+                            min={0}
+                            max={(exercise.assigned_sets * 1.5)}
+                        // valueLabelDisplay="on"
+                        />
+                        </div>
+                 < br /> <br />
             <button onClick={(props) => this.handleBack(props)}>BACK</button>
                         <button onClick={(props) => this.handleClick(props)}>NEXT</button> <br /> <br />
                 PROGRESS BAR
