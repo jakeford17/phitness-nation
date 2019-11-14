@@ -15,7 +15,7 @@ class AdminViewUser extends Component {
     }
 
     goEditUser = () => {
-        this.props.history.push(`/adminuserprofile/${this.state.selectedUserId}`);
+        this.props.history.push(`/admin/edituser/${this.state.selectedUserId}`);
     }
 
     render() {
