@@ -43,6 +43,7 @@ router.post('/logout', (req, res) => {
 router.put('/', (req, res) =>{
   let queryText = `UPDATE "user" SET "username" = $1, "pronouns" = $2, "phone" = $3, "email" = $4, "emergency_contact_name" = $5, "emergency_contact_phone" = $6, "age" = $7 WHERE "id" = $8;`
   let queryInfo = [req.body.username, req.body.pronouns, req.body.phone, req.body.email, req.body.emergencyContactName, req.body.emergencyContactPhone, req.body.dateOfBirth, req.body.id ];
+
   pool.query(queryText, queryInfo)
       .then(() =>{
           res.sendStatus(200);
@@ -51,4 +52,31 @@ router.put('/', (req, res) =>{
           console.log('PUT USER INFO ERROR:', error);
       })
 })
+
+//req.body is an array with one just index (the user's id)
+router.put('/reactivate', (req, res) =>{
+  console.log("req: ", req.body);
+  let userid = req.body;
+  let queryText = `UPDATE "user" SET "active" = true WHERE id = $1`
+  let queryValues = [userid[0]]
+  pool.query(queryText, queryValues)
+      .then(() =>{
+          res.sendStatus(200);
+      }).catch((error) =>{
+          res.sendStatus(500);
+          console.log('REACTIVATE USER INFO ERROR:', error);
+      })
+})
+
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+  const queryText = `DELETE FROM "user" WHERE "id" = $1;`;
+  pool.query(queryText, [req.params.id])
+      .then((result) => {
+          res.sendStatus(200);
+      }).catch((err) => {
+          console.log(err);
+          res.sendStatus(500);
+      })
+})
+
 module.exports = router;

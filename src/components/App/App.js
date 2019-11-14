@@ -23,7 +23,7 @@ import WorkoutPreview from '../WorkoutPreview/WorkoutPreview';
 import WeeksPage from '../WeeksPage/weeksPage';
 import Test from '../testRoutesPage/testRoutesPage';
 import Archived from '../Archived/Archived';
-
+import AdminEditUser from '../AdminEditUser/AdminEditUser';
 
 import UserProfile from '../UserProfile/UserProfile';
 import AdminViewUser from '../AdminViewUser/AdminViewUser';
@@ -35,6 +35,7 @@ import AddExercise from '../AddExercise/AddExercise';
 import AdminAddUser from '../AdminAddUser/AdminAddUser';
 import ExerciseDetail from '../ExerciseDetail/ExerciseDetail';
 import DropDrawer from '../DropDrawer/DropDrawer';
+import AdminUserProfile from '../AdminUserProfile/AdminUserProfile';
 
 class App extends Component {
   componentDidMount() {
@@ -81,7 +82,7 @@ class App extends Component {
             />
             <ProtectedRoute
               exact
-              path="/exercise"
+              path="/exercise/:id"
               component={UserExercise}
             />
             <ProtectedRoute
@@ -91,13 +92,18 @@ class App extends Component {
             />
             <ProtectedRoute
               exact
-              path="/preview"
+              path="/preview/:id"
               component={WorkoutPreview}
             />
             <ProtectedRoute
               exact
-              path="/summary"
+              path="/summary/:id"
               component={WorkoutSummary}
+            />
+            <ProtectedRoute
+              exact
+              path="/admin/edituser/:id"
+              component={AdminEditUser}
             />
             {/* This route is to show all the routes to the user
             */}
@@ -139,6 +145,11 @@ class App extends Component {
             <ProtectedRoute
               path="/adminviewuser/:id"
               component={AdminViewUser}
+              exact
+            />
+            <ProtectedRoute
+              path="/adminuserprofile/:id"
+              component={AdminUserProfile}
               exact
             />
             <ProtectedRoute

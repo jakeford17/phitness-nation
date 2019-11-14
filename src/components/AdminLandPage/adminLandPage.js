@@ -30,9 +30,20 @@ const styles = {
 class AdminLandPage extends Component {
 
     state = {
+        clientId:'',
         UsertoExercise: true,
         listUser: [],
-        listExercises: []
+        listExercises: [],
+        selecteduser: {
+            name: '',
+            pronouns: '',
+            phone: '',
+            email: '',
+            emergencyContactName: '',
+            emergencyContactPhone: '',
+            dateOfBirth: ''
+            
+        }
     }
 
 
@@ -40,6 +51,10 @@ class AdminLandPage extends Component {
         this.listUsers();
         this.listExercises();
     }
+
+   
+
+
 
     //TOGGLE betwen tabs: List of workouts and users
     toggleTab = (toggle) => {
@@ -53,7 +68,10 @@ class AdminLandPage extends Component {
             ...this.state.clientID,
             clientID: event.target.value
         })
-        this.props.dispatch({ type: 'ACCESS_USER_INFO', payload: event.target.value })
+
+        
+        this.props.dispatch({ type: 'ACCESS_USER_INFO', payload: event.target.value });
+        // this.props.dispatch({ type: 'ACCESS_USER_PROFILE', payload: event})
         this.props.history.push(`/adminviewuser/${event.target.value}`);
 
     }
@@ -148,12 +166,15 @@ class AdminLandPage extends Component {
                     <div>
                         <h1>User List</h1>
                         {this.state.listUser.map((user) => {
-                            return (
-                                <div key={user.id}>
-                                    <p>{user.name}</p><p>{user.age}</p>
-                                    <button className="clientCard" onClick={this.fetchClientID} value={user.id} >{user.name}</button>
-                                </div>
-                            );
+                            if (user.active === true) {
+                                return (
+                                    <div key={user.id}>
+                                        <p>{user.name}<br/>
+                                        <button className="clientCard" onClick={this.fetchClientID} value={user.id} >USER PROFILE</button>
+                                        </p>
+                                    </div>
+                                );
+                            }
                         })}
                         <Fab style={styles.palette} aria-label="Add" onClick={() => this.props.history.push('/adminadduser')}>
                             <AddIcon color={styles.palette.color} size="large" />
