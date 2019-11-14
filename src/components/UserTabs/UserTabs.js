@@ -47,7 +47,7 @@ function a11yProps(index) {
 
 const useStyles = makeStyles(theme => ({
     root: {
-        backgroundColor: theme.palette.background.paper,
+        backgroundColor: '#d2d2d4',
         width: "100%",
     },
 }));
@@ -71,10 +71,10 @@ export default function FullWidthTabs() {
                 <Tabs
                     value={value}
                     onChange={handleChange}
-                    indicatorColor="primary"
-                    textColor="primary"
+                    textColor="inherit"
                     variant="fullWidth"
                     aria-label="full width tabs example"
+                    indicatorColor="inherit"
                 >
                     <Tab label="INFO" {...a11yProps(0)} icon={<ContactPhoneIcon />}/>
                     <Tab label="GOALS" {...a11yProps(1)} icon={<TrendingUpIcon />}/>
