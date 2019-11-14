@@ -30,12 +30,33 @@ class UserExercise extends Component {
     state = {
         exerciseId: 0,
         workoutId: 0,
-        exerciseOrder: 0
+        exerciseOrder: 0,
+        weightAchieved: 0,
+        repsAchieved: 0,
+        setsAchieved: 0
     }
+
+    handleWeightChange = (name, value) => {
+        let newWeight = parseInt(value.target.innerText)
+        this.setState({ ...this.state, [name]: newWeight});
+        console.log('the new state is:', this.state)
+    };
+
+    handleRepsChange = (name, value) => {
+        let newReps = parseInt(value.target.innerText)
+        this.setState({ ...this.state, [name]: newReps });
+        console.log('the new state is:', this.state)
+    };
+
+    handleSetsChange = (name, value) => {
+        let newSets = parseInt(value.target.innerText)
+        this.setState({ ...this.state, [name]: newSets });
+        console.log('the new state is:', this.state)
+    };
 
     handleClick = (props) => {
         this.props.history.push(`/exercise/${this.state.workoutId}-${this.state.exerciseId + 1}-${this.state.exerciseOrder + 1}`);
-        this.setState({
+        this.setState({...this.state,
             exerciseId: this.state.exerciseId += 1,
             workoutId: this.state.workoutId,
             exerciseOrder: this.state.exerciseOrder +=1
@@ -49,7 +70,7 @@ class UserExercise extends Component {
             else {
                 this.props.history.push(`/exercise/${this.state.workoutId}-${this.state.exerciseId - 1}-${this.state.exerciseOrder - 1}`)
             }
-        this.setState({
+        this.setState({...this.state,
             exerciseId: this.state.exerciseId -= 1,
             workoutId: this.state.workoutId,
             exerciseOrder: this.state.exerciseOrder -= 1
@@ -61,8 +82,7 @@ class UserExercise extends Component {
         let workoutId = parseInt(workoutExerciseIds[0])
         let exerciseId = parseInt(workoutExerciseIds[1])
         let exerciseOrder = parseInt(workoutExerciseIds[2])
-        console.log(workoutId, exerciseId)
-        this.setState({
+        this.setState({...this.state,
             exerciseId: exerciseId,
             workoutId: workoutId,
             exerciseOrder: exerciseOrder
@@ -93,6 +113,7 @@ class UserExercise extends Component {
                             marks
                             min={0}
                             max={(exercise.assigned_weight*1.5)}
+                            onChange={(value) => this.handleWeightChange('weightAchieved', value)}
                             // valueLabelDisplay="on"
                         />
                         Reps / Duration: <MySlider
@@ -103,6 +124,7 @@ class UserExercise extends Component {
                             marks
                             min={0}
                             max={(exercise.assigned_reps * 1.5)}
+                            onChange={(value) => this.handleRepsChange('repsAchieved', value)}
                         // valueLabelDisplay="on"
                         />
                         Sets: <MySlider
@@ -113,6 +135,7 @@ class UserExercise extends Component {
                             marks
                             min={0}
                             max={(exercise.assigned_sets * 1.5)}
+                                onChange={(value) => this.handleSetsChange('setsAchieved', value)}
                         // valueLabelDisplay="on"
                         />
                         </div>
