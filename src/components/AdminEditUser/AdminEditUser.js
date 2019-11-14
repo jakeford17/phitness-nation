@@ -1,19 +1,15 @@
-import React from 'react';
-import 'date-fns';
-import clsx from 'clsx';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import { styled } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import { connect } from 'react-redux';
+import 'date-fns';
 
 const mapStateToProps = reduxState => ({
     reduxState,
 });
 
 const MyTextField = styled(TextField)({
-    // background: '#F1EDBF',
-    // border: 0,
-    // borderRadius: 3,
     padding: 10,
     margin: 5,
     textAlign: "center"
@@ -22,13 +18,13 @@ const MyTextField = styled(TextField)({
 export default connect(mapStateToProps)(function TextFields(props) {
 
     const [values, setValues] = React.useState({
-        name: props.reduxState.user.name,
-        pronouns: props.reduxState.user.pronouns,
-        phone: props.reduxState.user.phone,
-        email: props.reduxState.user.email,
-        emergencyContactName: props.reduxState.user.emergency_contact_name,
-        emergencyContactPhone: props.reduxState.user.emergency_contact_phone,
-        dateOfBirth: props.reduxState.user.age
+        name: props.reduxState.adminToUserReducer.adminEditUserReducer.name,
+        pronouns: props.reduxState.adminToUserReducer.adminEditUserReducer.pronouns,
+        phone: props.reduxState.adminToUserReducer.adminEditUserReducer.phone,
+        email: props.reduxState.adminToUserReducer.adminEditUserReducer.email,
+        emergencyContactName: props.reduxState.adminToUserReducer.adminEditUserReducer.emergency_contact_name,
+        emergencyContactPhone: props.reduxState.adminToUserReducer.adminEditUserReducer.emergency_contact_phone,
+        dateOfBirth: props.reduxState.adminToUserReducer.adminEditUserReducer.age
     });
 
     const handleChange = name => event => {
@@ -36,8 +32,12 @@ export default connect(mapStateToProps)(function TextFields(props) {
     };
 
     const handleSubmit = event => {
-        console.log('the user info to change is:', values)
+        props.dispatch({ type: 'UPDATE_USER', payload: {id: props.match.params.id, ...values}})
+        // props.history.push('/adminviewuser/' + this.props.match.params.id)
     };
+    const handleCancel = even => {
+        // props.history.push('/adminviewuser/' + this.props.match.params.id)
+    }
 
     return (
         <div className="inputs-wrapper">
@@ -88,14 +88,15 @@ export default connect(mapStateToProps)(function TextFields(props) {
                 }}
             />
             <div className="save-buttons">
-            <button onClick={handleSubmit}>
-                SAVE CHANGES
-            </button>
-            <button>
-                CANCEL
-            </button>
+            <Button variant="contained" color="primary" onClick={handleSubmit}>
+                Save Changes
+            </Button>
             </div>
-
+            <div className="save-buttons">
+            <Button variant="contained" color="secondary">
+                Cancel
+            </Button>
+            </div>
          </div>
     );
 })

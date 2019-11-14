@@ -11,7 +11,7 @@ function* fetchWorkouts(){
         console.log('FETCH GOALS ERROR:', error);
     }
 }
-//user update workouts send: { workout id: int, feedback: int }
+//user update workouts send: { workout id: int, feedback: "String" }
 function* updateWorkouts(action){
     try{
         yield axios.put('/api/workouts', action.payload)
@@ -27,10 +27,14 @@ function* updateWorkouts(action){
 //admin post workouts send: { user id: int, week: int }
 function* postWorkouts(action){
     try{
-        yield axios.post('/api/admin/workouts', action.payload)
-        yield put ({ type: 'ADMIN_FETCH_WORKOUTS', payload: connect.id() })
+        yield axios.post('/api/admin/workouts', {user_id: action.payload.user_id, week: action.payload.week})
+        const response = yield axios.get('/api/admin/workouts/exerciseWorkouts/' + action.payload.user_id + action.payload.week)
+        console.log(response.data)
+        for(let i = 0; i<action.payload.exercises.length; i++){
+            yield axios.post('/api/admin/exerciseWorkouts', {workout_id: response.data[0].id, exercise: action.payload.exercises[i]})
+        }
     }catch (error) {
-        console.log('POST WORKOUTS ERROR', error);
+        console.log('POST WORKOUTS ERROR', error)
     }
 }
 //admin get workouts saga send the id of the user you want workouts for

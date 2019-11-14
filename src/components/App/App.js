@@ -23,7 +23,7 @@ import WorkoutPreview from '../WorkoutPreview/WorkoutPreview';
 import WeeksPage from '../WeeksPage/weeksPage';
 import Test from '../testRoutesPage/testRoutesPage';
 import Archived from '../Archived/Archived';
-
+import AdminEditUser from '../AdminEditUser/AdminEditUser';
 
 import UserProfile from '../UserProfile/UserProfile';
 import AdminViewUser from '../AdminViewUser/AdminViewUser';
@@ -97,8 +97,13 @@ class App extends Component {
             />
             <ProtectedRoute
               exact
-              path="/summary"
+              path="/summary/:id"
               component={WorkoutSummary}
+            />
+            <ProtectedRoute
+              exact
+              path="/admin/edituser/:id"
+              component={AdminEditUser}
             />
             {/* This route is to show all the routes to the user
             */}
