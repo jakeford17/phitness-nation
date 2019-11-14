@@ -14,7 +14,7 @@ class AdminViewUser extends Component {
         this.props.dispatch({ type: 'ADMIN_FETCH_USER', payload: this.props.match.params.id })
     }
 
-    goToUserProfile = () => {
+    goEditUser = () => {
         this.props.history.push(`/adminuserprofile/${this.state.selectedUserId}`);
     }
 
