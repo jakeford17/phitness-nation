@@ -11,7 +11,7 @@ function* fetchWorkouts(){
         console.log('FETCH GOALS ERROR:', error);
     }
 }
-//user update workouts send: { workout id: int, feedback: int }
+//user update workouts send: { workout id: int, feedback: "String" }
 function* updateWorkouts(action){
     try{
         yield axios.put('/api/workouts', action.payload)
