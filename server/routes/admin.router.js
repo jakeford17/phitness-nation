@@ -146,15 +146,16 @@ router.get('/injuries/:id', (req, res) =>{
 //Admin POST request to post workouts for a user, send: { user_id: int, week: int }
 router.post('/workouts', (req, res) =>{
     const queryText = 'INSERT INTO "workouts" ("user_id", "week") VALUES ( $1, $2 );';
-    const queryInfo = [ req.body.id, req.body.week ]
+    const queryInfo = [ req.body.user_id, req.body.week ]
     pool.query(queryText, queryInfo)
         .then(() =>{
             res.sendStatus(201);
         }).catch((error) =>{
             res.sendStatus(500)
+            console.log('POST WORKOUTS ERROR:', error)
         })
 })
-//Admin GET request to get workouts for a user send the user_id
+//Admin GET request to get workouts for a user send the user_id in the URL
 router.get('/workouts/:id', (req, res) =>{
     const queryText = `SELECT * FROM "workouts" WHERE "user_id" = $1;`
     pool.query(queryText, [req.params.id])
@@ -163,6 +164,19 @@ router.get('/workouts/:id', (req, res) =>{
         }).catch((error) =>{
             console.log('ERROR GETTING LIST OF WORKOUTS FOR A USER:', error);
             res.sendStatus(500);
+        })
+})
+//admin GET request to get the id of the workout that was just created with the post request, send{ user_id: int, week: int }
+router.get('/workouts/exerciseWorkouts/:id', (req, res) =>{
+    const queryInfo = req.params.id.split('')
+    const queryText = 'SELECT "workouts".id FROM "workouts" WHERE "user_id" = $1 AND "week" = $2;';
+    pool.query(queryText, [queryInfo[0], queryInfo[1]])
+        .then((result) =>{
+            res.send(result.rows)
+            console.log(result.rows)
+        }).catch((error) =>{
+            res.sendStatus(500)
+            console.log('ERROR GETTING WORKOUT ID:', error )
         })
 })
 //Admin PUT request to update workouts for a user, send: {week number: int, id of workout: int }
@@ -191,7 +205,7 @@ router.put('/workouts', (req, res) =>{
 //admin POST request to add exercise workouts for a user, send: { workout_id: int, exercise_id: int, assigned_sets: int, assigned_reps: int, assigned_weight: int, tips: "String" }
 router.post('/exerciseWorkouts', (req, res) =>{
     const queryText = 'INSERT INTO "exercise_workouts" ("workout_id", "exercise_id", "assigned_sets", "assigned_reps", "assigned_weight", "tips") VALUES ( $1, $2, $3, $4, $5, $6);';
-    const queryInfo = [ req.body.workout_id, req.body.exercise_id, req.body.assigned_sets, req.body.assigned_reps, req.body.assigned_weight, req.body.tips ]
+    const queryInfo = [ req.body.workout_id, req.body.exercise.exercise_id, req.body.exercise.assigned_sets, req.body.exercise.assigned_reps, req.body.exercise.assigned_weight, req.body.exercise.tips ]
     pool.query(queryText, queryInfo)
         .then(() =>{
             res.sendStatus(201)

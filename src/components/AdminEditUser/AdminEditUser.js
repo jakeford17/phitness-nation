@@ -32,11 +32,11 @@ export default connect(mapStateToProps)(function TextFields(props) {
     };
 
     const handleSubmit = event => {
-        props.dispatch({ })
-        props.history.push('/adminviewuser/' + this.props.match.params.id)
+        props.dispatch({ type: 'UPDATE_USER', payload: {id: props.match.params.id, ...values}})
+        // props.history.push('/adminviewuser/' + this.props.match.params.id)
     };
     const handleCancel = even => {
-        props.history.push('/adminviewuser/' + this.props.match.params.id)
+        // props.history.push('/adminviewuser/' + this.props.match.params.id)
     }
 
     return (

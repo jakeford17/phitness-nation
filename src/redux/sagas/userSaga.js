@@ -24,6 +24,7 @@ function* fetchUser() {
     console.log('User get request failed', error);
   }
 }
+//saga to update user information, send: { id: int, name: "String", pronouns: "String", phone: "String", email: "String", emergency contact name: "String", emergency contact phone: "String", age/DOB: "String"}
 function* updateUserSaga(action){
   try{
     yield axios.put('/api/user', action.payload)
@@ -33,6 +34,7 @@ function* updateUserSaga(action){
   }
 
 }
+//admin fetch user saga, automatically gets the user based off the id in the adminToUserReducer
 function* adminFetchUser(){
   try{
     console.log('HI FROM CONNECT JS:', connect.id())
