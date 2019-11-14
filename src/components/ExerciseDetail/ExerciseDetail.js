@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import swal from 'sweetalert';
-// import swal from 'sweetalert';
-//import axios from 'axios';
-// import Fab from '@material-ui/core/Fab';
-// import AddIcon from '@material-ui/icons/Add';
 
 
 class ExerciseDetail extends Component {
@@ -27,6 +23,7 @@ class ExerciseDetail extends Component {
         this.exerciseDetail();
     }
 
+    //getting exercise details to display
     exerciseDetail = () => {
         axios.get(`/api/admin/exerciseDetail/${this.state.exerciseId}`).then((response) => {
             this.setState({
@@ -44,6 +41,7 @@ class ExerciseDetail extends Component {
         });
     }
 
+    //saving edit changes in the local state
     exerciseInputChange = (event, propertyName) => {
         this.setState ({
             exercise: {
@@ -61,6 +59,7 @@ class ExerciseDetail extends Component {
 
     }
 
+    //Saving changes made when editing exercise's detail
     saveExerciseChanges = () => {
         axios.put(`/api/admin/exerciseDetail/${this.state.exerciseId}`, this.state.exercise).then((response) => {
             swal("Saved!", "Edit Exercise Complete");

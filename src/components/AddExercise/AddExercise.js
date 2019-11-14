@@ -3,11 +3,6 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import swal from 'sweetalert';
 
-//import axios from 'axios';
-// import Fab from '@material-ui/core/Fab';
-// import AddIcon from '@material-ui/icons/Add';
-
-
 class AddExercise extends Component {
 
     state = {
@@ -43,9 +38,6 @@ class AddExercise extends Component {
             [propertyName]: event.target.value
         })
     }
-
-   
-
 
     render() {
 

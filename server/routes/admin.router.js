@@ -168,18 +168,8 @@ router.put('/workouts', (req, res) =>{
             console.log('ERROR UPDATING ADMIN WORKOUTS:', error)
         })
 })
-//admin GET request to get exercise workouts for a user send user id as a URL param
-// router.get('/exerciseWorkouts/:id', (req, res) =>{
-//     const queryText = `SELECT "exercise_workouts".* FROM "exercise_workouts" JOIN "workouts" ON "exercise_workouts".workout_id = "workouts".id WHERE "workouts".user_id = $1;`
-//     pool.query(queryText, [req.params.id])
-//         .then((result) =>{
-//             res.send((result.rows))
-//         }).catch((error) =>{
-//             console.log('ERROR GETTING LIST OF EXERCISE WORKOUTS FOR A USER:', error);
-//             res.sendStatus(500);
-//         })
-// })
-//admin POST request to add exercise workouts for a user, send: { workout_id: int, exercise_id: int, assigned_sets: int, assigned_reps: int, assigned_weight: int, tips: "String" }
+
+//Admin POST request to add exercise workouts for a user, send: { workout_id: int, exercise_id: int, assigned_sets: int, assigned_reps: int, assigned_weight: int, tips: "String" }
 router.post('/exerciseWorkouts', (req, res) =>{
     const queryText = 'INSERT INTO "exercise_workouts" ("workout_id", "exercise_id", "assigned_sets", "assigned_reps", "assigned_weight", "tips") VALUES ( $1, $2, $3, $4, $5, $6);';
     const queryInfo = [ req.body.workout_id, req.body.exercise_id, req.body.assigned_sets, req.body.assigned_reps, req.body.assigned_weight, req.body.tips ]
@@ -191,7 +181,7 @@ router.post('/exerciseWorkouts', (req, res) =>{
             console.log('ERROR POSTING EXERCISE WORKOUTS:', error)
         })
 })
-//admin PUT request to exercise workouts for a user, send: { id: int, assigned_sets: int, assigned_reps: int, assigned_weight: int, tips: "String" }
+//Admin PUT request to exercise workouts for a user, send: { id: int, assigned_sets: int, assigned_reps: int, assigned_weight: int, tips: "String" }
 router.put('/exerciseWorkouts', (req, res) =>{
     const queryText = 'UPDATE "exercise_workouts" SET "assigned_sets" = $1, "assigned_reps" = $2, "assigned_weight" = $3, "tips" = $4 WHERE "id" = $5;';
     const queryInfo = [ req.body.assigned_sets, req.body.assigned_reps, req.body.assigned_weight, req.body.tips, req.body.id ]
@@ -225,22 +215,7 @@ router.get('/data/:id', (req, res) =>{
             console.log('ERROR GETTING COMPLIANCE DATA:', error)
         })
 })
-/* function that takes in all the exercise_workouts of a user and spits out an array of weeks that contain info
-input: [exercise workout 1, exercise workout 2, exercise workout 3]
-output: 
 
-    [
-        week1: {
-            complete: 3,
-            total: 5
-        },
-        week2: {
-            complete: 5,
-            total: 10
-        }
-    ]
-
-*/
 function determineCompliance(array){
     let compliance = []
     let maxWeek = 0;
