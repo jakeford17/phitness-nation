@@ -32,6 +32,19 @@ export default connect(mapStateToProps)(function TextFields(props) {
         dateOfBirth: props.reduxState.user.age
     });
 
+    const discardChanges = () => {
+        setValues({
+            id: props.reduxState.user.id,
+            name: props.reduxState.user.name,
+            pronouns: props.reduxState.user.pronouns,
+            phone: props.reduxState.user.phone,
+            email: props.reduxState.user.email,
+            emergencyContactName: props.reduxState.user.emergency_contact_name,
+            emergencyContactPhone: props.reduxState.user.emergency_contact_phone,
+            dateOfBirth: props.reduxState.user.age
+        })
+    }
+
     const handleChange = name => event => {
         setValues({ ...values, [name]: event.target.value });
     };
@@ -93,7 +106,7 @@ export default connect(mapStateToProps)(function TextFields(props) {
             <button onClick={handleSubmit}>
                 SAVE CHANGES
             </button>
-            <button>
+            <button onClick={discardChanges}>
                 CANCEL
             </button>
             </div>
