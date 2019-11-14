@@ -75,7 +75,7 @@ router.put('/exerciseDetail/:id', (req, res) => {
 //PUT REQUEST for ADMIN to archive exercises
 router.put('/exerciseArchive/:id', (req, res) => {
     const exerciseId = req.params.id;
-    const active = false;
+    const active = req.body.active;
     const queryText = `UPDATE "exercises" SET "active" = $1 WHERE "id" = $2;`;
     pool.query(queryText, [active, exerciseId])
     .then(() => {

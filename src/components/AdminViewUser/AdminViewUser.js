@@ -11,13 +11,17 @@ class AdminViewUser extends Component {
     goEditUser = (id) =>{
         this.props.history.push(`/admin/edituser/${id}`)
     }
+
     render() {
         return (
             <>
             <div className="placeholder-wrapper">
+
                 <img onClick={() => this.goEditUser(this.props.match.params.id)} className="placeholder" src={Placeholder}></img>
+
             </div>
-            <AdminViewUserTabs/>
+                <AdminViewUserTabs />
+
         </>
         )
     }
