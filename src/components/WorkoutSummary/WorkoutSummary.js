@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import { styled } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import { flexbox } from '@material-ui/system';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const MyCard = styled(Card)({
   background: '#d2d2d4',
@@ -26,13 +30,32 @@ class WorkoutSummary extends Component {
   }
 
   state = {
-    feedback: 'Add any overall workout feedback you have here: what felt good, what felt not so good, what you liked, etc.'
+    feedback: 'Add any overall workout feedback you have here: what felt good, what felt not so good, what you liked, etc.',
+    confirmOpen: false
   }
+
+  handleClickOpen = () => {
+    this.setState({
+      ...this.state,
+      confirmOpen: true
+    })
+  };
+
+  handleClose = () => {
+    this.setState({
+      ...this.state,
+      confirmOpen: false
+    })
+  };
 
   handleChange = (event) => {
     this.setState({
       feedback: event.target.value
     })
+  }
+
+  handleSubmit = () => {
+    console.log('handling submit')
   }
 
   render() {
@@ -62,7 +85,22 @@ class WorkoutSummary extends Component {
           onChange={this.handleChange}
         />
         </div>
-        <button onClick ={() => alert("Submit Completed Workout to DB...Add an alert to make sure before submitting?")}>SUBMIT WORKOUT</button>
+        <div className="submit-workout-btn">
+          <button onClick={this.handleClickOpen}>SUBMIT WORKOUT</button>
+          <Dialog open={this.state.confirmOpen} onClose={this.handleClose}>
+            <DialogTitle id="form-dialog-title">Are you sure you would like to submit this workout?</DialogTitle>
+            <DialogContent>
+            </DialogContent>
+            <DialogActions>
+              <button onClick={this.handleClose}>
+                CANCEL
+                                        </button>
+              <button onClick={this.handleSubmit}>
+               YES
+                                        </button>
+            </DialogActions>
+          </Dialog>
+        </div>
       </div>
     );
   }

@@ -11,7 +11,7 @@ font-family: 'PT Sans Narrow', sans-serif;
     background-repeat: no-repeat;
     background-color: #313b47;
     padding-top: 5%;
-    width: 100%;
+    width: 103%;
     padding-right: 5%;
 }
 
@@ -117,4 +117,11 @@ input {
     display: flex;
     justify-content: center;
     padding: 3%;
+}
+
+.submit-workout-btn {
+    display: flex;
+    justify-content: center;
+    padding: 3%;
+    font-size: 24px;
 }
