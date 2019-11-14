@@ -8,6 +8,7 @@ import workoutsSaga from './workoutsSaga';
 import exerciseWorkoutSaga from './exerciseWorkoutSaga';
 import addUserSaga from './addUserSaga';
 import deleteUserSaga from './deleteUserSaga';
+import reactivateUserSaga from './reactivateUserSaga';
 
 
 // rootSaga is the primary saga.
@@ -27,6 +28,7 @@ export default function* rootSaga() {
     workoutsSaga(),
     exerciseWorkoutSaga(),
     addUserSaga(), 
-    deleteUserSaga()
+    deleteUserSaga(),
+    reactivateUserSaga()
   ]);
 }

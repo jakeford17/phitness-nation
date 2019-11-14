@@ -42,6 +42,27 @@ class ArchivedUsers extends Component {
         })
     };
 
+    reactivateUser = (id) => {
+        this.props.dispatch({ type: 'REACTIVATE_USER', payload: [id] });
+        this.listUsers();
+        this.listUsers();
+    }
+
+    handleReactivateUser = (userid) => {
+        confirmAlert({
+            message: `Are you sure you want to reactivate this user?`,
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => this.reactivateUser(userid)
+                },
+                {
+                    label: 'No',
+                }
+            ]
+        })
+    };
+
     render() {
         return (
             <div>
@@ -53,7 +74,7 @@ class ArchivedUsers extends Component {
                             return (
                                 <div key={user.id}>
                                     Name: {user.name} <br/>DOB: {user.age}<br/>Phone: {user.phone}<br/>
-                                    <button>Reactivate</button> <button onClick={() => this.handleDelete(user.id)}>Permanently Delete</button><br/><br/>
+                                    <button onClick={() => this.handleReactivateUser(user.id)}>Reactivate</button> <button onClick={() => this.handleDelete(user.id)}>Permanently Delete</button><br/><br/>
                                 </div>
                             );
                             }
