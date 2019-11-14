@@ -166,12 +166,15 @@ class AdminLandPage extends Component {
                     <div>
                         <h1>User List</h1>
                         {this.state.listUser.map((user) => {
-                            return (
-                                <div key={user.id}>
-                                    <p>{user.name}</p><p>{user.age}</p>
-                                    <button className="clientCard" onClick={this.fetchClientID} value={user.id} >{user.name}</button>
-                                </div>
-                            );
+                            if (user.active === true) {
+                                return (
+                                    <div key={user.id}>
+                                        <p>{user.name}<br/>
+                                        <button className="clientCard" onClick={this.fetchClientID} value={user.id} >USER PROFILE</button>
+                                        </p>
+                                    </div>
+                                );
+                            }
                         })}
                         <Fab style={styles.palette} aria-label="Add" onClick={() => this.props.history.push('/adminadduser')}>
                             <AddIcon color={styles.palette.color} size="large" />
