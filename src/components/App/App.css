@@ -90,3 +90,31 @@ input {
     font-size: 24px;
     padding-bottom: 5%;
 }
+
+.workout-summary {
+    padding: 5%;
+}
+
+.workout-summary-h3 {
+   text-align: center;
+}
+
+.workout-summary-h1 {
+    font-size: 36px;
+}
+
+.workout-summary-h4 {
+    font-family: 'Roboto Slab', serif;
+}
+
+.workout-feedback {
+    height: 100%;
+    width: 100%;
+    padding: 3%;
+}
+
+.workout-feedback-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 3%;
+}

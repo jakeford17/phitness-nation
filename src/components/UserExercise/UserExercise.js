@@ -94,12 +94,21 @@ class UserExercise extends Component {
     };
 
     handleClick = (props) => {
+        if (this.state.exerciseOrder == this.props.reduxState.exerciseWorkouts.exerciseWorkoutReducer.length){
+            this.props.history.push(`/summary/${this.state.workoutId}`)
+        }
+        else {
         this.props.history.push(`/exercise/${this.state.workoutId}-${this.state.exerciseId + 1}-${this.state.exerciseOrder + 1}`);
         this.setState({...this.state,
             exerciseId: this.state.exerciseId += 1,
             workoutId: this.state.workoutId,
-            exerciseOrder: this.state.exerciseOrder +=1
+            exerciseOrder: this.state.exerciseOrder +=1,
+            weightAchieved: 0,
+            repsAchieved: 0,
+            setsAchieved: 0,
+            feedback: 0
         })
+    }
     }
 
     handleBack = (props) => {
