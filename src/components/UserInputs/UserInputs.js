@@ -22,6 +22,7 @@ const MyTextField = styled(TextField)({
 export default connect(mapStateToProps)(function TextFields(props) {
 
     const [values, setValues] = React.useState({
+        id: props.reduxState.user.id,
         name: props.reduxState.user.name,
         pronouns: props.reduxState.user.pronouns,
         phone: props.reduxState.user.phone,
@@ -37,6 +38,7 @@ export default connect(mapStateToProps)(function TextFields(props) {
 
     const handleSubmit = event => {
         console.log('the user info to change is:', values)
+        props.dispatch({ type: 'UPDATE_USER', payload: values})
     };
 
     return (
