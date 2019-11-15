@@ -10,6 +10,7 @@ import Box from '@material-ui/core/Box';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -47,8 +48,11 @@ const useStyles = makeStyles(theme => ({
         width: 500,
     },
 }));
+const mapStateToProps = reduxState => ({
+    reduxState,
+});
 
-export default function FullWidthTabs() {
+export default  connect(mapStateToProps)(function FullWidthTabs(props) {
     const classes = useStyles();
     const theme = useTheme();
     const [value, setValue] = React.useState(0);
@@ -85,7 +89,7 @@ export default function FullWidthTabs() {
                     {/* <UserInputs /> */}
                     USER WORKOUTS
                     <br/>
-                    <Link to= '/admin/addworkout'>
+                    <Link to= {`/admin/addworkout/${props.match.params.id}`}>
                         <button>Add Workout</button>
                     </Link>
                 </TabPanel>
@@ -94,6 +98,7 @@ export default function FullWidthTabs() {
                     USER DATA
                 </TabPanel>
             </SwipeableViews>
+            {JSON.stringify(props)}
         </div>
     );
-}
+})

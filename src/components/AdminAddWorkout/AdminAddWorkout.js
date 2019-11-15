@@ -22,7 +22,7 @@ const MyTextField = styled(TextField)({
 
 class AdminAddWorkout extends Component {
     state = {
-        user_id: this.props.reduxState.adminToUserReducer.adminToUserReducer,
+        user_id: this.props.match.params.id,
         week: 1,
         //exercise_id, assigned_reps, assigned_sets, assigned_weight, tips
         exercises: [
@@ -58,7 +58,7 @@ class AdminAddWorkout extends Component {
         }, 1000)
     }
     getWeeks = () =>{
-        this.props.dispatch({ type: 'FETCH_WEEKS', payload: {id: this.props.reduxState.adminToUserReducer.adminToUserReducer}})
+        this.props.dispatch({ type: 'FETCH_WEEKS', payload: {id: this.state.user_id}})
     }
     handleSelectChange = (value) => {
         if(value != null){

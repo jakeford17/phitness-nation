@@ -272,7 +272,7 @@ router.get('/weeks/:id', (req, res) =>{
             res.send(result.rows)
         }).catch((error) =>{
             res.sendStatus(500)
-            console.log('ERROR GETTING COMPLIANCE DATA:', error)
+            console.log('ERROR GETTING WEEKS DATA:', error)
         })
 })
 
