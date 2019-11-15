@@ -4,6 +4,25 @@ import axios from 'axios';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { withRouter } from 'react-router-dom';
+import { styled } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import { flexbox } from '@material-ui/system';
+
+const MyCard = styled(Card)({
+    background: '#d2d2d4',
+    border: 0,
+    borderRadius: 3,
+    // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    // // color: 'white',
+    height: 100,
+    width: 150,
+    padding: 10,
+    margin: 5,
+    fontSize: 16,
+    display: flexbox,
+    textAlign: "center",
+    fontFamily: 'PT Sans Narrow'
+});
 
 const styles = {
     palette: {
@@ -57,14 +76,15 @@ class AdminUserList extends Component {
     render() {
         return (
             <div>
-                <h1>User List</h1>
                 {this.state.listUser.map((user) => {
                     if (user.active === true) {
                         return (
                             <div key={user.id}>
+                                <MyCard>
                                 <p>{user.name} ({user.username})<br />
                                     <button className="clientCard" onClick={this.fetchClientID} value={user.id} >USER PROFILE</button>
                                 </p>
+                                </MyCard>
                             </div>
                         );
                     }

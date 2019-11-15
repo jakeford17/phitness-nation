@@ -42,8 +42,8 @@ function a11yProps(index) {
 
 const useStyles = makeStyles(theme => ({
     root: {
-        backgroundColor: theme.palette.background.paper,
-        width: 500,
+        backgroundColor: '#84c8b9',
+        width: "100%",
     },
 }));
 
@@ -66,8 +66,8 @@ export default function FullWidthTabs() {
                 <Tabs
                     value={value}
                     onChange={handleChange}
-                    indicatorColor="primary"
-                    textColor="primary"
+                    indicatorColor="inherit"
+                    textColor="inherit"
                     variant="fullWidth"
                     aria-label="full width tabs example"
                 >
