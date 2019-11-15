@@ -6,7 +6,7 @@ class AdminLandPage extends Component {
     render() {
         return (
             <>
-            <AdminLandTabs/>
+                <AdminLandTabs />
             </>
         )
     }
@@ -57,7 +57,7 @@ class AdminLandPage extends Component {
 //             emergencyContactName: '',
 //             emergencyContactPhone: '',
 //             dateOfBirth: ''
-            
+
 //         }
 //     }
 
@@ -67,7 +67,7 @@ class AdminLandPage extends Component {
 //         this.listExercises();
 //     }
 
-   
+
 
 
 
@@ -84,7 +84,7 @@ class AdminLandPage extends Component {
 //             clientID: event.target.value
 //         })
 
-        
+
 //         this.props.dispatch({ type: 'ACCESS_USER_INFO', payload: event.target.value });
 //         // this.props.dispatch({ type: 'ACCESS_USER_PROFILE', payload: event})
 //         this.props.history.push(`/adminviewuser/${event.target.value}`);
@@ -216,7 +216,7 @@ class AdminLandPage extends Component {
 //                         <Fab style={styles.palette} aria-label="Add" onClick={() => this.fabFunction()}>
 //                             <AddIcon color={styles.palette.color} size="large" />
 //                         </Fab>
-                       
+
 //                     </div>}
 //             </div>
 //         );

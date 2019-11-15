@@ -50,10 +50,6 @@ class AdminUserList extends Component {
     }
 
     fetchClientID = (event) => {
-        this.setState({
-            ...this.state.clientID,
-            clientID: event.target.value
-        })
         this.props.dispatch({ type: 'ACCESS_USER_INFO', payload: event.target.value });
         this.props.history.push(`/adminviewuser/${event.target.value}`);
     }
@@ -61,19 +57,18 @@ class AdminUserList extends Component {
     render() {
         return (
             <div>
-            <h1>User List</h1>
+                <h1>User List</h1>
                 {this.state.listUser.map((user) => {
                     if (user.active === true) {
                         return (
                             <div key={user.id}>
-                                <p>{user.name}<br/>
-                                <button className="clientCard" onClick={this.fetchClientID} value={user.id} >USER PROFILE</button>
+                                <p>{user.name}<br />
+                                    <button className="clientCard" onClick={this.fetchClientID} value={user.id} >USER PROFILE</button>
                                 </p>
                             </div>
                         );
                     }
                 })}
-                {/* <Fab style={styles.palette} aria-label="Add" onClick={() => this.props.history.push('/adminadduser')}> */}
                 <Fab style={styles.palette} aria-label="Add" onClick={() => this.addUserBtn()}>
                     <AddIcon color={styles.palette.color} size="large" />
                 </Fab>

@@ -8,7 +8,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import AdminUserList from '../AdminUserList/AdminUserList'
-// import AdminExerciseList from '../AdminExerciseList/AdminExerciseList'
+import AdminExerciseList from '../AdminExerciseList/AdminExerciseList'
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -84,8 +84,7 @@ export default function FullWidthTabs() {
                     <AdminUserList />
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
-                    {/* <AdminExerciseList /> */}
-                    LIST OF EXERCISES
+                    <AdminExerciseList />
                 </TabPanel>
             </SwipeableViews>
         </div>
