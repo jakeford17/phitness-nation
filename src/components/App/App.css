@@ -202,3 +202,8 @@ input {
     background-color: #3d6363;
     color: #d2d2d4
 }
+
+.add-exercise-wrapper {
+    display: flex;
+    justify-content: center;
+}

@@ -111,9 +111,11 @@ class AdminExerciseList extends Component {
                         })}
                     </tbody>
                 </table>
+                <div className="add-exercise-wrapper">
                 <Fab style={styles.palette} aria-label="Add" onClick={() => this.handleNewExerciseOpen()}>
                     <AddIcon color={styles.palette.color} size="large" />
                 </Fab>
+                </div>
                 <Dialog open={this.state.newExerciseOpen} onClose={this.handleNewExerciseClose}>
                     <DialogTitle id="form-dialog-title"><h3>Add New Exercise:</h3></DialogTitle>
                     <DialogContent>
