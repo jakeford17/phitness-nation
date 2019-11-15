@@ -2,10 +2,18 @@ import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 import connect from './connect';
 
-
+function* fetchExercises(action){
+    try{
+        const response = yield axios.get(`/api/admin/exercise/${action.payload.active}`)
+        yield put ({ type: 'SET_EXERCISES', payload: response.data })
+    }catch(error){
+        console.log('FETCH EXERCISES ERROR:', error)
+    }
+}
 function* postExercise (action){
     try{
         yield axios.post(`/api/exerciseWorkouts/addExercise`, action.payload)
+        yield put({ type: 'FETCH_EXERCISES', payload: {active: true }})
     }catch (error) {
         console.log('POST EXERCISE WORKOUTS ERROR:', error);
     }
@@ -64,6 +72,7 @@ function* workoutsSaga(){
     yield takeLatest('DELETE_EXERCISE_WORKOUTS', deleteExerciseWorkouts)
     yield takeLatest('FETCH_COMPLIANCE', getComplianceData)
     yield takeLatest('ADD_EXERCISE', postExercise);
+    yield takeLatest('FETCH_EXERCISES', fetchExercises)
 }
 
 export default workoutsSaga;

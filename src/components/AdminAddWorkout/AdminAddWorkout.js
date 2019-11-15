@@ -31,7 +31,7 @@ class AdminAddWorkout extends Component {
 
         ],
         tempExercise: {
-            exercise_id: '',
+            exercise_id: 0,
             assigned_reps: '',
             assigned_sets: '',
             assigned_weight: '',
@@ -42,19 +42,26 @@ class AdminAddWorkout extends Component {
         this.getExercises();
     }
     getExercises = () =>{
-        const active = true
-        axios.get(`/api/admin/exercise/${active}`).then((response) => {
-            response.data.map((exercise) =>{
+        this.props.dispatch({ type: 'FETCH_EXERCISES', payload: {active: true}})
+        setTimeout(() =>{
+            this.props.reduxState.exerciseWorkouts.exerciseReducer.map((exercise) =>{
+                console.log('mapping')
                 this.setState({
                     listExercises: [...this.state.listExercises, {value: exercise.id, label: exercise.name }]
                 })
             })
-        })
+        }, 1000)
     }
     handleSelectChange = (value, actionMeta) => {
-        this.setState({
-            tempExercise: {...this.state.tempExercise, exercise_id: value.value }
-        })
+        if(value != null){
+            this.setState({
+                tempExercise: {...this.state.tempExercise, exercise_id: value.value }
+            })
+        }else{
+            this.setState({
+                tempExercise: {...this.state.tempExercise, exercise_id: 0 }
+            })
+        }
       };
     
     handleCreate = (exerciseName) => {
@@ -82,11 +89,11 @@ class AdminAddWorkout extends Component {
             }
         ]})
         this.setState({ tempExercise: {
-            exercise_id: null,
-            assigned_reps: null,
-            assigned_sets: null,
-            assigned_weight: null,
-            tips: null
+            exercise_id: '',
+            assigned_reps: '',
+            assigned_sets: '',
+            assigned_weight: '',
+            tips: ''
         }})
     }
     emailToggle = () =>{
@@ -96,6 +103,7 @@ class AdminAddWorkout extends Component {
         return (
             <>
             {JSON.stringify(this.state)}
+            {JSON.stringify(this.props.reduxState)}
             <CreatableSelect
                 isClearable
                 onChange={this.handleSelectChange}
