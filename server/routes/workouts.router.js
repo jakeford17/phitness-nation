@@ -6,7 +6,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 
 //get workouts router, automatically gets the currently logged in users workouts
 router.get('/', (req, res) => {
-    let queryText = `SELECT * FROM "workouts" WHERE user_id = $1`
+    let queryText = `SELECT * FROM "workouts" WHERE user_id = $1 ORDER BY week`
     pool.query(queryText, [req.user.id])
         .then((result) =>{
             res.send(result.rows)
@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 });
 //update workouts router, send: { workout id: int, feedback: int }
 router.put('/', (req, res) =>{
-    let queryText = 'UPDATE "workouts" SET "feedback" = $1 WHERE "id" = $2;';
+    let queryText = 'UPDATE "workouts" SET "feedback" = $1, "complete" = true WHERE "id" = $2;';
     let queryInfo = [ req.body.feedback, req.body.id ];
     pool.query(queryText, queryInfo)
         .then(() =>{
