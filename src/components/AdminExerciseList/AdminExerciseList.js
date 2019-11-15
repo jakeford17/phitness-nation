@@ -68,7 +68,6 @@ class AdminExerciseList extends Component {
                                 <tr key={exercise.id}>
                                     <td onClick={() => this.exerciseDescription(exercise)}>{exercise.name}</td>
                                     <td>
-                                        {/* <button onClick={() => this.deleteAlert(exercise)}>Delete</button> */}
                                         <button onClick={() => this.archiveExercise(exercise, false)}>Archive</button>
                                     </td>
                                 </tr>

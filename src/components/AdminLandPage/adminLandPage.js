@@ -12,6 +12,7 @@ class AdminLandPage extends Component {
     }
 }
 
+//OLD CODE FROM BEFORE TABS WERE CREATED
 // import React, { Component } from 'react';
 // import { connect } from 'react-redux';
 // import axios from 'axios';

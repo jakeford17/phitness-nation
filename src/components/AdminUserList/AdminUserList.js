@@ -62,7 +62,7 @@ class AdminUserList extends Component {
                     if (user.active === true) {
                         return (
                             <div key={user.id}>
-                                <p>{user.name}<br />
+                                <p>{user.name} ({user.username})<br />
                                     <button className="clientCard" onClick={this.fetchClientID} value={user.id} >USER PROFILE</button>
                                 </p>
                             </div>
