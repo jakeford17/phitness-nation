@@ -14,7 +14,7 @@ const MyCard = styled(Card)({
     borderRadius: 3,
     // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
     // // color: 'white',
-    height: 100,
+    height: 125,
     width: 150,
     padding: 10,
     margin: 5,
@@ -26,7 +26,7 @@ const MyCard = styled(Card)({
 
 const styles = {
     palette: {
-        backgroundColor: "navy",
+        backgroundColor: "teal",
         color: "white"
     },
     fab: {
@@ -75,23 +75,25 @@ class AdminUserList extends Component {
 
     render() {
         return (
-            <div>
+            <div className="clients-wrapper">
                 {this.state.listUser.map((user) => {
                     if (user.active === true) {
                         return (
-                            <div key={user.id}>
-                                <MyCard>
-                                <p>{user.name} ({user.username})<br />
-                                    <button className="clientCard" onClick={this.fetchClientID} value={user.id} >USER PROFILE</button>
+                                <MyCard className="client-card-wrapper">
+                                <p><h1 className="client-header1">{user.name} ({user.username})</h1>
+                                    <div className="client-profile-wrapper">
+                                        <button className="clientCard" onClick={this.fetchClientID} value={user.id} >USER PROFILE</button>
+                                    </div>
                                 </p>
                                 </MyCard>
-                            </div>
                         );
                     }
                 })}
+                <div className="add-client-wrapper">
                 <Fab style={styles.palette} aria-label="Add" onClick={() => this.addUserBtn()}>
                     <AddIcon color={styles.palette.color} size="large" />
                 </Fab>
+            </div>
             </div>
         );
     }

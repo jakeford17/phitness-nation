@@ -125,3 +125,42 @@ input {
     padding: 3%;
     font-size: 24px;
 }
+
+.clients-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.add-client-wrapper {
+    width: 150px;
+    padding: 10px;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.client-header1 {
+    font-family: 'Roboto Slab', serif;
+    font-size: 18px;
+}
+
+.clientCard {
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 1px;
+    margin: "3%";
+}
+
+.client-profile-wrapper {
+    display: flex;
+    align-content: bottom;
+    justify-content: center;
+}
+
+.client-card-wrapper {
+    display: flex;
+    justify-content: center;
+    align-content: flex-end;
+}
