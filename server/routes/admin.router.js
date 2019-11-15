@@ -5,6 +5,8 @@ const pool = require('../modules/pool');
 // const userStrategy = require('../strategies/user.strategy');
 const router = express.Router();
 
+const nodemailer = require('nodemailer')
+
 //Admin GET request to grab list of user from database to display on dashboard
 router.get('/', (req, res) => {
     const queryText = `SELECT * FROM "user";`;
@@ -272,8 +274,40 @@ router.get('/weeks/:id', (req, res) =>{
             res.send(result.rows)
         }).catch((error) =>{
             res.sendStatus(500)
-            console.log('ERROR GETTING COMPLIANCE DATA:', error)
+            console.log('ERROR GETTING WEEKS DATA:', error)
         })
 })
+router.get('/email/:id', (req, res) =>{
+    const queryText = 'SELECT * FROM "user" WHERE "id" = $1;';
+    pool.query(queryText, [req.params.id])
+        .then((result) =>{
+            let to = result.rows[0]
+            emailSender(to).catch(console.error)
+        }).catch((error)=>{
+            console.log('SEND EMAIL ERROR:', error)
+        })
+})
+async function emailSender(user) {
 
+
+    const transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        auth: {
+            user: 'PhitnessNationEmailBot',
+            pass: 'PhitnessPhun1234'
+        }
+    });
+    let info = await transporter.sendMail({
+        from: '"Phit Nation" <phitnessnationemailbot@gmail.com>', 
+        to: `<${user.email}>`,
+        subject: 'You have a new Workout from Phil', 
+        text: `Hello, ${user.name}`, 
+        html: `<b>Hello, ${user.name}</b>`
+    })
+
+    console.log('Message sent: %s', info.messageId)
+
+    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info))
+
+}
 module.exports = router;

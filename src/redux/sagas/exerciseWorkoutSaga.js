@@ -5,7 +5,6 @@ import connect from './connect';
 
 function* fetchWeeks(action){
     try{
-        console.log(action.payload)
         const response = yield axios.get('/api/admin/weeks/' + action.payload.id)
         yield put ({ type: 'SET_WEEKS', payload: response.data })
     }catch (error) {
