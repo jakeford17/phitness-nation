@@ -39,9 +39,9 @@ class AdminExerciseList extends Component {
         newExerciseName: ''
     }
 
-    handleChange = propertyName => (event) => {
+    handleChange = (event) => {
         this.setState({
-            [propertyName]: event.target.value,
+            newExerciseName: event.target.value,
         });
     }
 
@@ -74,7 +74,12 @@ class AdminExerciseList extends Component {
     }
 
     handleSubmit = () => {
-        this.props.dispatch({ type:'ADD_EXERCISE', payload: {name: this.state.newExerciseName}})
+        this.props.dispatch({ type:'ADD_EXERCISE', payload: {name: this.state.newExerciseName}});
+        this.setState({
+            ...this.state,
+            newExerciseOpen: false
+        });
+        this.listExercises()
     }
 
     archiveExercise = (exercise, archive) => {
@@ -112,7 +117,7 @@ class AdminExerciseList extends Component {
                 <Dialog open={this.state.newExerciseOpen} onClose={this.handleNewExerciseClose}>
                     <DialogTitle id="form-dialog-title"><h3>Add New Exercise:</h3></DialogTitle>
                     <DialogContent>
-                        New exercise name: <input className="newUserInput" onChange={(e) => this.handleChange('newExerciseName')}></input>
+                        New exercise name: <input className="newUserInput" onChange={this.handleChange}></input>
                     </DialogContent>
                     <DialogActions>
                             <button onClick={this.handleNewExerciseClose}>
