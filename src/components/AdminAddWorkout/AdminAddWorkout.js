@@ -31,11 +31,11 @@ class AdminAddWorkout extends Component {
 
         ],
         tempExercise: {
-            exercise_id: null,
-            assigned_reps: null,
-            assigned_sets: null,
-            assigned_weight: null,
-            tips: null
+            exercise_id: '',
+            assigned_reps: '',
+            assigned_sets: '',
+            assigned_weight: '',
+            tips: ''
         }
     }
     componentDidMount = () =>{
@@ -56,12 +56,18 @@ class AdminAddWorkout extends Component {
             tempExercise: {...this.state.tempExercise, exercise_id: value.value }
         })
       };
-    //   handleInputChange = (inputValue: any, actionMeta: any) => {
-    //     console.group('Input Changed');
-    //     console.log(inputValue);
-    //     console.log(`action: ${actionMeta.action}`);
-    //     console.groupEnd();
-    //   };
+    
+    handleCreate = (exerciseName) => {
+    // this.setState({isLoading: true})
+    this.props.dispatch({type: 'ADD_EXERCISE', payload: {name: exerciseName}})
+    setTimeout(() => {
+        const newExercise = this.createNewExercise(exerciseName);
+        this.setState({
+            listExercises: [...this.state.listExercises, newExercise],
+        });
+    }, 1000);
+    }
+
     handleChange = (event, propertyName) =>{
         this.setState({ tempExercise: { ...this.state.tempExercise, [propertyName]: event.target.value }})
     }
@@ -93,7 +99,7 @@ class AdminAddWorkout extends Component {
             <CreatableSelect
                 isClearable
                 onChange={this.handleSelectChange}
-                onInputChange={this.handleInputChange}
+                onCreateOption ={this.handleCreate}
                 options={this.state.listExercises}
             />
             <MyTextField
