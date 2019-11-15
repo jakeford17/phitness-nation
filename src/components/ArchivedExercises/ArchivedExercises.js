@@ -5,8 +5,10 @@ import swal from 'sweetalert';
 import { styled } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import { flexbox } from '@material-ui/system';
-
-
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const MyCard = styled(Card)({
     background: '#d2d2d4',
@@ -26,18 +28,42 @@ const MyCard = styled(Card)({
 class ArchivedExercises extends Component {
 
     state = {
-        listExercises: []
+        listExercises: [],
+        deleteOpen: false,
+        exerciseToDelete: 0
     }
 
     componentDidMount() {
         this.listExercises();
     }
 
+    permanentlyDeleteExercise = (id) => {
+        console.log('the id to delete is:', id)
+        // this.props.dispatch({ type: 'DELETE_EXERCISE', payload: id });
+        // this.listExercises();
+        this.handleDeleteClose();
+    }
+
+    handleDeleteOpen = (id) => {
+        this.setState({
+            ...this.state,
+            deleteOpen: true,
+            exerciseToDelete: id
+        })
+    };
+
+    handleDeleteClose = () => {
+        this.setState({
+            ...this.state,
+            deleteOpen: false
+        })
+    };
+
     listExercises = () => {
         const active = false;
         axios.get(`/api/admin/exercise/${active}`).then((response) => {
             console.log("grabbing exercise list:", response.data)
-            this.setState({
+            this.setState({...this.state,
                 listExercises: response.data
             })
         })
@@ -65,12 +91,23 @@ class ArchivedExercises extends Component {
                                     <div key={exercise.id}>
                                         <h5 className="styled-h5">Name:</h5> {exercise.name} <br />
                                         <button className="archived-btns" onClick={() => this.reactivateExercise(exercise, true)}>REACTIVATE</button>
-                                        <button className="archived-btns" >PERMANENTLY DELETE</button><br /><br />
+                                        <button className="archived-btns" onClick={() => this.handleDeleteOpen(exercise.id)}>PERMANENTLY DELETE</button><br /><br />
                                     </div>
                                 </MyCard>
                             );
                             }
                         })}
+                    <Dialog open={this.state.deleteOpen} onClose={this.deleteClose}>
+                        <DialogTitle id="form-dialog-title"><h3>Are you sure you want to permanently delete this exercise?</h3></DialogTitle>
+                        <DialogActions>
+                            <button onClick={this.handleDeleteClose}>
+                                CANCEL
+                                        </button>
+                            <button onClick={(e) => this.permanentlyDeleteExercise(this.state.exerciseToDelete)}>
+                                YES
+                                        </button>
+                        </DialogActions>
+                    </Dialog>
                 </div>
             </div>
         );
