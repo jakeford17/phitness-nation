@@ -2,6 +2,15 @@ import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 import connect from './connect';
 
+
+function* postExercise (action){
+    try{
+        yield axios.post(`/api/exerciseWorkouts/addExercise`, action.payload)
+    }catch (error) {
+        console.log('POST EXERCISE WORKOUTS ERROR:', error);
+    }
+}
+
 //fetch exercise workouts. automatically fetches goals for the logged in user
 function* fetchExerciseWorkouts(action){
     try{
@@ -54,6 +63,7 @@ function* workoutsSaga(){
     yield takeLatest('ADMIN_UPDATE_EXERCISE_WORKOUTS', adminUpdatedExerciseWorkouts)
     yield takeLatest('DELETE_EXERCISE_WORKOUTS', deleteExerciseWorkouts)
     yield takeLatest('FETCH_COMPLIANCE', getComplianceData)
+    yield takeLatest('ADD_EXERCISE', postExercise);
 }
 
 export default workoutsSaga;

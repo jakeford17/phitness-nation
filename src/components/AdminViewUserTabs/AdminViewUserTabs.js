@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
+import { Link } from 'react-router-dom';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -83,6 +84,10 @@ export default function FullWidthTabs() {
                 <TabPanel value={value} index={0} dir={theme.direction}>
                     {/* <UserInputs /> */}
                     USER WORKOUTS
+                    <br/>
+                    <Link to= '/admin/addworkout'>
+                        <button>Add Workout</button>
+                    </Link>
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
                     {/* <UserGoals /> */}

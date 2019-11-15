@@ -24,6 +24,7 @@ import WeeksPage from '../WeeksPage/weeksPage';
 import Test from '../testRoutesPage/testRoutesPage';
 import Archived from '../Archived/Archived';
 import AdminEditUser from '../AdminEditUser/AdminEditUser';
+import AdminAddWorkout from '../AdminAddWorkout/AdminAddWorkout';
 
 import UserProfile from '../UserProfile/UserProfile';
 import AdminViewUser from '../AdminViewUser/AdminViewUser';
@@ -104,6 +105,11 @@ class App extends Component {
               exact
               path="/admin/edituser/:id"
               component={AdminEditUser}
+            />
+            <ProtectedRoute
+              exact
+              path="/admin/addworkout"
+              component={AdminAddWorkout}
             />
             {/* This route is to show all the routes to the user
             */}

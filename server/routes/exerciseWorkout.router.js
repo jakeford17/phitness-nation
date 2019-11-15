@@ -33,4 +33,18 @@ router.put('/', (req, res) =>{
             console.log('UPDATE EXERCISE WORKOUTS ERROR:', error)
         })
 })
+
+//admin add exercises into a workout
+router.post('/addExercise', (req, res) =>{
+    let queryText = `INSERT INTO "exercises" ("name") VALUES ($1);`;
+    let exerciseName = [req.body.name]
+    pool.query(queryText, exerciseName)
+        .then(() =>{
+            res.sendStatus(200);
+        }).catch((error) =>{
+            res.sendStatus(500)
+            console.log('ADD EXERCISE FROM ADMIN ERROR:', error)
+        })
+})
+
 module.exports = router;
