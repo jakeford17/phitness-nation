@@ -6,28 +6,10 @@ import AddIcon from '@material-ui/icons/Add';
 import { withRouter } from 'react-router-dom';
 import swal from 'sweetalert';
 import { styled } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import { flexbox } from '@material-ui/system';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
-const MyCard = styled(Card)({
-    background: '#d2d2d4',
-    border: 0,
-    borderRadius: 3,
-    // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-    // // color: 'white',
-    height: 125,
-    width: 150,
-    padding: 10,
-    margin: 5,
-    fontSize: 16,
-    display: flexbox,
-    textAlign: "center",
-    fontFamily: 'PT Sans Narrow'
-});
 
 const styles = {
     palette: {
@@ -53,7 +35,14 @@ class AdminExerciseList extends Component {
 
     state = {
         listExercises: [],
-        newExerciseOpen: false
+        newExerciseOpen: false,
+        newExerciseName: ''
+    }
+
+    handleChange = propertyName => (event) => {
+        this.setState({
+            [propertyName]: event.target.value,
+        });
     }
 
     componentDidMount() {
@@ -82,6 +71,10 @@ class AdminExerciseList extends Component {
                 listExercises: response.data
             })
         })
+    }
+
+    handleSubmit = () => {
+        this.props.dispatch({ type:'ADD_EXERCISE', payload: {name: this.state.newExerciseName}})
     }
 
     archiveExercise = (exercise, archive) => {
@@ -117,17 +110,17 @@ class AdminExerciseList extends Component {
                     <AddIcon color={styles.palette.color} size="large" />
                 </Fab>
                 <Dialog open={this.state.newExerciseOpen} onClose={this.handleNewExerciseClose}>
-                    <DialogTitle id="form-dialog-title"><h1>Add New Exercise:</h1></DialogTitle>
+                    <DialogTitle id="form-dialog-title"><h3>Add New Exercise:</h3></DialogTitle>
                     <DialogContent>
-                       test test
+                        New exercise name: <input className="newUserInput" onChange={(e) => this.handleChange('newExerciseName')}></input>
                     </DialogContent>
                     <DialogActions>
                             <button onClick={this.handleNewExerciseClose}>
                                 CANCEL
                                         </button>
-                            {/* <button onClick={this.handleSubmit}>
-                                YES
-                                        </button> */}
+                            <button onClick={this.handleSubmit}>
+                                ADD EXERCISE
+                                        </button>
                         </DialogActions>
                 </Dialog>
             </div>
