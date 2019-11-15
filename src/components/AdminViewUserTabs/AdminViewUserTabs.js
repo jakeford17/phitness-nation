@@ -52,7 +52,9 @@ const mapStateToProps = reduxState => ({
     reduxState,
 });
 
-export default  connect(mapStateToProps)(function FullWidthTabs(props) {
+
+export default connect(mapStateToProps)(function FullWidthTabs(props) {
+    const user_id = props.params
     const classes = useStyles();
     const theme = useTheme();
     const [value, setValue] = React.useState(0);
@@ -89,7 +91,7 @@ export default  connect(mapStateToProps)(function FullWidthTabs(props) {
                     {/* <UserInputs /> */}
                     USER WORKOUTS
                     <br/>
-                    <Link to= {`/admin/addworkout/${props.match.params.id}`}>
+                    <Link to= {`/admin/addworkout/${props.userId}`}>
                         <button>Add Workout</button>
                     </Link>
                 </TabPanel>

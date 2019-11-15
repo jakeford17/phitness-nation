@@ -74,12 +74,14 @@ class AdminAddWorkout extends Component {
     
     handleCreate = (exerciseName) => {
         this.props.dispatch({type: 'ADD_EXERCISE', payload: {name: exerciseName}})
-        setTimeout(() => {
-            const newExercise = this.createNewExercise(exerciseName);
-            this.setState({
-                listExercises: [...this.state.listExercises, newExercise],
-            });
-        }, 1000);
+        setTimeout(() =>{
+            this.setState({ listExercises: []})
+            this.props.reduxState.exerciseWorkouts.exerciseReducer.map((exercise) =>{
+                this.setState({
+                    listExercises: [...this.state.listExercises, {value: exercise.id, label: exercise.name }]
+                })
+            })
+        }, 1000)
     }
 
     handleChange = (event, propertyName) =>{
@@ -108,6 +110,17 @@ class AdminAddWorkout extends Component {
     }
     setWeek = (event) =>{
         this.setState({ week: event.target.value })
+    }
+
+    addWorkout = () => {
+        const newWorkout = {
+            user_id: this.state.user_id,
+            week: this.state.week,
+            exercises: this.state.exercises,
+            email: this.state.email
+        }
+        this.props.dispatch({ type: 'POST_WORKOUTS', payload: newWorkout })
+        this.props.history.push('/admin')
     }
     render() {
         return (
@@ -199,6 +212,11 @@ class AdminAddWorkout extends Component {
                 })}
                 </SelectDrop>
             </FormControl>
+            <Button 
+                variant="contained" 
+                onClick = {this.addWorkout}>
+                Add Workout
+            </Button>
             </>
         )
     }
