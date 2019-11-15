@@ -2,6 +2,18 @@ import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 import connect from './connect';
 
+
+function* fetchWeeks(action){
+    try{
+        console.log(action.payload)
+        const response = yield axios.get('/api/admin/weeks/' + action.payload.id)
+        yield put ({ type: 'SET_WEEKS', payload: response.data })
+    }catch (error) {
+        console.log('FETCH WEEKS ERROR:', error)
+    }
+}
+//gets all exercises that are active from the database and then sets them to a reducer
+//send: {active: Boolean}
 function* fetchExercises(action){
     try{
         const response = yield axios.get(`/api/admin/exercise/${action.payload.active}`)
@@ -10,6 +22,7 @@ function* fetchExercises(action){
         console.log('FETCH EXERCISES ERROR:', error)
     }
 }
+//adds a workout to the database and gets them afterwords. send: {name: "String"}
 function* postExercise (action){
     try{
         yield axios.post(`/api/exerciseWorkouts/addExercise`, action.payload)
@@ -73,6 +86,7 @@ function* workoutsSaga(){
     yield takeLatest('FETCH_COMPLIANCE', getComplianceData)
     yield takeLatest('ADD_EXERCISE', postExercise);
     yield takeLatest('FETCH_EXERCISES', fetchExercises)
+    yield takeLatest('FETCH_WEEKS', fetchWeeks)
 }
 
 export default workoutsSaga;

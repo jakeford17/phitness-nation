@@ -25,10 +25,19 @@ const exerciseReducer = (state = [], action) =>{
             return state;
     }
 }
+const weeksReducer = (state = [], action) =>{
+    switch(action.type) {
+        case 'SET_WEEKS':
+            return action.payload
+        default:
+            return state;
+    }
+}
 
 
 export default combineReducers({
     exerciseWorkoutReducer,
     complianceReducer,
     exerciseReducer,
+    weeksReducer,
 });
