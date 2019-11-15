@@ -14,7 +14,8 @@ const MyTextField = styled(TextField)({
     // borderRadius: 3,
     padding: 10,
     margin: 5,
-    textAlign: "center"
+    textAlign: "center",
+    fontFamily: 'PT Sans Narrow'
 });
 
 export default connect(mapStateToProps)(function TextFields(props) {

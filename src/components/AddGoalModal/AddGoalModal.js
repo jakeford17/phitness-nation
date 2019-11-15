@@ -13,6 +13,7 @@ import { styled } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import { makeStyles } from '@material-ui/core/styles';
 const mapStateToProps = reduxState => ({
     reduxState,
 });
@@ -27,6 +28,21 @@ const MySelect = styled(Select)({
     width: "75%"
 });
 
+const useStyles = makeStyles(theme => ({
+    palette: {
+        backgroundColor: "teal",
+        color: "white"
+    },
+    fab: {
+        margin: theme.spacing(1),
+        backgroundColor: "teal",
+        color: "white"
+    },
+    extendedIcon: {
+        marginRight: theme.spacing(1),
+    },
+}));
+
 const MyTextField = styled(TextField)({
     // background: '#F1EDBF',
     // border: 0,
@@ -39,6 +55,8 @@ const MyTextField = styled(TextField)({
 
 export default connect(mapStateToProps)(function FormDialog(props) {
     const [open, setOpen] = React.useState(false);
+
+    const classes = useStyles();
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -64,7 +82,7 @@ export default connect(mapStateToProps)(function FormDialog(props) {
 
     return (
         <div>
-            <Fab color="primary" onClick={handleClickOpen} size="small">
+            <Fab className={classes.fab} width="100%" onClick={handleClickOpen} size="small">
                 <AddIcon size="small"/>
             </Fab>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">

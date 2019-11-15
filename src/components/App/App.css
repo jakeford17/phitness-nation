@@ -11,7 +11,7 @@ font-family: 'PT Sans Narrow', sans-serif;
     background-repeat: no-repeat;
     background-color: #313b47;
     padding-top: 5%;
-    width: 103%;
+    width: 100%;
     padding-right: 5%;
 }
 
@@ -148,7 +148,7 @@ input {
 
 .clientCard {
     text-align: center;
-    border: 1px solid black;
+    border: 1px solid #313b47;
     border-radius: 1px;
     margin: "3%";
 }
@@ -163,4 +163,33 @@ input {
     display: flex;
     justify-content: center;
     align-content: flex-end;
+}
+
+.admin-exercises {
+    background-color: #d2d2d4;
+    width: 100%;
+    /* border: 1px solid #313b47; */
+    margin: 3%;
+    box-shadow: 0px 2px 3px rgba(0,0,0,.13) ,1px 2px 2px rgba(0,0,0,.1) , -1px -2px 2px rgba(0,0,0,.05) ;
+}
+
+.admin-exercises-tr:nth-child(even){
+    background-color: #84c8b9
+}
+
+.admin-exercises-td {
+
+    padding: 2%;
+}
+
+.archive-exercise {
+        border: 1px solid #313b47;
+        float: right;
+}
+
+.admin-exercise-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    font-family: 'PT Sans Narrow', sans-serif;
 }

@@ -49,7 +49,13 @@ const useStyles = makeStyles(theme => ({
     root: {
         backgroundColor: '#d2d2d4',
         width: "100%",
+        fontFamily: 'PT Sans Narrow'
     },
+    palette: {
+        color: 'teal',
+        textColor: 'teal',
+        indicatorColor: 'teal'
+    }
 }));
 
 export default function FullWidthTabs() {
@@ -69,6 +75,7 @@ export default function FullWidthTabs() {
         <div className={classes.root}>
             <AppBar position="static" color="default">
                 <Tabs
+                className={classes.palette}
                     value={value}
                     onChange={handleChange}
                     textColor="inherit"
@@ -76,9 +83,9 @@ export default function FullWidthTabs() {
                     aria-label="full width tabs example"
                     indicatorColor="inherit"
                 >
-                    <Tab label="INFO" {...a11yProps(0)} icon={<ContactPhoneIcon />}/>
-                    <Tab label="GOALS" {...a11yProps(1)} icon={<TrendingUpIcon />}/>
-                    <Tab label="INJURIES" {...a11yProps(2)} icon={<HealingIcon />}/>
+                    <Tab className={classes.palette}label="INFO" {...a11yProps(0)} icon={<ContactPhoneIcon className={classes.palette}/>}/>
+                    <Tab className={classes.palette} label="GOALS" {...a11yProps(1)} icon={<TrendingUpIcon className={classes.palette}/>}/>
+                    <Tab className={classes.palette} label="INJURIES" {...a11yProps(2)} icon={<HealingIcon className={classes.palette}/>}/>
                 </Tabs>
             </AppBar>
             <SwipeableViews
