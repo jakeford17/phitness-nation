@@ -2,6 +2,26 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import swal from 'sweetalert';
+import { styled } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import { flexbox } from '@material-ui/system';
+
+
+
+const MyCard = styled(Card)({
+    background: '#d2d2d4',
+    border: 0,
+    borderRadius: 3,
+    // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    // // color: 'white',
+    height: "70%",
+    width: "47%",
+    padding: 10,
+    margin: 5,
+    fontSize: 16,
+    display: flexbox,
+    fontFamily: 'PT Sans Narrow'
+});
 
 class ArchivedExercises extends Component {
 
@@ -38,15 +58,16 @@ class ArchivedExercises extends Component {
         return (
             <div>
                  <div>
-                    <h1>Archived Exercise List</h1>
-                    <h4><b><i>Turn divs into cards and add search bar</i></b></h4>
                         {this.state.listExercises.map((exercise) => {
                             if (exercise.active === false) { 
                             return (
-                                <div key={exercise.id}>
-                                    Name: {exercise.name}<br/>
-                                    <button onClick = {() => this.reactivateExercise(exercise, true)}>Reactivate</button> <button>Permanently Delete</button><br/><br/>
-                                </div>
+                                <MyCard>
+                                    <div key={exercise.id}>
+                                        <h5 className="styled-h5">Name:</h5> {exercise.name} <br />
+                                        <button className="archived-btns" onClick={() => this.reactivateExercise(exercise, true)}>REACTIVATE</button>
+                                        <button className="archived-btns" >PERMANENTLY DELETE</button><br /><br />
+                                    </div>
+                                </MyCard>
                             );
                             }
                         })}

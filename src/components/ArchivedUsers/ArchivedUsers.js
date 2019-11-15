@@ -92,7 +92,6 @@ class ArchivedUsers extends Component {
         return (
             <div>
                  <div className="archived-users-wrapper">
-                    <h4><b><i>Turn divs into cards and add search bar</i></b></h4>
                         {this.state.listUser.map((user) => {
                             if (user.active === false) { 
                             return (
