@@ -8,6 +8,10 @@ import swal from 'sweetalert';
 import { styled } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import { flexbox } from '@material-ui/system';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const MyCard = styled(Card)({
     background: '#d2d2d4',
@@ -49,16 +53,32 @@ class AdminExerciseList extends Component {
 
     state = {
         listExercises: [],
+        newExerciseOpen: false
     }
 
     componentDidMount() {
         this.listExercises();
     }
 
+    handleNewExerciseOpen = () => {
+        this.setState({
+            ...this.state,
+            newExerciseOpen: true
+        })
+    }
+
+    handleNewExerciseClose = () => {
+        this.setState({
+            ...this.state,
+            newExerciseOpen: false
+        })
+    }
+
     listExercises = () => {
         const active = true
         axios.get(`/api/admin/exercise/${active}`).then((response) => {
             this.setState({
+                ...this.state,
                 listExercises: response.data
             })
         })
@@ -93,9 +113,23 @@ class AdminExerciseList extends Component {
                         })}
                     </tbody>
                 </table>
-                <Fab style={styles.palette} aria-label="Add" onClick={() => this.fabFunction()}>
+                <Fab style={styles.palette} aria-label="Add" onClick={() => this.handleNewExerciseOpen()}>
                     <AddIcon color={styles.palette.color} size="large" />
                 </Fab>
+                <Dialog open={this.state.newExerciseOpen} onClose={this.handleNewExerciseClose}>
+                    <DialogTitle id="form-dialog-title"><h1>Add New Exercise:</h1></DialogTitle>
+                    <DialogContent>
+                       test test
+                    </DialogContent>
+                    <DialogActions>
+                            <button onClick={this.handleNewExerciseClose}>
+                                CANCEL
+                                        </button>
+                            {/* <button onClick={this.handleSubmit}>
+                                YES
+                                        </button> */}
+                        </DialogActions>
+                </Dialog>
             </div>
         )
     }
