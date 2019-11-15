@@ -207,3 +207,21 @@ input {
     display: flex;
     justify-content: center;
 }
+
+.archived-users-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.styled-h5{
+    font-family: 'Roboto Slab', serif;
+    display: inline-block;
+    font-size: 18px;
+}
+
+.archived-btns {
+    text-align: center;
+    border: 1px solid #313b47;
+    border-radius: 1px;
+    margin: 3%;
+}
