@@ -14,13 +14,13 @@ const mapStateToProps = reduxState => ({
     reduxState,
 });
 const MyCard = styled(Card)({
-    background: 'transparent',
+    background: '#84c8b9',
     border: 0,
     borderRadius: 3,
     // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
     // // color: 'white',
     // height: 60,
-    width: "30%",
+    width: "50%",
     padding: 10,
     margin: 5,
     fontSize: 16,

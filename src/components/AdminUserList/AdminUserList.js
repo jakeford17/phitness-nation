@@ -4,10 +4,29 @@ import axios from 'axios';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { withRouter } from 'react-router-dom';
+import { styled } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import { flexbox } from '@material-ui/system';
+
+const MyCard = styled(Card)({
+    background: '#d2d2d4',
+    border: 0,
+    borderRadius: 3,
+    // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    // // color: 'white',
+    height: 125,
+    width: 150,
+    padding: 10,
+    margin: 5,
+    fontSize: 16,
+    display: flexbox,
+    textAlign: "center",
+    fontFamily: 'PT Sans Narrow'
+});
 
 const styles = {
     palette: {
-        backgroundColor: "navy",
+        backgroundColor: "teal",
         color: "white"
     },
     fab: {
@@ -56,22 +75,25 @@ class AdminUserList extends Component {
 
     render() {
         return (
-            <div>
-                <h1>User List</h1>
+            <div className="clients-wrapper">
                 {this.state.listUser.map((user) => {
                     if (user.active === true) {
                         return (
-                            <div key={user.id}>
-                                <p>{user.name} ({user.username})<br />
-                                    <button className="clientCard" onClick={this.fetchClientID} value={user.id} >USER PROFILE</button>
+                                <MyCard className="client-card-wrapper">
+                                <p><h1 className="client-header1">{user.name} ({user.username})</h1>
+                                    <div className="client-profile-wrapper">
+                                        <button className="clientCard" onClick={this.fetchClientID} value={user.id} >USER PROFILE</button>
+                                    </div>
                                 </p>
-                            </div>
+                                </MyCard>
                         );
                     }
                 })}
+                <div className="add-client-wrapper">
                 <Fab style={styles.palette} aria-label="Add" onClick={() => this.addUserBtn()}>
                     <AddIcon color={styles.palette.color} size="large" />
                 </Fab>
+            </div>
             </div>
         );
     }

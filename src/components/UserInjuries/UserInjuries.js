@@ -11,29 +11,15 @@ const mapStateToProps = reduxState => ({
     reduxState,
 });
 
-const MyCard = styled(Card)({
-    background: '#F1EDBF',
-    border: 0,
-    borderRadius: 3,
-    // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-    // // color: 'white',
-    // height: 60,
-    width: "40%",
-    padding: 10,
-    margin: 5,
-    fontSize: 16,
-    display: flexbox,
-    textAlign: "center"
-});
 
 const MildInjuryCard = styled(Card)({
-    background: '#fcdf03',
+    background: '#f5cb42',
     border: 0,
     borderRadius: 3,
     // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
     // // color: 'white',
     // height: 60,
-    width: "40%",
+    width: "45%",
     padding: 10,
     margin: 5,
     fontSize: 16,
@@ -48,7 +34,7 @@ const ModerateInjuryCard = styled(Card)({
     // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
     // // color: 'white',
     // height: 60,
-    width: "40%",
+    width: "45%",
     padding: 10,
     margin: 5,
     fontSize: 16,
@@ -57,13 +43,13 @@ const ModerateInjuryCard = styled(Card)({
 });
 
 const SevereInjuryCard = styled(Card)({
-    background: '#fc3503',
+    background: '#801356',
     border: 0,
     borderRadius: 3,
     // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
     // // color: 'white',
     // height: 60,
-    width: "40%",
+    width: "45%",
     padding: 10,
     margin: 5,
     fontSize: 16,
@@ -71,13 +57,13 @@ const SevereInjuryCard = styled(Card)({
     textAlign: "center"
 });
 const HealedInjuryCard = styled(Card)({
-    background: '#8df542',
+    background: '#84c8b9',
     border: 0,
     borderRadius: 3,
     // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
     // // color: 'white',
     // height: 60,
-    width: "40%",
+    width: "45%",
     padding: 10,
     margin: 5,
     fontSize: 16,

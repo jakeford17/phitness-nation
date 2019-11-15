@@ -5,10 +5,29 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { withRouter } from 'react-router-dom';
 import swal from 'sweetalert';
+import { styled } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import { flexbox } from '@material-ui/system';
+
+const MyCard = styled(Card)({
+    background: '#d2d2d4',
+    border: 0,
+    borderRadius: 3,
+    // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    // // color: 'white',
+    height: 125,
+    width: 150,
+    padding: 10,
+    margin: 5,
+    fontSize: 16,
+    display: flexbox,
+    textAlign: "center",
+    fontFamily: 'PT Sans Narrow'
+});
 
 const styles = {
     palette: {
-        backgroundColor: "navy",
+        backgroundColor: "teal",
         color: "white"
     },
     fab: {
@@ -57,18 +76,17 @@ class AdminExerciseList extends Component {
 
     render() {
         return (
-            <div>
-                <h1>Exercise List</h1>
+            <div className="admin-exercise-wrapper">
                 <div>
                     <input placeholder="Search Exercise" /> <button>Search</button></div>
-                <table>
+                <table className="admin-exercises">
                     <tbody>
                         {this.state.listExercises.map((exercise) => {
                             return (
-                                <tr key={exercise.id}>
-                                    <td onClick={() => this.exerciseDescription(exercise)}>{exercise.name}</td>
-                                    <td>
-                                        <button onClick={() => this.archiveExercise(exercise, false)}>Archive</button>
+                                <tr key={exercise.id} className="admin-exercises-tr">
+                                    <td className="admin-exercises-td" onClick={() => this.exerciseDescription(exercise)}>{exercise.name}</td>
+                                    <td className="admin-exercises-td">
+                                        <button className="archive-exercise" onClick={() => this.archiveExercise(exercise, false)}>ARCHIVE</button>
                                     </td>
                                 </tr>
                             );

@@ -23,6 +23,11 @@ const mapStateToProps = reduxState => ({
 const useStyles = makeStyles(theme => ({
     fab: {
         margin: theme.spacing(1),
+        backgroundColor: "teal",
+    },
+    palette: {
+        backgroundColor: "teal",
+        color: "white"
     },
     extendedIcon: {
         marginRight: theme.spacing(1),

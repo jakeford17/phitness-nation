@@ -17,6 +17,7 @@ h1 {
     justify-content: center;
     width: 100%;
     flex-direction: column;
+    font-family: 'PT Sans Narrow', sans-serif;
 }
 
 .save-buttons {

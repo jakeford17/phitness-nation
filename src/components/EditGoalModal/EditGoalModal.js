@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { makeStyles } from '@material-ui/core/styles';
 
 const mapStateToProps = reduxState => ({
     reduxState,
@@ -39,8 +40,28 @@ const MyTextField = styled(TextField)({
     textAlign: "center"
 });
 
+const useStyles = makeStyles(theme => ({
+    palette: {
+        backgroundColor: "teal",
+        color: "white"
+    },
+    fab: {
+        margin: theme.spacing(1),
+        backgroundColor: "teal",
+        color: "white"
+    },
+    button: {
+        color: "teal"
+    },
+    extendedIcon: {
+        marginRight: theme.spacing(1),
+    },
+}));
+
 export default connect(mapStateToProps)(function FormDialog(props) {
     const [open, setOpen] = React.useState(false);
+
+    const classes = useStyles();
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -67,7 +88,7 @@ export default connect(mapStateToProps)(function FormDialog(props) {
 
     return (
         <div>
-            <Fab color="primary" aria-label="edit" onClick={handleClickOpen} size="small">
+            <Fab className={classes.fab} aria-label="edit" onClick={handleClickOpen} size="small">
                 <EditIcon />
             </Fab>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -98,10 +119,10 @@ export default connect(mapStateToProps)(function FormDialog(props) {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary">
+                    <Button className={classes.button} onClick={handleClose} color="primary">
                         Cancel
           </Button>
-                    <Button onClick={handleSubmit} color="primary">
+                    <Button className={classes.button} onClick={handleSubmit} color="primary">
                         Save
           </Button>
                 </DialogActions>

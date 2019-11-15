@@ -1,9 +1,7 @@
 import React from 'react';
 import 'date-fns';
-import clsx from 'clsx';
 import TextField from '@material-ui/core/TextField';
 import { styled } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 
 const mapStateToProps = reduxState => ({
@@ -16,7 +14,8 @@ const MyTextField = styled(TextField)({
     // borderRadius: 3,
     padding: 10,
     margin: 5,
-    textAlign: "center"
+    textAlign: "center",
+    fontFamily: 'PT Sans Narrow'
 });
 
 export default connect(mapStateToProps)(function TextFields(props) {

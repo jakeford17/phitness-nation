@@ -40,8 +40,13 @@ const MyTextField = styled(TextField)({
 });
 
 const useStyles = makeStyles(theme => ({
+    palette: {
+            backgroundColor: "teal",
+            color: "white"
+    },
     fab: {
         margin: theme.spacing(1),
+        backgroundColor: "teal"
     },
     extendedIcon: {
         marginRight: theme.spacing(1),
@@ -84,7 +89,7 @@ export default connect(mapStateToProps)(function FormDialog(props) {
 
     return (
         <>
-            <div className="add-injury"><Fab color="primary" onClick={handleClickOpen}>
+            <div className="add-injury"><Fab className={classes.palette} onClick={handleClickOpen}>
                 <AddIcon/>
             </Fab>
             </div>

@@ -6,7 +6,9 @@ class AdminLandPage extends Component {
     render() {
         return (
             <>
+            <div className="admin-landing-wrapper">
                 <AdminLandTabs />
+            </div>
             </>
         )
     }
