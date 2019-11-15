@@ -21,8 +21,8 @@ font-family: 'PT Sans Narrow', sans-serif;
 }
 
 form {
-    background-color: #dbd5d5;
-    width: 30%;
+    /* background-color: #dbd5d5;
+    width: 30%; */
     height: 250px;
     margin: 20px auto;
     padding: 25px;
@@ -192,4 +192,13 @@ input {
     justify-content: center;
     flex-direction: column;
     font-family: 'PT Sans Narrow', sans-serif;
+}
+
+.newUserInput {
+    border: 1px solid #3d6363
+}
+
+.newUserBtns {
+    background-color: #3d6363;
+    color: #d2d2d4
 }
