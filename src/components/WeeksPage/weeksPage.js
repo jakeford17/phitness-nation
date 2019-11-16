@@ -65,8 +65,7 @@ class  UserDashboard extends Component {
                 }}
             />
         {newWeeksArray.map((week) => {
-          let inResults = this.state.filterValue.indexOf(week)
-          if(inResults != -1){
+          if(week == this.state.filterValue){
             return(
               <MyCard className="workout-weeks" onClick={(props) => this.props.history.push(`/workouts/week/${week}`)}>
                 <div>
