@@ -9,7 +9,6 @@ router.get('/', (req, res) => {
     let queryText = `SELECT * FROM "workouts" WHERE user_id = $1 ORDER BY "workouts".week DESC;`
     pool.query(queryText, [req.user.id])
         .then((result) =>{
-            console.log(result.rows)
             res.send(result.rows)
         }).catch((error) =>{
             res.sendStatus(500);
