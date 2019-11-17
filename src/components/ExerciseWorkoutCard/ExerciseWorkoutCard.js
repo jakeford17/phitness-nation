@@ -72,7 +72,9 @@ class ExerciseWorkoutCard extends Component {
         this.setClose();
     }
     handleDelete = () =>{
-        this.props.dispatch({ type: 'DELETE_EXERCISE_WORKOUTS', payload: {id: this.state.id, user_id: this.props.userId }})
+        if(window.confirm('Are you sure you want to delete this exercise?')){
+            this.props.dispatch({ type: 'DELETE_EXERCISE_WORKOUTS', payload: {id: this.state.id, user_id: this.props.userId }})
+        }
     }
     render() {
         return (
