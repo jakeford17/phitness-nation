@@ -54,6 +54,23 @@ function* adminGetWorkouts(action){
         console.log('ADMIN GET WORKOUTS ERROR:', error)
     }
 }
+//admin get workouts saga and data transformation, send the id of the user you want workouts for
+function* adminGetWorkoutsTransformed(action){
+    try{
+        const workouts = yield axios.get('/api/admin/workouts/' + action.payload)
+        let exercises = [];
+        for(let i = 0; i< workouts.data.length; i++){
+            const exercise = yield axios.get('/api/admin/exercises/' + workouts.data[i].id)
+            for(let k = 0; k<exercise.data.length; k++){
+                exercises.push(exercise.data[k])
+            }
+        }
+        yield put ({ type: 'SET_WORKOUTS', payload: transform(workouts.data, exercises)})
+    }catch (error){
+        console.log('ADMIN GET WORKOUTS ERROR:', error)
+    }
+}
+//admin updated workouts
 function* adminUpdateWorkouts(action){
     try{
         yield axios.put('/api/admin/workouts', action.payload)
@@ -68,6 +85,41 @@ function* workoutsSaga(){
     yield takeLatest('POST_WORKOUTS', postWorkouts);
     yield takeLatest('ADMIN_FETCH_WORKOUTS', adminGetWorkouts);
     yield takeLatest('ADMIN_UPDATE_WORKOUTS', adminUpdateWorkouts);
+    yield takeLatest('ADMIN_FETCH_WORKOUTS_TRANSFORMED', adminGetWorkoutsTransformed);
 }
+function transform(workouts, exercises){
+    let weeks = []
+    let currentWeek = 0;
+    let z = weeks.length
+    for(let i = 0; i<workouts.length; i++){
+        if(workouts[i].week === currentWeek){
+            weeks[z].workouts.push({ id: workouts[i].id, user_id: workouts[i].user_id, feedback: workouts[i].feedback, complete: workouts[i].complete })
+        }else{
+            currentWeek = workouts[i].week
+            weeks.push({
+                week: workouts[i].week,
+                workouts: [{
+                    id: workouts[i].id,
+                    user_id: workouts[i].user_id,
+                    feedback: workouts[i].feedback,
+                    complete: workouts[i].complete,
+                    exercises: [
 
+                    ]
+                }]
+            })
+        }
+    }
+    for(let i = 0; i<exercises.length; i++){
+        for(let k = 0; k<weeks.length; k++){
+            for(let m = 0; m<weeks[k].workouts.length; m++){
+                if(weeks[k].workouts[m].id === exercises[i].workout_id){
+                    weeks[k].workouts[m].exercises.push(exercises[i])
+                    break;
+                }
+            }
+        }
+    }
+    return (weeks);
+}
 export default workoutsSaga;

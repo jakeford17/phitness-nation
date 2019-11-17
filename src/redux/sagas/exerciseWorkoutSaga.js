@@ -51,17 +51,17 @@ function* updateExerciseWorkouts(action){
 //admin update exercise workouts, send: { id: int, assigned_sets: int, assigned_reps: int, assigned_weight: int, tips: "String" }
 function* adminUpdatedExerciseWorkouts(action){
     try{
-        yield axios.put('/api/admin/exerciseWorkouts', action.payload)
-        yield put ({ type: 'ADMIN_FETCH_EXERCISE_WORKOUTS', payload: connect.id()})
+        yield axios.put('/api/admin/exerciseWorkouts', action.payload.exercise)
+        yield put ({ type: 'ADMIN_FETCH_WORKOUTS_TRANSFORMED', payload: action.payload.user_id})
     }catch (error) {
         console.log('ADMIN UPDATE EXERCISE WORKOUTS ERROR:', error)
     }
 }
-//admin delete exercise workouts, send the id of the exercise workout you want to delete
+//admin delete exercise workouts, send the id of the exercise workout and the id of the user
 function* deleteExerciseWorkouts(action){
     try{
-        yield axios.delete('/api/admin/exerciseWorkouts/' + action.payload)
-        yield put ({ type: 'ADMIN_FETCH_EXERCISE_WORKOUTS', payload: connect.id()})
+        yield axios.delete('/api/admin/exerciseWorkouts/' + action.payload.id)
+        yield put ({ type: 'ADMIN_FETCH_WORKOUTS_TRANSFORMED', payload: action.payload.user_id})
     }catch (error) {
         console.log('ADMIN DELETE EXERCISE WORKOUTS ERROR:', error)
     }

@@ -11,6 +11,7 @@ import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import WorkoutCards from '../WorkoutCards/WorkoutCards';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -52,7 +53,6 @@ const mapStateToProps = reduxState => ({
     reduxState,
 });
 
-
 export default connect(mapStateToProps)(function FullWidthTabs(props) {
     const user_id = props.params
     const classes = useStyles();
@@ -66,7 +66,6 @@ export default connect(mapStateToProps)(function FullWidthTabs(props) {
     const handleChangeIndex = index => {
         setValue(index);
     };
-
     return (
         <div className={classes.root}>
             <AppBar position="static" color="default">
@@ -90,6 +89,7 @@ export default connect(mapStateToProps)(function FullWidthTabs(props) {
                 <TabPanel value={value} index={0} dir={theme.direction}>
                     {/* <UserInputs /> */}
                     USER WORKOUTS
+                    <WorkoutCards userId = {props.userId}/>
                     <br/>
                     <Link to= {`/admin/addworkout/${props.userId}`}>
                         <button>Add Workout</button>
@@ -100,7 +100,6 @@ export default connect(mapStateToProps)(function FullWidthTabs(props) {
                     USER DATA
                 </TabPanel>
             </SwipeableViews>
-            {JSON.stringify(props)}
         </div>
     );
 })

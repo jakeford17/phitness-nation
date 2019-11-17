@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
     pool.query(queryText).then((response) => {
         res.send(response.rows)
     }).catch((err) => {
-        console.log('Error ---------> GETTING list of Users', err);
+        console.log('Error ---------> GETTING list of all Users', err);
         res.sendStatus(500);
     });
 })
@@ -161,7 +161,7 @@ router.post('/workouts', (req, res) =>{
 })
 //Admin GET request to get workouts for a user send the user_id in the URL
 router.get('/workouts/:id', (req, res) =>{
-    const queryText = `SELECT * FROM "workouts" WHERE "user_id" = $1;`
+    const queryText = `SELECT * FROM "workouts" WHERE "user_id" = $1 ORDER BY "workouts".week DESC;`
     pool.query(queryText, [req.params.id])
         .then((result) =>{
             res.send((result.rows))
@@ -310,4 +310,14 @@ async function emailSender(user) {
     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info))
 
 }
+
+router.get('/exercises/:id', (req, res) =>{
+    const queryText = 'SELECT "exercise_workouts".*, "exercises".name FROM "exercise_workouts" JOIN "exercises" ON "exercise_workouts".exercise_id = "exercises".id WHERE "workout_id" = $1;';
+    pool.query(queryText, [req.params.id])
+        .then((result) =>{
+            res.send(result.rows)
+        }).catch((error) =>{
+            console.log('GET EXERCISES FOR ONE WOKROUT ERROR:', error)
+        })
+})
 module.exports = router;
