@@ -22,7 +22,7 @@ const rootReducer = combineReducers({
   injuries,
   workouts,
   exerciseWorkouts,
-  adminToUserReducer
+  adminToUserReducer,
 });
 
 export default rootReducer;
