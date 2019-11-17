@@ -18,6 +18,7 @@ const MyTextField = styled(TextField)({
 export default connect(mapStateToProps)(function TextFields(props) {
 
     const [values, setValues] = React.useState({
+        id: props.reduxState.adminToUserReducer.adminEditUserReducer.id,
         name: props.reduxState.adminToUserReducer.adminEditUserReducer.name,
         pronouns: props.reduxState.adminToUserReducer.adminEditUserReducer.pronouns,
         phone: props.reduxState.adminToUserReducer.adminEditUserReducer.phone,
@@ -35,9 +36,17 @@ export default connect(mapStateToProps)(function TextFields(props) {
         props.dispatch({ type: 'UPDATE_USER', payload: {id: props.match.params.id, ...values}})
         // props.history.push('/adminviewuser/' + this.props.match.params.id)
     };
-    const handleCancel = even => {
+
+    const handleCancel = event => {
         // props.history.push('/adminviewuser/' + this.props.match.params.id)
     }
+
+    const archiveUser = (id) => {
+        // props.dispatch({ type: 'UPDATE_USER', payload: {id: props.match.params.id, ...values}})
+        console.log("ARCHIVE", values.id);
+        props.dispatch({ type: 'ARCHIVE_USER', payload: [id] });
+        props.history.push('/admin')
+    };
 
     return (
         <div className="inputs-wrapper">
@@ -95,6 +104,11 @@ export default connect(mapStateToProps)(function TextFields(props) {
             <div className="save-buttons">
             <Button variant="contained" color="secondary">
                 Cancel
+            </Button>
+            </div>
+            <div className="save-buttons">
+            <Button variant="contained" color="secondary" onClick={() => archiveUser(values.id)}>
+                Archive User
             </Button>
             </div>
          </div>
