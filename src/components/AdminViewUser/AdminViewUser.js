@@ -12,6 +12,7 @@ class AdminViewUser extends Component {
     }
     componentDidMount() {
         this.props.dispatch({ type: 'ADMIN_FETCH_USER', payload: this.props.match.params.id })
+        this.props.dispatch({ type: 'ADMIN_FETCH_WORKOUTS_TRANSFORMED', payload: this.props.match.params.id })
     }
 
     goEditUser = () => {
