@@ -46,7 +46,13 @@ class AdminAddWorkout extends Component {
     componentDidMount = () =>{
         this.getExercises();
         this.getWeeks();
+        this.injuryDisplay();
     }
+
+    injuryDisplay = () => {
+        this.props.dispatch({ type: 'FETCH_INJURIES'})
+    }
+
     getExercises = () =>{
         this.props.dispatch({ type: 'FETCH_EXERCISES', payload: {active: true}})
         setTimeout(() =>{
@@ -125,8 +131,17 @@ class AdminAddWorkout extends Component {
     render() {
         return (
             <>
-            {JSON.stringify(this.state)}
-            {/* {JSON.stringify(this.props.reduxState)} */}
+            {/* {JSON.stringify(this.state)} */}
+            {/* {JSON.stringify(this.props.reduxState.injuries.injuriesReducer)} */}
+            {this.props.reduxState.injuries.injuriesReducer.map((injury)=>{
+                    return(
+                        <>
+                        <p>injury type: {injury.type}</p>
+                        <p>injury Description: {injury.description}</p>
+                        <p>injury severity: {injury.severity}</p>
+                       </>
+                    )
+                })}
             <CreatableSelect
                 isClearable
                 onChange={this.handleSelectChange}
