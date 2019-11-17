@@ -8,7 +8,8 @@ function* registerUser(action) {
     yield put({ type: 'CLEAR_REGISTRATION_ERROR' });
 
     // passes the username and password from the payload to the server
-    yield axios.post('/api/user/register', action.payload);
+    let response = yield axios.post('/api/user/register', action.payload);
+    console.log('the post response is:', response)
 
     // automatically log a user in after registration
     yield put({ type: 'LOGIN', payload: action.payload });

@@ -3,6 +3,10 @@ import 'date-fns';
 import TextField from '@material-ui/core/TextField';
 import { styled } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
 
 const mapStateToProps = reduxState => ({
     reduxState,
@@ -28,7 +32,8 @@ export default connect(mapStateToProps)(function TextFields(props) {
         email: props.reduxState.user.email,
         emergencyContactName: props.reduxState.user.emergency_contact_name,
         emergencyContactPhone: props.reduxState.user.emergency_contact_phone,
-        dateOfBirth: props.reduxState.user.age
+        dateOfBirth: props.reduxState.user.age,
+        email_option: props.reduxState.user.email_option, 
     });
 
     const discardChanges = () => {
@@ -40,7 +45,8 @@ export default connect(mapStateToProps)(function TextFields(props) {
             email: props.reduxState.user.email,
             emergencyContactName: props.reduxState.user.emergency_contact_name,
             emergencyContactPhone: props.reduxState.user.emergency_contact_phone,
-            dateOfBirth: props.reduxState.user.age
+            dateOfBirth: props.reduxState.user.age,
+            email_option: props.reduxState.user.email_option,
         })
     }
 
@@ -100,6 +106,17 @@ export default connect(mapStateToProps)(function TextFields(props) {
                 InputLabelProps={{
                     shrink: true,
                 }}
+            />
+            <FormControlLabel
+                control = {
+                <Checkbox
+                    color="default"
+                    checked={values.email_option}
+                    onChange={() => setValues({  ...values, email_option: !values.email_option })}
+                    value={false}
+                />}
+                label = "Get email notifications?"
+                labelPlacement="end"
             />
             <div className="save-buttons">
             <button onClick={handleSubmit}>

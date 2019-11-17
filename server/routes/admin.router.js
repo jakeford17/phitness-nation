@@ -5,13 +5,15 @@ const pool = require('../modules/pool');
 // const userStrategy = require('../strategies/user.strategy');
 const router = express.Router();
 
+const nodemailer = require('nodemailer')
+
 //Admin GET request to grab list of user from database to display on dashboard
 router.get('/', (req, res) => {
     const queryText = `SELECT * FROM "user";`;
     pool.query(queryText).then((response) => {
         res.send(response.rows)
     }).catch((err) => {
-        console.log('Error ---------> GETTING list of Users', err);
+        console.log('Error ---------> GETTING list of all Users', err);
         res.sendStatus(500);
     });
 })
@@ -159,7 +161,7 @@ router.post('/workouts', (req, res) =>{
 })
 //Admin GET request to get workouts for a user send the user_id in the URL
 router.get('/workouts/:id', (req, res) =>{
-    const queryText = `SELECT * FROM "workouts" WHERE "user_id" = $1;`
+    const queryText = `SELECT * FROM "workouts" WHERE "user_id" = $1 ORDER BY "workouts".week DESC;`
     pool.query(queryText, [req.params.id])
         .then((result) =>{
             res.send((result.rows))
@@ -264,4 +266,58 @@ function determineCompliance(array){
     }
     return compliance;
 }
+
+router.get('/weeks/:id', (req, res) =>{
+    const queryText = 'SELECT "workouts".week FROM "workouts" JOIN "user" ON "workouts".user_id = "user".id WHERE "user".id = $1;';
+    pool.query(queryText, [req.params.id])
+        .then((result) =>{
+            res.send(result.rows)
+        }).catch((error) =>{
+            res.sendStatus(500)
+            console.log('ERROR GETTING WEEKS DATA:', error)
+        })
+})
+router.get('/email/:id', (req, res) =>{
+    const queryText = 'SELECT * FROM "user" WHERE "id" = $1;';
+    pool.query(queryText, [req.params.id])
+        .then((result) =>{
+            let to = result.rows[0]
+            emailSender(to).catch(console.error)
+        }).catch((error)=>{
+            console.log('SEND EMAIL ERROR:', error)
+        })
+})
+async function emailSender(user) {
+
+
+    const transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        auth: {
+            user: 'PhitnessNationEmailBot',
+            pass: 'PhitnessPhun1234'
+        }
+    });
+    let info = await transporter.sendMail({
+        from: '"Phit Nation" <phitnessnationemailbot@gmail.com>', 
+        to: `<${user.email}>`,
+        subject: 'You have a new Workout from Phil', 
+        text: `Hello, ${user.name}`, 
+        html: `<b>Hello, ${user.name}</b>`
+    })
+
+    console.log('Message sent: %s', info.messageId)
+
+    console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info))
+
+}
+
+router.get('/exercises/:id', (req, res) =>{
+    const queryText = 'SELECT "exercise_workouts".*, "exercises".name FROM "exercise_workouts" JOIN "exercises" ON "exercise_workouts".exercise_id = "exercises".id WHERE "workout_id" = $1;';
+    pool.query(queryText, [req.params.id])
+        .then((result) =>{
+            res.send(result.rows)
+        }).catch((error) =>{
+            console.log('GET EXERCISES FOR ONE WOKROUT ERROR:', error)
+        })
+})
 module.exports = router;
