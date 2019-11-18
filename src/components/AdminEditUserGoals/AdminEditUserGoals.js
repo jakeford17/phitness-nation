@@ -30,8 +30,8 @@ const MyCard = styled(Card)({
 
 class Goals extends Component {
     componentDidMount() {
-        this.props.dispatch({ type: 'FETCH_USER' })
-        this.props.dispatch({ type: 'FETCH_GOALS'})
+        // this.props.dispatch({ type: 'ADMIN_FETCH_USER' })
+        this.props.dispatch({ type: 'ADMIN_FETCH_GOALS', payload: this.props.userId})
     }
 
     render() {

@@ -54,7 +54,6 @@ function* deleteInjury(action){
 function* adminGetInjuries(action){
     try{
         const response = yield axios.get('/api/admin/injuries/' + action.payload)
-        console.log(response)
         yield put ({ type: 'SET_INJURIES', payload: response.data})
     }catch (error) {
         console.log('ADMIN GET INJURIES ERROR:', error)

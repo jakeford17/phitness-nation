@@ -35,19 +35,28 @@ function* updateUserSaga(action){
 
 }
 //admin fetch user saga, automatically gets the user based off the id in the adminToUserReducer
-function* adminFetchUser(){
+function* adminFetchUser(action){
   try{
-    console.log('HI FROM CONNECT JS:', connect.id())
-    const response = yield axios.get('/api/admin/user/' + connect.id())
+    const response = yield axios.get('/api/admin/user/' + action.payload)
     yield put ({ type: 'SET_ADMIN_EDIT_USER', payload: response.data })
   }catch(error) {
     console.log('ADMIN GET USER ERROR:', error)
+  }
+}
+//admin update user profile send: { id: int, name: "String", pronouns: "String", phone: "String", email: "String", emergency contact name: "String", emergency contact phone: "String", age/DOB: "String"}
+function* adminUpdateUser(action){
+  try{
+    yield axios.put('/api/admin/edituser', action.payload )
+    yield put ({ type: 'ADMIN_FETCH_USER', payload: action.payload.id})
+  }catch(error){
+    console.log('ADMIN UPDATE USER ERROR:', error)
   }
 }
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
   yield takeLatest('UPDATE_USER', updateUserSaga);
   yield takeLatest('ADMIN_FETCH_USER', adminFetchUser);
+  yield takeLatest('ADMIN_UPDATE_USER', adminUpdateUser)
 }
 
 export default userSaga;

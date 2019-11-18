@@ -139,6 +139,7 @@ router.get('/goals/:id', (req, res) =>{
 //Admin GET request to get injuries for a specific user
 router.get('/injuries/:id', (req, res) =>{
     const queryText = `SELECT * FROM "injuries" WHERE "user_id" = $1;`
+    console.log(req.params.id)
     pool.query(queryText, [req.params.id])
         .then((result) =>{
             res.send((result.rows))
@@ -341,4 +342,17 @@ router.get('/exercises/:id', (req, res) =>{
             console.log('GET EXERCISES FOR ONE WOKROUT ERROR:', error)
         })
 })
+
+//Admin edit user: update user profile send: { id: int, name: "String", pronouns: "String", phone: "String", email: "String", emergency contact name: "String", emergency contact phone: "String", age/DOB: "String"}
+router.put('/edituser', (req, res) =>{
+    let queryText = `UPDATE "user" SET "name" = $1, "pronouns" = $2, "phone" = $3, "email" = $4, "emergency_contact_name" = $5, "emergency_contact_phone" = $6, "age" = $7 WHERE "id" = $8;`
+    let queryInfo = [req.body.name, req.body.pronouns, req.body.phone, req.body.email, req.body.emergencyContactName, req.body.emergencyContactPhone, req.body.dateOfBirth, req.body.id ];
+    pool.query(queryText, queryInfo)
+        .then(() =>{
+            res.sendStatus(200);
+        }).catch((error) =>{
+            res.sendStatus(500);
+            console.log('PUT USER INFO ERROR:', error);
+        })
+  })
 module.exports = router;

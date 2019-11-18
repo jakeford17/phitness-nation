@@ -72,9 +72,9 @@ const HealedInjuryCard = styled(Card)({
 });
 
 class Injuries extends Component {
-    // componentDidMount() {
-    //     this.props.dispatch({ type: 'FETCH_USER' })
-    // }
+    componentDidMount() {
+        this.props.dispatch({ type: 'ADMIN_FETCH_INJURIES', payload: this.props.userId })
+    }
 
     render() {
         let value = 'test'
