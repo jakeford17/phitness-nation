@@ -13,7 +13,16 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { version } from 'punycode';
 import { retry } from 'redux-saga/effects';
+import TextField from '@material-ui/core/TextField';
+import SearchIcon from '@material-ui/icons/Search';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
+const MyTextField = styled(TextField)({
+    padding: 10,
+    margin: 5,
+    textAlign: "center",
+    fontFamily: 'PT Sans Narrow',
+  });
 const MyCard = styled(Card)({
     background: '#d2d2d4',
     border: 0,
@@ -60,7 +69,8 @@ class AdminUserList extends Component {
         username: '',
         password: '',
         selectedId: '',
-        philosophy:''
+        philosophy:'',
+        filterValue: '',
     }
 
 
@@ -178,11 +188,32 @@ class AdminUserList extends Component {
         console.log(this.state);
         
     }
-
+    setFilter = (event) =>{
+        this.setState({ filterValue: event.target.value})
+    }
     render() {
         return (
             <div className="clients-wrapper">
+                <div style={{display: 'inline'}}>
+                    <MyTextField
+                        label="Search Users"
+                        value={this.state.filterValue}
+                        onChange={this.setFilter}
+                        margin="normal"
+                        InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                                <SearchIcon />
+                            </InputAdornment>
+                        ),
+                        }}
+                    />
+                    <Fab style={styles.palette} aria-label="Add" onClick={() => this.handleNewUserOpen()}>
+                        <AddIcon color={styles.palette.color} size="large" />
+                    </Fab>
+                </div>
                 {this.state.listUser.map((user) => {
+                    if(user.name.indexOf(this.state.filterValue) > -1){
                     if (user.active === true) {
                         if (user.name === null){
                             return (
@@ -265,11 +296,92 @@ class AdminUserList extends Component {
                         )
                         }
                     }
+                }else if(this.state.filterValue === ''){
+                    if (user.active === true) {
+                        if (user.name === null){
+                            return (
+                                <MyCard className="client-card-wrapper">
+                                    <p><h1 className="client-header1">{user.username}</h1>
+                                        <div className="client-profile-wrapper">
+                                            <button className="clientCard" onClick={this.fetchClientID} value={user.id} >USER PROFILE</button>
+                                        </div>
+                                    </p>
+                                </MyCard>
+                            );
+                        }
+                        else {
+                        return (
+                                <MyCard className="client-card-wrapper">
+                                <p><h1 className="client-header1">{user.name} ({user.username})</h1>
+                                    <div className="client-profile-wrapper">
+                                        <button className="clientCard" onClick={this.fetchClientID} value={user.id} >USER PROFILE</button>
+                                        <div className="add-phil-wrapper">
+
+                                            <button value={user.id}  style={styles.palette} aria-label="PHIL" onClick={this.fetchClientIDPhil}>
+                                               + 
+                                            </button>
+                                            <Dialog open={this.state.newPhilOpen} onClose={this.handleNewPhilClose}  >
+                                                <DialogTitle id="form-dialog-title"><h1>Add New philosophy:</h1></DialogTitle>
+                                                <DialogContent >
+                                                    {this.props.errors.registrationMessage && (
+                                                        <h2
+                                                            className="alert"
+                                                            role="alert"
+                                                        >
+                                                            {this.props.errors.registrationMessage}
+                                                        </h2>
+                                                    )}
+                                                    <form onSubmit={this.addPhil}>
+                                                        <div>
+                                                           
+                                                            <label htmlFor="phil">
+                                                                philosophy:
+                                                                <input
+                                                                    type="text"
+                                                                    name="phil"
+                                                                    placeholder={this.state.philosophy}
+                                                                    value={this.state.philosophy}
+                                                                    onChange={this.handleInputChangeForPhil('philosophy')}
+                                                                    className="newPhilInput"
+                                                                />
+                                                            </label>
+                                                        </div>
+                                                        <div>
+                                                            <input
+                                                                className="addPhil"
+                                                                type="submit"
+                                                                name="submit"
+                                                                value="ADD PHIL"
+                                                                className="newUserBtns"
+                                                            />
+                                                            <input
+                                                                type="button"
+                                                                value="CANCEL"
+                                                                className="newUserBtns"
+                                                                onClick={(e) => this.handleNewPhilClose()}
+                                                            />
+                                                        </div>
+                                                    </form>
+                                                </DialogContent>
+                                                {/* <DialogActions>
+                            <button onClick={this.handleNewUserClose}>
+                                CANCEL
+                                        </button>
+                            <button onClick={this.handleSubmit}>
+                                YES
+                                        </button>
+                        </DialogActions> */}
+                                            </Dialog>
+                                        </div>
+                                    </div>
+                                </p>
+                                </MyCard>
+                        )
+                        }
+                    }
+                }
                 })}
                 <div className="add-client-wrapper">
-                    <Fab style={styles.palette} aria-label="Add" onClick={() => this.handleNewUserOpen()}>
-                        <AddIcon color={styles.palette.color} size="large" />
-                    </Fab>
                     <Dialog open={this.state.newUserOpen} onClose={this.handleNewUserClose}>
                         <DialogTitle id="form-dialog-title"><h1>Add New User:</h1></DialogTitle>
                         <DialogContent>

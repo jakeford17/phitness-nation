@@ -32,7 +32,6 @@ export default function* rootSaga() {
     addUserSaga(), 
     deleteUserSaga(),
     reactivateUserSaga(),
-    historyBranch(),
     userExerciseSaga(),
     archiveUserSaga(),
     addPhilSaga()
