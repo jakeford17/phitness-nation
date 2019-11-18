@@ -44,10 +44,16 @@ function a11yProps(index) {
 }
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        backgroundColor: theme.palette.background.paper,
-        width: 500,
-    },
+        root: {
+        backgroundColor: '#84c8b9',
+            width: "100%",
+            fontFamily: 'PT Sans Narrow'
+        },
+        palette: {
+            color: 'teal',
+            textColor: 'teal',
+            indicatorColor: 'teal'
+        }
 }));
 const mapStateToProps = reduxState => ({
     reduxState,
@@ -70,15 +76,16 @@ export default connect(mapStateToProps)(function FullWidthTabs(props) {
         <div className={classes.root}>
             <AppBar position="static" color="default">
                 <Tabs
+                    class={classes.palette}
                     value={value}
                     onChange={handleChange}
-                    indicatorColor="primary"
-                    textColor="primary"
+                    indicatorColor="inherit"
+                    textColor="teal"
                     variant="fullWidth"
                     aria-label="full width tabs example"
                 >
-                    <Tab label="WORKOUTS" {...a11yProps(0)} icon={<FitnessCenterIcon />} />
-                    <Tab label="DATA" {...a11yProps(1)} icon={<TrendingUpIcon />} />
+                    <Tab className={classes.palette} label="WORKOUTS" {...a11yProps(0)} icon={<FitnessCenterIcon className={classes.palette} />} />
+                    <Tab className={classes.palette} label="DATA" {...a11yProps(1)} icon={<TrendingUpIcon className={classes.palette}/>} />
                 </Tabs>
             </AppBar>
             <SwipeableViews
