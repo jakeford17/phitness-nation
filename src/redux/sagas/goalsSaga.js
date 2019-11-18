@@ -54,7 +54,6 @@ function* deleteGoals(action){
 function* adminGetGoals(action){
     try{
         const response = yield axios.get('/api/admin/goals/' + action.payload)
-        console.log(response)
         yield put ({ type: 'SET_GOALS', payload: response.data})
     }catch (error) {
         console.log('ADMIN GET GOALS ERROR:', error)
