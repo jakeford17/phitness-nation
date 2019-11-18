@@ -1,5 +1,5 @@
 .streak {
-    width: 80%;
+    width: 100%;
     text-align: center;
 }
 
@@ -20,4 +20,11 @@ p {
 
 .progress-bar {
     background-color: #3d6363
+}
+
+
+.compliance-chart {
+    display: flex;
+    flex-direction: row;
+    padding: 5%;
 }

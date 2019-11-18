@@ -62,7 +62,9 @@ function* adminGetWorkoutsTransformed(action){
         for(let i = 0; i< workouts.data.length; i++){
             const exercise = yield axios.get('/api/admin/exercises/' + workouts.data[i].id)
             for(let k = 0; k<exercise.data.length; k++){
+                if (exercise.data[k]){
                 exercises.push(exercise.data[k])
+                }
             }
         }
         yield put ({ type: 'SET_WORKOUTS', payload: transform(workouts.data, exercises)})
