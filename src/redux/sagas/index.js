@@ -9,6 +9,7 @@ import exerciseWorkoutSaga from './exerciseWorkoutSaga';
 import addUserSaga from './addUserSaga';
 import deleteUserSaga from './deleteUserSaga';
 import reactivateUserSaga from './reactivateUserSaga';
+import archiveUserSaga from './archiveUserSaga';
 import addPhilSaga from './addPhilSaga';
 
 
@@ -32,6 +33,7 @@ export default function* rootSaga() {
     addUserSaga(), 
     deleteUserSaga(),
     reactivateUserSaga(),
+    archiveUserSaga(),
     addPhilSaga()
   ]);
 }
