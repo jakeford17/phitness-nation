@@ -83,6 +83,37 @@ router.put('/archive', (req, res) =>{
       })
 })
 
+router.post('/phil', (req, res) => {
+  console.log("req: ", req.body.philosophy.philosophy, req.body.philosophy.selectedId);
+  let userid = req.body.philosophy.selectedId;
+  let philosophy = req.body.philosophy.philosophy
+
+  let queryText = `UPDATE "user" SET "philosophy" = $1 WHERE id = $2`
+  let queryValues = [philosophy,userid]
+  pool.query(queryText, queryValues)
+    .then(() => {
+      res.sendStatus(200);
+    }).catch((error) => {
+      res.sendStatus(500);
+      console.log('REACTIVATE USER INFO ERROR:', error);
+    })
+})
+
+
+router.put('/phil', (req, res) => {
+  console.log("req: ", req.body);
+  let userid = req.body;
+  let queryText = `UPDATE "user" SET "philosophy" = $1 WHERE id = $2`
+  let queryValues = [userid[0]]
+  pool.query(queryText, queryValues)
+    .then(() => {
+      res.sendStatus(200);
+    }).catch((error) => {
+      res.sendStatus(500);
+      console.log('REACTIVATE USER INFO ERROR:', error);
+    })
+})
+
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
   const queryText = `DELETE FROM "user" WHERE "id" = $1;`;
   pool.query(queryText, [req.params.id])

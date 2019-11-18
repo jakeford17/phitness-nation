@@ -96,10 +96,19 @@ function* getComplianceData(action){
         console.log('ERROR GETTING COMPLIANCE DATA:', error)
     }
 }
+//admin post exercise workouts, send: {workout_id: int, exercise_id: int, assigned_sets: int, assigned_reps: int, assigned_weight: int, tips: "String" }
+function* postExerciseWorkouts(action){
+    try{
+        yield axios.post('/api/admin/newExerciseWorkouts', action.payload.exercise)
+        yield put ({ type: 'ADMIN_FETCH_WORKOUTS_TRANSFORMED', payload: action.payload.user_id})
+    }catch (error) {
+        console.log('POST EXERCISE WORKOUTS ERROR')
+    }
+}
 function* workoutsSaga(){
     yield takeLatest('FETCH_EXERCISE_WORKOUTS', fetchExerciseWorkouts);
     yield takeLatest('UPDATE_EXERCISE_WORKOUTS', updateExerciseWorkouts);
-    // yield takeLatest('POST_EXERCISE_WORKOUTS', postExerciseWorkouts);
+    yield takeLatest('POST_EXERCISE_WORKOUTS', postExerciseWorkouts);
     // yield takeLatest('ADMIN_FETCH_EXERCISE_WORKOUTS', adminFetchExerciseWorkouts)
     yield takeLatest('ADMIN_UPDATE_EXERCISE_WORKOUTS', adminUpdatedExerciseWorkouts)
     yield takeLatest('DELETE_EXERCISE_WORKOUTS', deleteExerciseWorkouts)
@@ -114,17 +123,7 @@ function* workoutsSaga(){
 export default workoutsSaga;
 
 //OLD SAGAS MAY NEED IN THE FUTURE:
-//admin post exercise workouts, send: {workout_id: int, exercise_id: int, assigned_sets: int, assigned_reps: int, assigned_weight: int, tips: "String" }
-// function* postExerciseWorkouts(action){
-//     try{
-//         for(let i = 0; i<action.payload.length; i++){
-//             yield axios.post('/api/admin/exerciseWorkouts', action.payload[i])
-//         }
-//         yield put ({ type: 'ADMIN_FETCH_EXERCISE_WORKOUTS', payload: connect.id()})
-//     }catch (error) {
-//         console.log('POST EXERCISE WORKOUTS ERROR')
-//     }
-// }
+
 //admin fetch exercise workouts, send if of the workout you want
 // function* adminFetchExerciseWorkouts(action){
 //     try{

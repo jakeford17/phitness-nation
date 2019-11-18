@@ -10,6 +10,9 @@ import addUserSaga from './addUserSaga';
 import deleteUserSaga from './deleteUserSaga';
 import reactivateUserSaga from './reactivateUserSaga';
 import archiveUserSaga from './archiveUserSaga';
+import addPhilSaga from './addPhilSaga';
+
+
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -30,6 +33,7 @@ export default function* rootSaga() {
     addUserSaga(), 
     deleteUserSaga(),
     reactivateUserSaga(),
-    archiveUserSaga()
+    archiveUserSaga(),
+    addPhilSaga()
   ]);
 }
