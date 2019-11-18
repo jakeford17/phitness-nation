@@ -81,13 +81,33 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
 
 router.get('/exercise/:id', (req, res) => {
   // const user = req.params.id;
-  const user = 5;
+  const user = req.params.id;
 
   const queryText = `SELECT "exercises".name FROM "workouts"
   JOIN "exercise_workouts" ON "exercise_workouts".workout_id = "workouts".id
   JOIN "exercises" ON "exercises".id = "exercise_workouts".exercise_id 
   WHERE "workouts".user_id = $1 GROUP BY "exercises".name;`;
   pool.query(queryText, [user]).then((response) => {
+      res.send(response.rows)
+  }).catch((err) => {
+      console.log(`Error ---------> GETTING user's list of Exercises`, err);
+      res.sendStatus(500);
+  });
+})
+
+
+
+router.get('/exercise/history/:id', (req, res) => {
+  // const user = req.params.id;
+  const exercise = req.params.id;
+
+  const queryText = 
+  `SELECT "workouts".week, "exercise_workouts".completed_weight, "exercise_workouts".completed_sets, 
+  "exercise_workouts".completed_reps FROM "workouts"
+  JOIN "exercise_workouts" ON "exercise_workouts".workout_id = "workouts".id
+  JOIN "exercises" ON "exercises".id = "exercise_workouts".exercise_id 
+  WHERE "exercises".name = $1 ORDER BY "workouts".week DESC;;`;
+  pool.query(queryText, [exercise]).then((response) => {
       res.send(response.rows)
   }).catch((err) => {
       console.log(`Error ---------> GETTING user's list of Exercises`, err);
