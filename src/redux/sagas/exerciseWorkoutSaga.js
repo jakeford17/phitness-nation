@@ -77,8 +77,7 @@ function* deleteExercise(action){
     }
 }
 
-//admin delete exercise workouts, send the id of the exercise workout you want to delete
-=======
+
 //admin delete exercise workouts, send the id of the exercise workout and the id of the user
 function* deleteExerciseWorkouts(action){
     try{
@@ -89,9 +88,9 @@ function* deleteExerciseWorkouts(action){
     }
 }
 //admin get exercise workouts compliance data, automatically get the "current" users compliance data
-function* getComplianceData(){
+function* getComplianceData(action){
     try{
-        const response = yield axios.get('/api/admin/data/' + connect.id())
+        const response = yield axios.get('/api/admin/data/' + action.payload)
         yield put ({ type: 'SET_COMPLIANCE', payload: response.data })
     }catch (error){
         console.log('ERROR GETTING COMPLIANCE DATA:', error)

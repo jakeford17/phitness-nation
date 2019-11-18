@@ -5,7 +5,9 @@ import './UserPage.css';
 import { styled } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import { flexbox } from '@material-ui/system';
-import {ProgressBar} from 'react-bootstrap'
+import {ProgressBar} from 'react-bootstrap';
+import {BarChart, CartesianGrid, XAxis, YAxis, Tooltip
+, Legend, Bar, Label} from 'recharts';
 
 const MyCard = styled(Card)({
   background: '#d2d2d4',
@@ -14,7 +16,7 @@ const MyCard = styled(Card)({
   // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
   // // color: 'white',
   // height: 60,
-  width: "90%",
+  width: "100%",
   padding: 10,
   margin: 5,
   fontSize: 20,
@@ -28,8 +30,12 @@ class UserPage extends Component{
   }
   getWorkouts = () =>{
     this.props.dispatch({ type: 'FETCH_WORKOUTS' })
+    this.props.dispatch({ type:'FETCH_COMPLIANCE', payload: this.props.reduxState.user.id})
   }
+  
   render() {
+    let data = this.props.reduxState.exerciseWorkouts.complianceReducer
+
     return(
       <>
       <div className="user-page">
@@ -46,6 +52,18 @@ class UserPage extends Component{
               <ProgressBar now={this.props.reduxState.user.current_streak} />
             <p>{this.props.reduxState.user.current_streak} workouts in a row!</p>
             </div>
+            <div className="compliance-chart">
+          <BarChart width={300} height={300} data={data}>
+            <CartesianGrid strokeDasharray="1 1" />
+              <XAxis dataKey="week" >
+                <Label value="Week Number" offset={0} position="insideBottom" />
+              </XAxis>
+              <YAxis label={{ value: 'Number of Exercises', angle: -90, position: 'insideLeft' }} />
+            <Legend />
+            <Bar name="Completed Exercises" dataKey="completed" stackId="a" fill="#3d6363" />
+              <Bar name="Incomplete Exercises" dataKey="incomplete" stackId="a" fill="#d2d2d4" />
+          </BarChart>
+          </div>
       </div>
       </>
     )
