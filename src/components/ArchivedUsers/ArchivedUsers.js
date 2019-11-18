@@ -94,17 +94,30 @@ class ArchivedUsers extends Component {
                  <div className="archived-users-wrapper">
                         {this.state.listUser.map((user) => {
                             if (user.active === false) { 
-                            return (
-                                <MyCard>
-                                <div key={user.id}>
-                                   <h5 className="styled-h5">Name:</h5> {user.name} <br/>
-                                    <h5 className="styled-h5">DOB:</h5> {user.age}<br/>
-                                    <h5 className="styled-h5">Phone:</h5> {user.phone}<br/>
-                                        <button className="archived-btns" onClick={() => this.handleReactivateUser(user.id)}>REACTIVATE</button>
-                                        <button className="archived-btns" onClick={() => this.handleDeleteOpen(user.id)}>PERMANENTLY DELETE</button>
-                                </div>
-                                </MyCard>
-                            );
+                                if (user.name === null) {
+                                    return (
+                                        <MyCard>
+                                            <div key={user.id}>
+                                                <h5 className="styled-h5">Name:</h5> {user.username} <br />
+                                                <h5 className="styled-h5">DOB:</h5> {user.age}<br />
+                                                <h5 className="styled-h5">Phone:</h5> {user.phone}<br />
+                                                <button className="archived-btns" onClick={() => this.handleReactivateUser(user.id)}>REACTIVATE</button>
+                                                <button className="archived-btns" onClick={() => this.handleDeleteOpen(user.id)}>PERMANENTLY DELETE</button>
+                                            </div>
+                                        </MyCard>)
+                                }
+                                else {
+                                return (
+                                    <MyCard>
+                                    <div key={user.id}>
+                                    <h5 className="styled-h5">Name:</h5> {user.name} <br/>
+                                        <h5 className="styled-h5">DOB:</h5> {user.age}<br/>
+                                        <h5 className="styled-h5">Phone:</h5> {user.phone}<br/>
+                                            <button className="archived-btns" onClick={() => this.handleReactivateUser(user.id)}>REACTIVATE</button>
+                                            <button className="archived-btns" onClick={() => this.handleDeleteOpen(user.id)}>PERMANENTLY DELETE</button>
+                                    </div>
+                                    </MyCard>)
+                                }
                             }
                         })}
 
