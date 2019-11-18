@@ -88,7 +88,6 @@ class AddExerciseToWorkout extends Component {
                 exercise_id: 0 
             })
         }
-        console.log(this.state.exercise_id)
       };
     setOpen = () =>{
         this.setState({ open: true })
@@ -110,6 +109,13 @@ class AddExerciseToWorkout extends Component {
                     tips: this.state.tips,
                 }
             }})
+        this.setState({
+            exercise_id: '',
+            assigned_reps: '',
+            assigned_sets: '',
+            assigned_weight: '',
+            tips: ''
+        })
         this.setClose();
     }
     render() {

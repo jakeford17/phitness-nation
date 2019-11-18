@@ -132,12 +132,12 @@ class AdminAddWorkout extends Component {
             email: this.state.email
         }
         this.props.dispatch({ type: 'POST_WORKOUTS', payload: newWorkout })
-        this.props.history.push('/admin')
+        this.props.history.push('/adminviewuser/' + this.state.user_id)
     }
     render() {
         return (
             <>
-            {JSON.stringify(this.state)}
+            {/* {JSON.stringify(this.state)} */}
             {/* {JSON.stringify(this.props.reduxState.injuries.injuriesReducer)} */}
             {this.props.reduxState.injuries.injuriesReducer.map((injury)=>{
                     return(
