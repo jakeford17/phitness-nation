@@ -11,6 +11,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { version } from 'punycode';
+import { retry } from 'redux-saga/effects';
 
 const MyCard = styled(Card)({
     background: '#d2d2d4',
@@ -53,8 +55,12 @@ class AdminUserList extends Component {
     state = {
         listUser: [],
         newUserOpen: false,
+        newPhilOpen: false,
+        phil:'',
         username: '',
         password: '',
+        selectedId: '',
+        philosophy:''
     }
 
 
@@ -70,6 +76,7 @@ class AdminUserList extends Component {
                 },
             })
             this.handleNewUserClose();
+            this.listUsers();
             // this.props.history.push('/adminviewuser');
         } else {
             this.props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
@@ -96,7 +103,9 @@ class AdminUserList extends Component {
 
     handleNewUserOpen = () => {
         this.setState({...this.state,
-        newUserOpen: true})
+        newUserOpen: true,
+        })
+      
     }
 
     handleNewUserClose = () => {
@@ -109,9 +118,65 @@ class AdminUserList extends Component {
 
     }
 
+
+    addPhil = (event) => {
+        event.preventDefault();
+        if (this.state.philosophy) {
+            this.props.dispatch({
+                type: 'ADD_PHIL',
+                payload: {
+                    philosophy: this.state,
+                },
+            })
+            this.handleNewPhilClose();
+            // this.props.history.push('/adminviewuser');
+        } return
+    }
+
+    handleInputChangeForPhil = propertyName => (event) => {
+        this.setState({
+            [propertyName]: event.target.value,
+        });
+    }
+
+    handleNewPhilOpen = () => {
+        this.setState({
+            newPhilOpen: true,
+        })
+    }
+
+    handleNewPhilClose = () => {
+        this.setState({
+            newPhilOpen: false,
+        });
+    }
+
     fetchClientID = (event) => {
         this.props.dispatch({ type: 'ACCESS_USER_INFO', payload: event.target.value });
         this.props.history.push(`/adminviewuser/${event.target.value}`);
+    }
+
+    fetchClientIDPhil = (event) => {
+        // this.props.dispatch({ type: 'ACCESS_USER_INFO', payload: event.target.value });
+       console.log(event.target);
+        this.setState({
+            selectedId: event.target.value,
+        });
+        this.handleNewPhilOpen();
+        this.state.listUser.forEach(element => {
+            if (element.id == event.target.value)
+                this.setState({
+                    philosophy: element.philosophy
+                })
+                // return console.log('yay', element.philosophy);
+                
+        })
+    }
+
+
+    test = () => {
+        console.log(this.state);
+        
     }
 
     render() {
@@ -136,6 +201,64 @@ class AdminUserList extends Component {
                                 <p><h1 className="client-header1">{user.name} ({user.username})</h1>
                                     <div className="client-profile-wrapper">
                                         <button className="clientCard" onClick={this.fetchClientID} value={user.id} >USER PROFILE</button>
+                                        <div className="add-phil-wrapper">
+
+                                            <button value={user.id} phil={user.philosophy} style={styles.palette} aria-label="PHIL" onClick={this.fetchClientIDPhil}>
+                                               Phil 
+                                            </button>
+                                            <Dialog open={this.state.newPhilOpen} onClose={this.handleNewPhilClose}  >
+                                                <DialogTitle id="form-dialog-title"><h1>Add New philosophy:</h1></DialogTitle>
+                                                <DialogContent value={user.philosophy}>
+                                                    {this.props.errors.registrationMessage && (
+                                                        <h2
+                                                            className="alert"
+                                                            role="alert"
+                                                        >
+                                                            {this.props.errors.registrationMessage}
+                                                        </h2>
+                                                    )}
+                                                    <form onSubmit={this.addPhil}>
+                                                        <div>
+                                                           
+                                                            <label htmlFor="phil">
+                                                                philosophy:
+                                                                <input
+                                                                    type="text"
+                                                                    name="phil"
+                                                                    placeholder={this.state.philosophy}
+                                                                    value={this.state.philosophy}
+                                                                    onChange={this.handleInputChangeForPhil('philosophy')}
+                                                                    className="newPhilInput"
+                                                                />
+                                                            </label>
+                                                        </div>
+                                                        <div>
+                                                            <input
+                                                                className="addPhil"
+                                                                type="submit"
+                                                                name="submit"
+                                                                value="ADD PHIL"
+                                                                className="newUserBtns"
+                                                            />
+                                                            <input
+                                                                type="button"
+                                                                value="CANCEL"
+                                                                className="newUserBtns"
+                                                                onClick={(e) => this.handleNewPhilClose()}
+                                                            />
+                                                        </div>
+                                                    </form>
+                                                </DialogContent>
+                                                {/* <DialogActions>
+                            <button onClick={this.handleNewUserClose}>
+                                CANCEL
+                                        </button>
+                            <button onClick={this.handleSubmit}>
+                                YES
+                                        </button>
+                        </DialogActions> */}
+                                            </Dialog>
+                                        </div>
                                     </div>
                                 </p>
                                 </MyCard>
