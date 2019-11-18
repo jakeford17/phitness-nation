@@ -22,7 +22,7 @@ function* fetchExercises(action){
         console.log('FETCH EXERCISES ERROR:', error)
     }
 }
-//adds a workout to the database and gets them afterwords. send: {name: "String"}
+//adds a workout to the database and gets them afterwords. send: {name: "String", description: "String"}
 function* postExercise (action){
     try{
         yield axios.post(`/api/exerciseWorkouts/addExercise`, action.payload)
