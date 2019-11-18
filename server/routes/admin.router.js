@@ -270,15 +270,19 @@ function determineCompliance(array){
     for(let i = 1; i < maxWeek + 1; i++){
         let completed = 0
         let total = 0
+        let incomplete = 0
         for(let j = 0; j < array.length; j++){
             if(array[j].week === i){
                 total++
                 if(array[j].completed){
                     completed++
                 }
+                else {
+                    incomplete++
+                }
             }
         }
-        compliance.push({week: i, completed: completed, total: total})
+        compliance.push({week: i, completed: completed, total: total, incomplete: incomplete})
     }
     return compliance;
 }
@@ -331,6 +335,7 @@ router.get('/exercises/:id', (req, res) =>{
     const queryText = 'SELECT "exercise_workouts".*, "exercises".name FROM "exercise_workouts" JOIN "exercises" ON "exercise_workouts".exercise_id = "exercises".id WHERE "workout_id" = $1;';
     pool.query(queryText, [req.params.id])
         .then((result) =>{
+            console.log('the result is:', result.rows)
             res.send(result.rows)
         }).catch((error) =>{
             console.log('GET EXERCISES FOR ONE WOKROUT ERROR:', error)
