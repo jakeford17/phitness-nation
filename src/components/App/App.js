@@ -108,7 +108,7 @@ class App extends Component {
             />
             <ProtectedRoute
               exact
-              path="/admin/addworkout"
+              path="/admin/addworkout/:id"
               component={AdminAddWorkout}
             />
             {/* This route is to show all the routes to the user

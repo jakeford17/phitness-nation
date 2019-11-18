@@ -6,24 +6,10 @@ import AddIcon from '@material-ui/icons/Add';
 import { withRouter } from 'react-router-dom';
 import swal from 'sweetalert';
 import { styled } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import { flexbox } from '@material-ui/system';
-
-const MyCard = styled(Card)({
-    background: '#d2d2d4',
-    border: 0,
-    borderRadius: 3,
-    // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-    // // color: 'white',
-    height: 125,
-    width: 150,
-    padding: 10,
-    margin: 5,
-    fontSize: 16,
-    display: flexbox,
-    textAlign: "center",
-    fontFamily: 'PT Sans Narrow'
-});
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const styles = {
     palette: {
@@ -49,19 +35,51 @@ class AdminExerciseList extends Component {
 
     state = {
         listExercises: [],
+        newExerciseOpen: false,
+        newExerciseName: ''
+    }
+
+    handleChange = (event) => {
+        this.setState({
+            newExerciseName: event.target.value,
+        });
     }
 
     componentDidMount() {
         this.listExercises();
     }
 
+    handleNewExerciseOpen = () => {
+        this.setState({
+            ...this.state,
+            newExerciseOpen: true
+        })
+    }
+
+    handleNewExerciseClose = () => {
+        this.setState({
+            ...this.state,
+            newExerciseOpen: false
+        })
+    }
+
     listExercises = () => {
         const active = true
         axios.get(`/api/admin/exercise/${active}`).then((response) => {
             this.setState({
+                ...this.state,
                 listExercises: response.data
             })
         })
+    }
+
+    handleSubmit = () => {
+        this.props.dispatch({ type:'ADD_EXERCISE', payload: {name: this.state.newExerciseName}});
+        this.setState({
+            ...this.state,
+            newExerciseOpen: false
+        });
+        this.listExercises()
     }
 
     archiveExercise = (exercise, archive) => {
@@ -93,9 +111,25 @@ class AdminExerciseList extends Component {
                         })}
                     </tbody>
                 </table>
-                <Fab style={styles.palette} aria-label="Add" onClick={() => this.fabFunction()}>
+                <div className="add-exercise-wrapper">
+                <Fab style={styles.palette} aria-label="Add" onClick={() => this.handleNewExerciseOpen()}>
                     <AddIcon color={styles.palette.color} size="large" />
                 </Fab>
+                </div>
+                <Dialog open={this.state.newExerciseOpen} onClose={this.handleNewExerciseClose}>
+                    <DialogTitle id="form-dialog-title"><h3>Add New Exercise:</h3></DialogTitle>
+                    <DialogContent>
+                        New exercise name: <input className="newUserInput" onChange={this.handleChange}></input>
+                    </DialogContent>
+                    <DialogActions>
+                            <button onClick={this.handleNewExerciseClose}>
+                                CANCEL
+                                        </button>
+                            <button onClick={this.handleSubmit}>
+                                ADD EXERCISE
+                                        </button>
+                        </DialogActions>
+                </Dialog>
             </div>
         )
     }

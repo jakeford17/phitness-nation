@@ -8,6 +8,11 @@ import { styled } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import SelectDrop from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
 
 const MyTextField = styled(TextField)({
     padding: 10,
@@ -17,8 +22,8 @@ const MyTextField = styled(TextField)({
 
 class AdminAddWorkout extends Component {
     state = {
-        user_id: this.props.reduxState.adminToUserReducer.adminToUserReducer,
-        week: 0,
+        user_id: this.props.match.params.id,
+        week: 1,
         //exercise_id, assigned_reps, assigned_sets, assigned_weight, tips
         exercises: [
 
@@ -40,19 +45,28 @@ class AdminAddWorkout extends Component {
     }
     componentDidMount = () =>{
         this.getExercises();
+        this.getWeeks();
+        this.injuryDisplay();
     }
+
+    injuryDisplay = () => {
+        this.props.dispatch({ type: 'FETCH_INJURIES'})
+    }
+
     getExercises = () =>{
         this.props.dispatch({ type: 'FETCH_EXERCISES', payload: {active: true}})
         setTimeout(() =>{
             this.props.reduxState.exerciseWorkouts.exerciseReducer.map((exercise) =>{
-                console.log('mapping')
                 this.setState({
                     listExercises: [...this.state.listExercises, {value: exercise.id, label: exercise.name }]
                 })
             })
         }, 1000)
     }
-    handleSelectChange = (value, actionMeta) => {
+    getWeeks = () =>{
+        this.props.dispatch({ type: 'FETCH_WEEKS', payload: {id: this.state.user_id}})
+    }
+    handleSelectChange = (value) => {
         if(value != null){
             this.setState({
                 tempExercise: {...this.state.tempExercise, exercise_id: value.value }
@@ -65,14 +79,15 @@ class AdminAddWorkout extends Component {
       };
     
     handleCreate = (exerciseName) => {
-    // this.setState({isLoading: true})
-    this.props.dispatch({type: 'ADD_EXERCISE', payload: {name: exerciseName}})
-    setTimeout(() => {
-        const newExercise = this.createNewExercise(exerciseName);
-        this.setState({
-            listExercises: [...this.state.listExercises, newExercise],
-        });
-    }, 1000);
+        this.props.dispatch({type: 'ADD_EXERCISE', payload: {name: exerciseName}})
+        setTimeout(() =>{
+            this.setState({ listExercises: []})
+            this.props.reduxState.exerciseWorkouts.exerciseReducer.map((exercise) =>{
+                this.setState({
+                    listExercises: [...this.state.listExercises, {value: exercise.id, label: exercise.name }]
+                })
+            })
+        }, 1000)
     }
 
     handleChange = (event, propertyName) =>{
@@ -99,11 +114,34 @@ class AdminAddWorkout extends Component {
     emailToggle = () =>{
         this.setState({ email: !this.state.email })
     }
+    setWeek = (event) =>{
+        this.setState({ week: event.target.value })
+    }
+
+    addWorkout = () => {
+        const newWorkout = {
+            user_id: this.state.user_id,
+            week: this.state.week,
+            exercises: this.state.exercises,
+            email: this.state.email
+        }
+        this.props.dispatch({ type: 'POST_WORKOUTS', payload: newWorkout })
+        this.props.history.push('/admin')
+    }
     render() {
         return (
             <>
-            {JSON.stringify(this.state)}
-            {JSON.stringify(this.props.reduxState)}
+            {/* {JSON.stringify(this.state)} */}
+            {/* {JSON.stringify(this.props.reduxState.injuries.injuriesReducer)} */}
+            {this.props.reduxState.injuries.injuriesReducer.map((injury)=>{
+                    return(
+                        <>
+                        <p>injury type: {injury.type}</p>
+                        <p>injury Description: {injury.description}</p>
+                        <p>injury severity: {injury.severity}</p>
+                       </>
+                    )
+                })}
             <CreatableSelect
                 isClearable
                 onChange={this.handleSelectChange}
@@ -171,10 +209,28 @@ class AdminAddWorkout extends Component {
             label = "Email Client?"
             labelPlacement="end"
             />
+            <FormControl variant="outlined">
+                <InputLabel id="demo-simple-select-outlined-label">
+                Week
+                </InputLabel>
+                <SelectDrop
+                labelId="demo-simple-select-outlined-label"
+                id="demo-simple-select-outlined"
+                value={this.state.week}
+                onChange={this.setWeek}
+                labelWidth={3999}
+                >
+                {this.props.reduxState.exerciseWorkouts.weeksReducer.map((week, index)=>{
+                    return(
+                        <MenuItem value = {week.week}>Week {index + 1}</MenuItem>
+                    )
+                })}
+                </SelectDrop>
+            </FormControl>
             <Button 
                 variant="contained" 
-                onClick = {this.addExercise}>
-                Submit Workout
+                onClick = {this.addWorkout}>
+                Add Workout
             </Button>
             </>
         )
