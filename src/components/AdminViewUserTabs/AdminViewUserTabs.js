@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => ({
         root: {
         backgroundColor: '#84c8b9',
             width: "100%",
-            fontFamily: 'PT Sans Narrow'
+            fontFamily: 'PT Sans Narrow',
         },
         palette: {
             color: 'teal',
@@ -95,11 +95,10 @@ export default connect(mapStateToProps)(function FullWidthTabs(props) {
             >
                 <TabPanel value={value} index={0} dir={theme.direction}>
                     {/* <UserInputs /> */}
-                    USER WORKOUTS
                     <WorkoutCards userId = {props.userId}/>
                     <br/>
                     <Link to= {`/admin/addworkout/${props.userId}`}>
-                        <button>Add Workout</button>
+                        <button className="add-workout-btn">ADD WORKOUT</button>
                     </Link>
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
