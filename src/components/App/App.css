@@ -198,6 +198,20 @@ input {
     border: 1px solid #3d6363
 }
 
+.editExerciseInput {
+    border: 1px solid #3d6363;
+    width: 310px;
+    margin: 3%;
+}
+
+.edit-ex-modal {
+    text-align: left;
+}
+
+.edit-exercise-modal {
+    width: 100%;
+}
+
 .newUserBtns {
     background-color: #3d6363;
     color: #d2d2d4
@@ -206,4 +220,22 @@ input {
 .add-exercise-wrapper {
     display: flex;
     justify-content: center;
+}
+
+.archived-users-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.styled-h5{
+    font-family: 'Roboto Slab', serif;
+    display: inline-block;
+    font-size: 18px;
+}
+
+.archived-btns {
+    text-align: center;
+    border: 1px solid #313b47;
+    border-radius: 1px;
+    margin: 3%;
 }

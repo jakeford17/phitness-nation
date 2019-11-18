@@ -43,8 +43,13 @@ function a11yProps(index) {
 const useStyles = makeStyles(theme => ({
     root: {
         backgroundColor: '#84c8b9',
-        width: "100%",
+        width: "101%",
     },
+    palette: {
+        color: 'teal',
+        textColor: 'teal',
+        indicatorColor: 'teal'
+    }
 }));
 
 export default function FullWidthTabs() {
@@ -64,6 +69,7 @@ export default function FullWidthTabs() {
         <div className={classes.root}>
             <AppBar position="static" color="default">
                 <Tabs
+                    className={classes.palette}
                     value={value}
                     onChange={handleChange}
                     indicatorColor="inherit"
@@ -71,8 +77,8 @@ export default function FullWidthTabs() {
                     variant="fullWidth"
                     aria-label="full width tabs example"
                 >
-                    <Tab label="USERS" {...a11yProps(0)} />
-                    <Tab label="EXERCISES" {...a11yProps(1)} />
+                    <Tab className={classes.palette} label="USERS" {...a11yProps(0)} />
+                    <Tab className={classes.palette} label="EXERCISES" {...a11yProps(1)} />
                 </Tabs>
             </AppBar>
             <SwipeableViews

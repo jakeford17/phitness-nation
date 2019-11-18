@@ -36,9 +36,9 @@ router.put('/', (req, res) =>{
 
 //admin add exercises into a workout
 router.post('/addExercise', (req, res) =>{
-    let queryText = `INSERT INTO "exercises" ("name") VALUES ($1);`;
-    let exerciseName = [req.body.name]
-    pool.query(queryText, exerciseName)
+    let queryText = `INSERT INTO "exercises" ("name", "links") VALUES ($1, $2);`;
+    let queryValues = [req.body.name, req.body.description]
+    pool.query(queryText, queryValues)
         .then(() =>{
             res.sendStatus(200);
         }).catch((error) =>{
