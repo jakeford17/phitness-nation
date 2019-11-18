@@ -171,6 +171,11 @@ class AdminAddWorkout extends Component {
             label = "Email Client?"
             labelPlacement="end"
             />
+            <Button 
+                variant="contained" 
+                onClick = {this.addExercise}>
+                Submit Workout
+            </Button>
             </>
         )
     }
