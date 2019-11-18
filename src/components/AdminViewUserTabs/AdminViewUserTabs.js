@@ -111,7 +111,16 @@ export default connect(mapStateToProps)(function FullWidthTabs(props) {
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
                     {/* <UserGoals /> */}
-                    <h4 className="admin-compliance-h4">Streak:</h4>
+                    <h4 className="admin-compliance-h4">Current Streak:</h4>
+                    <div className="streak">
+                        <ProgressBar now={props.reduxState.adminToUserReducer.adminEditUserReducer.current_streak} />
+                        <p>{props.reduxState.adminToUserReducer.adminEditUserReducer.current_streak} workouts in a row!</p>
+                    </div>
+                    <h4 className="admin-compliance-h4">Longest Streak:</h4>
+                    <div className="streak">
+                        <ProgressBar now={props.reduxState.adminToUserReducer.adminEditUserReducer.longest_streak} />
+                        <p>{props.reduxState.adminToUserReducer.adminEditUserReducer.longest_streak} workouts in a row!</p>
+                    </div>
                     <h4 className="admin-compliance-h4">Compliance:</h4>
                     <div className="admin-compliance-chart">
                         <BarChart width={350} height={300} data={data}
