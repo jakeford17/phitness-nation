@@ -79,4 +79,20 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
       })
 })
 
+router.get('/exercise/:id', (req, res) => {
+  // const user = req.params.id;
+  const user = 5;
+
+  const queryText = `SELECT "exercises".name FROM "workouts"
+  JOIN "exercise_workouts" ON "exercise_workouts".workout_id = "workouts".id
+  JOIN "exercises" ON "exercises".id = "exercise_workouts".exercise_id 
+  WHERE "workouts".user_id = $1 GROUP BY "exercises".name;`;
+  pool.query(queryText, [user]).then((response) => {
+      res.send(response.rows)
+  }).catch((err) => {
+      console.log(`Error ---------> GETTING user's list of Exercises`, err);
+      res.sendStatus(500);
+  });
+})
+
 module.exports = router;
