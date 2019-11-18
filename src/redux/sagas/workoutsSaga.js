@@ -32,15 +32,17 @@ function* postWorkouts(action){
         if(response.data.length === 0){
             yield axios.post('/api/admin/workouts', {user_id: action.payload.user_id, week: action.payload.week})
             const newId = yield axios.get('/api/admin/workouts/exerciseWorkouts/' + action.payload.user_id + action.payload.week)
-            id = newId.data.id
+            id = newId.data[0].id
         }else{
             id = response.data[0].id
         }
         for(let i = 0; i<action.payload.exercises.length; i++){
-            console.log(id)
             yield axios.post('/api/admin/exerciseWorkouts', {workout_id: id, exercise: action.payload.exercises[i]})
         }
-        yield axios.get('/api/admin/email/' + action.payload.user_id)
+        if(action.payload.email){
+            yield axios.get('/api/admin/email/' + action.payload.user_id)
+        }
+        yield put ({ type: 'ADMIN_FETCH_WORKOUTS_TRANSFORMED', payload: action.payload.user_id })
     }catch (error) {
         console.log('POST WORKOUTS ERROR', error)
     }
