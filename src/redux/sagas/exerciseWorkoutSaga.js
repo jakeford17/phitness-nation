@@ -21,7 +21,7 @@ function* fetchExercises(action){
         console.log('FETCH EXERCISES ERROR:', error)
     }
 }
-//adds a workout to the database and gets them afterwords. send: {name: "String"}
+//adds a workout to the database and gets them afterwords. send: {name: "String", description: "String"}
 function* postExercise (action){
     try{
         yield axios.post(`/api/exerciseWorkouts/addExercise`, action.payload)
@@ -48,6 +48,16 @@ function* updateExerciseWorkouts(action){
         console.log('UPDATE EXERCISE WORKOUTS ERROR')
     }
 }
+
+// admin edit exercises in library
+function* editExercise(action){
+    try {
+        yield axios.put(`/api/admin/exerciseDetail/${action.payload.id}`, action.payload)
+    } catch (error) {
+        console.log('UPDATE EXERCISE WORKOUTS ERROR')
+    }
+}
+
 //admin update exercise workouts, send: { id: int, assigned_sets: int, assigned_reps: int, assigned_weight: int, tips: "String" }
 function* adminUpdatedExerciseWorkouts(action){
     try{
@@ -57,6 +67,18 @@ function* adminUpdatedExerciseWorkouts(action){
         console.log('ADMIN UPDATE EXERCISE WORKOUTS ERROR:', error)
     }
 }
+
+// admin delete exercise, send the id of the exercise you want to delete from the exercises table
+function* deleteExercise(action){
+    try {
+        yield axios.delete('/api/admin/exerciseDetail/' + action.payload)
+    } catch (error) {
+        console.log('ADMIN DELETE EXERCISE ERROR:', error)
+    }
+}
+
+//admin delete exercise workouts, send the id of the exercise workout you want to delete
+=======
 //admin delete exercise workouts, send the id of the exercise workout and the id of the user
 function* deleteExerciseWorkouts(action){
     try{
@@ -85,7 +107,9 @@ function* workoutsSaga(){
     yield takeLatest('FETCH_COMPLIANCE', getComplianceData)
     yield takeLatest('ADD_EXERCISE', postExercise);
     yield takeLatest('FETCH_EXERCISES', fetchExercises)
-    yield takeLatest('FETCH_WEEKS', fetchWeeks)
+    yield takeLatest('FETCH_WEEKS', fetchWeeks);
+    yield takeLatest('PERMANENTLY_DELETE_EXERCISE', deleteExercise);
+    yield takeLatest('EDIT_EXERCISE', editExercise);
 }
 
 export default workoutsSaga;
