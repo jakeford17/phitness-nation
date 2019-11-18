@@ -203,12 +203,12 @@ class AdminUserList extends Component {
                                         <button className="clientCard" onClick={this.fetchClientID} value={user.id} >USER PROFILE</button>
                                         <div className="add-phil-wrapper">
 
-                                            <button value={user.id} phil={user.philosophy} style={styles.palette} aria-label="PHIL" onClick={this.fetchClientIDPhil}>
-                                               Phil 
+                                            <button value={user.id}  style={styles.palette} aria-label="PHIL" onClick={this.fetchClientIDPhil}>
+                                               + 
                                             </button>
                                             <Dialog open={this.state.newPhilOpen} onClose={this.handleNewPhilClose}  >
                                                 <DialogTitle id="form-dialog-title"><h1>Add New philosophy:</h1></DialogTitle>
-                                                <DialogContent value={user.philosophy}>
+                                                <DialogContent >
                                                     {this.props.errors.registrationMessage && (
                                                         <h2
                                                             className="alert"
