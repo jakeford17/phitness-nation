@@ -39,8 +39,8 @@ class ArchivedExercises extends Component {
 
     permanentlyDeleteExercise = (id) => {
         console.log('the id to delete is:', id)
-        // this.props.dispatch({ type: 'DELETE_EXERCISE', payload: id });
-        // this.listExercises();
+        this.props.dispatch({ type: 'PERMANENTLY_DELETE_EXERCISE', payload: id });
+        this.listExercises();
         this.handleDeleteClose();
     }
 

@@ -58,6 +58,16 @@ function* adminUpdatedExerciseWorkouts(action){
         console.log('ADMIN UPDATE EXERCISE WORKOUTS ERROR:', error)
     }
 }
+
+// admin delete exercise, send the id of the exercise you want to delete from the exercises table
+function* deleteExercise(action){
+    try {
+        yield axios.delete('/api/admin/exercise/' + action.payload)
+    } catch (error) {
+        console.log('ADMIN DELETE EXERCISE ERROR:', error)
+    }
+}
+
 //admin delete exercise workouts, send the id of the exercise workout you want to delete
 function* deleteExerciseWorkouts(action){
     try{
@@ -86,7 +96,8 @@ function* workoutsSaga(){
     yield takeLatest('FETCH_COMPLIANCE', getComplianceData)
     yield takeLatest('ADD_EXERCISE', postExercise);
     yield takeLatest('FETCH_EXERCISES', fetchExercises)
-    yield takeLatest('FETCH_WEEKS', fetchWeeks)
+    yield takeLatest('FETCH_WEEKS', fetchWeeks);
+    yield takeLatest('PERMANENTLY_DELETE_EXERCISE', deleteExercise)
 }
 
 export default workoutsSaga;
