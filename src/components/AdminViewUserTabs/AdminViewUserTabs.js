@@ -89,11 +89,11 @@ export default connect(mapStateToProps)(function FullWidthTabs(props) {
                 <TabPanel value={value} index={0} dir={theme.direction}>
                     {/* <UserInputs /> */}
                     USER WORKOUTS
-                    <WorkoutCards userId = {props.userId}/>
-                    <br/>
                     <Link to= {`/admin/addworkout/${props.userId}`}>
                         <button>Add Workout</button>
                     </Link>
+                    <br/>
+                    <WorkoutCards userId = {props.userId}/>
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
                     {/* <UserGoals /> */}
