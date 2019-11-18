@@ -40,13 +40,29 @@ class AdminExerciseList extends Component {
         newExerciseDescription: '',
         exerciseDescriptionOpen: false,
         exerciseDetails: {},
-        editModal: false
+        editModal: false,
+        updateName: '',
+        updateDescription: ''
     }
 
     handleChange = (event) => {
         this.setState({...this.state,
             newExerciseName: event.target.value,
         });
+    }
+
+    handleUpdateName = (event) => {
+        this.setState({
+            ...this.state,
+            updateName: event.target.value
+        })
+    }
+
+    handleUpdateDescription = (event) => {
+        this.setState({
+            ...this.state,
+            updateDescription: event.target.value
+        })
     }
 
     componentDidMount() {
@@ -85,7 +101,9 @@ class AdminExerciseList extends Component {
     setEditMode = () => {
         this.setState({
             ...this.state,
-            editModal: true
+            editModal: true,
+            updateName: this.state.exerciseDetails.name,
+            updateDescription: this.state.exerciseDetails.links
         })
     }
     setEditModeFalse = () => {
@@ -121,6 +139,17 @@ class AdminExerciseList extends Component {
         });
     }
 
+    saveChanges = (idIn) => {
+        // console.log('the new name is:', this.state.updateName, this.state.updateDescription)
+        this.props.dispatch({type: 'EDIT_EXERCISE', payload: {id: idIn, name: this.state.updateName, links: this.state.updateDescription}})
+        this.setState({
+            ...this.state,
+            editModal: false,
+            exerciseDescriptionOpen: false
+        });
+        this.listExercises()
+    }
+
     archiveExercise = (exercise, archive) => {
         const active = { active: archive };
         axios.put(`/api/admin/exerciseArchive/${exercise.id}`, active).then((response) => {
@@ -154,19 +183,22 @@ class AdminExerciseList extends Component {
        } else {
            editModal = <>
                <DialogContent className="edit-exercise-modal" ><h4 className="edit-ex-modal">Exercise Name: </h4>
-                    <input className="editExerciseInput" placeholder={this.state.exerciseDetails.name}></input>
+                    <input className="editExerciseInput" 
+                    onChange={this.handleUpdateName}
+                    placeholder={this.state.exerciseDetails.name}></input>
                    <br></br>
                    <h4 className="edit-ex-modal">Description / Links: </h4>
                    <textarea className="editExerciseInput" 
+                    onChange={this.handleUpdateDescription}
                    placeholder={this.state.exerciseDetails.links}></textarea>
                </DialogContent>
                <DialogActions>
                    <button onClick={this.setEditModeFalse}>
                        CANCEL
                             </button>
-                   {/* <button onClick={this.setEditMode}>
-                       SAVE
-                        </button> */}
+                   <button onClick={(event) => this.saveChanges(this.state.exerciseDetails.id)}>
+                       SAVE CHANGES
+                        </button>
                </DialogActions>
            </>
        }

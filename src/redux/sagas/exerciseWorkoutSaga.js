@@ -49,6 +49,16 @@ function* updateExerciseWorkouts(action){
         console.log('UPDATE EXERCISE WORKOUTS ERROR')
     }
 }
+
+// admin edit exercises in library
+function* editExercise(action){
+    try {
+        yield axios.put(`/api/admin/exerciseDetail/${action.payload.id}`, action.payload)
+    } catch (error) {
+        console.log('UPDATE EXERCISE WORKOUTS ERROR')
+    }
+}
+
 //admin update exercise workouts, send: { id: int, assigned_sets: int, assigned_reps: int, assigned_weight: int, tips: "String" }
 function* adminUpdatedExerciseWorkouts(action){
     try{
@@ -97,7 +107,8 @@ function* workoutsSaga(){
     yield takeLatest('ADD_EXERCISE', postExercise);
     yield takeLatest('FETCH_EXERCISES', fetchExercises)
     yield takeLatest('FETCH_WEEKS', fetchWeeks);
-    yield takeLatest('PERMANENTLY_DELETE_EXERCISE', deleteExercise)
+    yield takeLatest('PERMANENTLY_DELETE_EXERCISE', deleteExercise);
+    yield takeLatest('EDIT_EXERCISE', editExercise);
 }
 
 export default workoutsSaga;
