@@ -7,6 +7,8 @@ import injuries from './injuriesReducer';
 import workouts from './workoutsReducer';
 import exerciseWorkouts from './exerciseWorkoutReducer';
 import adminToUserReducer from './adminToUserReducer';
+import philReducer from './philReducer';
+
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -23,6 +25,7 @@ const rootReducer = combineReducers({
   workouts,
   exerciseWorkouts,
   adminToUserReducer,
+  philReducer
 });
 
 export default rootReducer;
