@@ -11,7 +11,6 @@ function* addUser(action) {
     yield axios.post('/api/user/register', action.payload);
   } catch (error) {
       console.log('Error with user registration:', error);
-      yield put({type: 'REGISTRATION_FAILED'});
   }
 }
 

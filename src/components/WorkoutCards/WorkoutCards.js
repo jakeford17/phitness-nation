@@ -12,6 +12,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import DoneIcon from '@material-ui/icons/Done';
 import axios from 'axios';
 import ExerciseWorkoutCard from '../ExerciseWorkoutCard/ExerciseWorkoutCard';
+import AddExerciseToWorkout from '../AddExerciseToWorkout/AddExerciseToWorkout';
 
 const MyCard = styled(Card)({
   background: '#d2d2d4',
@@ -27,9 +28,7 @@ const MyCard = styled(Card)({
 
 class WorkoutCards extends Component {
     state = {
-        currentExercise: {
-
-        }
+        
     }
     getExercises = () =>{
         axios.get('/api/admin/exercises')
@@ -37,10 +36,9 @@ class WorkoutCards extends Component {
     render() {
         return (
         <div >
-            {/* {JSON.stringify(this.props.reduxState.workouts.workoutsReducer)} */}
-            {this.props.reduxState.workouts.workoutsReducer.map((week) =>{
+            {this.props.reduxState.workouts.workoutsReducer.map((week) => {
                 return(
-                    <div >
+                    <div>
                     <ExpansionPanel>
                         <ExpansionPanelSummary
                         expandIcon={<ExpandMoreIcon />}
@@ -67,6 +65,7 @@ class WorkoutCards extends Component {
                                                 <ExerciseWorkoutCard userId = {this.props.userId} exercise = {exercise}/>
                                                 )
                                             })}
+                                            <AddExerciseToWorkout workout_id = {workout.id} userId = {this.props.userId} />
                                         </ExpansionPanelDetails>
                                     </ExpansionPanel>
                                     </>

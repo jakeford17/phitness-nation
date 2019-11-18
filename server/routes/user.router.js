@@ -19,7 +19,7 @@ router.post('/register', (req, res, next) => {
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
 
-  const queryText = 'INSERT INTO "user" (username, password) VALUES ($1, $2) RETURNING id';
+  const queryText = 'INSERT INTO "user" (username, password, name) VALUES ($1, $2, $1) RETURNING id';
   pool.query(queryText, [username, password])
     .then(() => {res.send(req.body)})
     .catch((e) => res.sendStatus(500));
@@ -66,6 +66,52 @@ router.put('/reactivate', (req, res) =>{
           res.sendStatus(500);
           console.log('REACTIVATE USER INFO ERROR:', error);
       })
+})
+
+//req.body is an array with one just index (the user's id)
+router.put('/archive', (req, res) =>{
+  console.log("req: ", req.body);
+  let userid = req.body;
+  let queryText = `UPDATE "user" SET "active" = false WHERE id = $1`
+  let queryValues = [userid[0]]
+  pool.query(queryText, queryValues)
+      .then(() =>{
+          res.sendStatus(200);
+      }).catch((error) =>{
+          res.sendStatus(500);
+          console.log('REACTIVATE USER INFO ERROR:', error);
+      })
+})
+
+router.post('/phil', (req, res) => {
+  console.log("req: ", req.body.philosophy.philosophy, req.body.philosophy.selectedId);
+  let userid = req.body.philosophy.selectedId;
+  let philosophy = req.body.philosophy.philosophy
+
+  let queryText = `UPDATE "user" SET "philosophy" = $1 WHERE id = $2`
+  let queryValues = [philosophy,userid]
+  pool.query(queryText, queryValues)
+    .then(() => {
+      res.sendStatus(200);
+    }).catch((error) => {
+      res.sendStatus(500);
+      console.log('REACTIVATE USER INFO ERROR:', error);
+    })
+})
+
+
+router.put('/phil', (req, res) => {
+  console.log("req: ", req.body);
+  let userid = req.body;
+  let queryText = `UPDATE "user" SET "philosophy" = $1 WHERE id = $2`
+  let queryValues = [userid[0]]
+  pool.query(queryText, queryValues)
+    .then(() => {
+      res.sendStatus(200);
+    }).catch((error) => {
+      res.sendStatus(500);
+      console.log('REACTIVATE USER INFO ERROR:', error);
+    })
 })
 
 router.delete('/:id', rejectUnauthenticated, (req, res) => {

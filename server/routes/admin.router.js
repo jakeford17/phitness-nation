@@ -173,8 +173,12 @@ router.get('/workouts/:id', (req, res) =>{
 //admin GET request to get the id of the workout that was just created with the post request, send{ user_id: int, week: int }
 router.get('/workouts/exerciseWorkouts/:id', (req, res) =>{
     const queryInfo = req.params.id.split('')
+    let week = '';
+    for(let i = 1; i<queryInfo.length; i++){
+        week = week + queryInfo[i]
+    }
     const queryText = 'SELECT "workouts".id FROM "workouts" WHERE "user_id" = $1 AND "week" = $2;';
-    pool.query(queryText, [queryInfo[0], queryInfo[1]])
+    pool.query(queryText, [queryInfo[0], week])
         .then((result) =>{
             res.send(result.rows)
             console.log(result.rows)
@@ -200,6 +204,18 @@ router.put('/workouts', (req, res) =>{
 router.post('/exerciseWorkouts', (req, res) =>{
     const queryText = 'INSERT INTO "exercise_workouts" ("workout_id", "exercise_id", "assigned_sets", "assigned_reps", "assigned_weight", "tips") VALUES ( $1, $2, $3, $4, $5, $6);';
     const queryInfo = [ req.body.workout_id, req.body.exercise.exercise_id, req.body.exercise.assigned_sets, req.body.exercise.assigned_reps, req.body.exercise.assigned_weight, req.body.exercise.tips ]
+    pool.query(queryText, queryInfo)
+        .then(() =>{
+            res.sendStatus(201)
+        }).catch((error) =>{
+            res.sendStatus(500)
+            console.log('ERROR POSTING EXERCISE WORKOUTS:', error)
+        })
+})
+//Admin POST request to add exercise workouts for a user, send: { workout_id: int, exercise_id: int, assigned_sets: int, assigned_reps: int, assigned_weight: int, tips: "String" }
+router.post('/newExerciseWorkouts', (req, res) =>{
+    const queryText = 'INSERT INTO "exercise_workouts" ("workout_id", "exercise_id", "assigned_sets", "assigned_reps", "assigned_weight", "tips") VALUES ( $1, $2, $3, $4, $5, $6);';
+    const queryInfo = [ req.body.workout_id, req.body.exercise_id, req.body.assigned_sets, req.body.assigned_reps, req.body.assigned_weight, req.body.tips ]
     pool.query(queryText, queryInfo)
         .then(() =>{
             res.sendStatus(201)
@@ -254,15 +270,19 @@ function determineCompliance(array){
     for(let i = 1; i < maxWeek + 1; i++){
         let completed = 0
         let total = 0
+        let incomplete = 0
         for(let j = 0; j < array.length; j++){
             if(array[j].week === i){
                 total++
                 if(array[j].completed){
                     completed++
                 }
+                else {
+                    incomplete++
+                }
             }
         }
-        compliance.push({week: i, completed: completed, total: total})
+        compliance.push({week: i, completed: completed, total: total, incomplete: incomplete})
     }
     return compliance;
 }
@@ -315,6 +335,7 @@ router.get('/exercises/:id', (req, res) =>{
     const queryText = 'SELECT "exercise_workouts".*, "exercises".name FROM "exercise_workouts" JOIN "exercises" ON "exercise_workouts".exercise_id = "exercises".id WHERE "workout_id" = $1;';
     pool.query(queryText, [req.params.id])
         .then((result) =>{
+            console.log('the result is:', result.rows)
             res.send(result.rows)
         }).catch((error) =>{
             console.log('GET EXERCISES FOR ONE WOKROUT ERROR:', error)
