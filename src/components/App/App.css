@@ -198,6 +198,20 @@ input {
     border: 1px solid #3d6363
 }
 
+.editExerciseInput {
+    border: 1px solid #3d6363;
+    width: 310px;
+    margin: 3%;
+}
+
+.edit-ex-modal {
+    text-align: left;
+}
+
+.edit-exercise-modal {
+    width: 100%;
+}
+
 .newUserBtns {
     background-color: #3d6363;
     color: #d2d2d4
