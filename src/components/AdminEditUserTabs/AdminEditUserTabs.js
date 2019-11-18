@@ -7,8 +7,9 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import AdminUserList from '../AdminUserList/AdminUserList'
-import AdminExerciseList from '../AdminExerciseList/AdminExerciseList'
+import AdminEditUserProfile from '../AdminEditUserProfile/AdminEditUserProfile';
+import AdminEditUserGoals from '../AdminEditUserGoals/AdminEditUserGoals';
+import AdminEditUserInjuries from '../AdminEditUserInjuries/AdminEditUserInjuries';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -42,14 +43,9 @@ function a11yProps(index) {
 
 const useStyles = makeStyles(theme => ({
     root: {
-        backgroundColor: '#84c8b9',
-        width: "101%",
+        backgroundColor: theme.palette.background.paper,
+        width: 500,
     },
-    palette: {
-        color: 'teal',
-        textColor: 'teal',
-        indicatorColor: 'teal'
-    }
 }));
 
 export default function FullWidthTabs() {
@@ -69,16 +65,16 @@ export default function FullWidthTabs() {
         <div className={classes.root}>
             <AppBar position="static" color="default">
                 <Tabs
-                    className={classes.palette}
                     value={value}
                     onChange={handleChange}
-                    indicatorColor="inherit"
-                    textColor="inherit"
+                    indicatorColor="primary"
+                    textColor="primary"
                     variant="fullWidth"
                     aria-label="full width tabs example"
                 >
-                    <Tab className={classes.palette} label="USERS" {...a11yProps(0)} />
-                    <Tab className={classes.palette} label="EXERCISES" {...a11yProps(1)} />
+                    <Tab label="PROFILE" {...a11yProps(0)} />
+                    <Tab label="GOALS" {...a11yProps(1)} />
+                    <Tab label="INJURIES" {...a11yProps(2)} />
                 </Tabs>
             </AppBar>
             <SwipeableViews
@@ -87,10 +83,13 @@ export default function FullWidthTabs() {
                 onChangeIndex={handleChangeIndex}
             >
                 <TabPanel value={value} index={0} dir={theme.direction}>
-                    <AdminUserList />
+                    <AdminEditUserProfile />
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
-                    <AdminExerciseList />
+                    <AdminEditUserGoals />
+                </TabPanel>
+                <TabPanel value={value} index={2} dir={theme.direction}>
+                    <AdminEditUserInjuries />
                 </TabPanel>
             </SwipeableViews>
         </div>

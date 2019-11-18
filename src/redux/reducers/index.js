@@ -9,6 +9,7 @@ import exerciseWorkouts from './exerciseWorkoutReducer';
 import adminToUserReducer from './adminToUserReducer';
 import userExerciseReducer from './userExerciseReducer';
 import userExerciseHistoryReducer from './userExerciseHistoryReducer';
+import philReducer from './philReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -25,8 +26,10 @@ const rootReducer = combineReducers({
   workouts,
   exerciseWorkouts,
   adminToUserReducer,
+   historyBranch
   userExerciseReducer,
-  userExerciseHistoryReducer
+  userExerciseHistoryReducer,
+  philReducer
 });
 
 export default rootReducer;
