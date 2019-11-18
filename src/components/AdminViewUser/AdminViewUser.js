@@ -12,6 +12,7 @@ class AdminViewUser extends Component {
     }
     componentDidMount() {
         this.props.dispatch({ type: 'ADMIN_FETCH_USER', payload: this.props.match.params.id })
+        this.props.dispatch({ type: 'ADMIN_FETCH_WORKOUTS_TRANSFORMED', payload: this.props.match.params.id })
     }
 
     goEditUser = () => {
@@ -26,7 +27,7 @@ class AdminViewUser extends Component {
                 <img onClick={() => this.goEditUser(this.props.match.params.id)} className="placeholder" src={Placeholder}></img>
 
             </div>
-                <AdminViewUserTabs />
+                <AdminViewUserTabs userId = {this.props.match.params.id}/>
 
         </>
         )
