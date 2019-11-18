@@ -17,10 +17,10 @@ const MyCard = styled(Card)({
     borderRadius: 3,
     width: "100%",
     padding: 10,
-    margin: 5,
     fontSize: 100,
-    display: flexbox,
-    textAlign: "left",
+    height: "100%",
+    textAlign: "center",
+    fontFamily: 'PT Sans Narrow'
 });
 const MyTextField = styled(TextField)({
     padding: 10,
@@ -77,11 +77,13 @@ class ExerciseWorkoutCard extends Component {
     }
     render() {
         return (
-            <div>
+            <div className="exercise-workout-card">
                 <MyCard>
+                    <div className="exercise-workout-int">
                     <Typography>{this.props.exercise.name}: {this.state.tips}</Typography>
                     <EditIcon onClick = {this.setOpen}/>
                     <DeleteIcon onClick = {this.handleDelete}/>
+                    </div>
                 </MyCard>
                 <MyModal
                     aria-labelledby="simple-modal-title"

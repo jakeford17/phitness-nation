@@ -184,18 +184,6 @@ class AdminUserList extends Component {
             <div className="clients-wrapper">
                 {this.state.listUser.map((user) => {
                     if (user.active === true) {
-                        if (user.name === null){
-                            return (
-                                <MyCard className="client-card-wrapper">
-                                    <p><h1 className="client-header1">{user.username}</h1>
-                                        <div className="client-profile-wrapper">
-                                            <button className="clientCard" onClick={this.fetchClientID} value={user.id} >USER PROFILE</button>
-                                        </div>
-                                    </p>
-                                </MyCard>
-                            );
-                        }
-                        else {
                         return (
                                 <MyCard className="client-card-wrapper">
                                 <p><h1 className="client-header1">{user.name} ({user.username})</h1>
@@ -264,7 +252,6 @@ class AdminUserList extends Component {
                                 </MyCard>
                         )
                         }
-                    }
                 })}
                 <div className="add-client-wrapper">
                     <Fab style={styles.palette} aria-label="Add" onClick={() => this.handleNewUserOpen()}>
@@ -323,14 +310,6 @@ class AdminUserList extends Component {
                                 </div>
                             </form>
                         </DialogContent>
-                        {/* <DialogActions>
-                            <button onClick={this.handleNewUserClose}>
-                                CANCEL
-                                        </button>
-                            <button onClick={this.handleSubmit}>
-                                YES
-                                        </button>
-                        </DialogActions> */}
                     </Dialog>
             </div>
             </div>
