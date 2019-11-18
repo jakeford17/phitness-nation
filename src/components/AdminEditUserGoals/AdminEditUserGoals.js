@@ -5,9 +5,9 @@ import { styled } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import { flexbox } from '@material-ui/system';
 import EditGoalModal from'../EditGoalModal/EditGoalModal.js';
-import Fab from '@material-ui/core/Fab';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
+// import Fab from '@material-ui/core/Fab';
+// import EditIcon from '@material-ui/icons/Edit';
+// import DeleteIcon from '@material-ui/icons/Delete';
 import DeleteGoalModal from '../DeleteGoalModal/DeleteGoalModal.js'
 
 const mapStateToProps = reduxState => ({
