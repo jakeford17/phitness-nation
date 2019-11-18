@@ -12,6 +12,11 @@ import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import WorkoutCards from '../WorkoutCards/WorkoutCards';
+import { ProgressBar } from 'react-bootstrap';
+import {
+    BarChart, CartesianGrid, XAxis, YAxis, Tooltip
+    , Legend, Bar, Label
+} from 'recharts';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -72,6 +77,9 @@ export default connect(mapStateToProps)(function FullWidthTabs(props) {
     const handleChangeIndex = index => {
         setValue(index);
     };
+
+    let data = props.reduxState.exerciseWorkouts.complianceReducer
+
     return (
         <div className={classes.root}>
             <AppBar position="static" color="default">
@@ -103,7 +111,21 @@ export default connect(mapStateToProps)(function FullWidthTabs(props) {
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
                     {/* <UserGoals /> */}
-                    USER DATA
+                    <h4 className="admin-compliance-h4">Streak:</h4>
+                    <h4 className="admin-compliance-h4">Compliance:</h4>
+                    <div className="admin-compliance-chart">
+                        <BarChart width={350} height={300} data={data}
+                            margin={ {top: 15, right: 15, bottom: 15, left: 15 }}>
+                            <CartesianGrid strokeDasharray="1 1" />
+                            <XAxis dataKey="week" >
+                                <Label value="Week Number" offset={0} position="insideBottom" />
+                            </XAxis>
+                            <YAxis label={{ value: 'Number of Exercises', angle: -90, position: 'insideBottomLeft' }} />
+                            <Legend />
+                            <Bar name="Completed Exercises" dataKey="completed" stackId="a" fill="#3d6363" />
+                            <Bar name="Incomplete Exercises" dataKey="incomplete" stackId="a" fill="#d2d2d4" />
+                        </BarChart>
+                    </div>
                 </TabPanel>
             </SwipeableViews>
         </div>

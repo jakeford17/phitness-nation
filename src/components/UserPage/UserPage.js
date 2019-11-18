@@ -58,7 +58,7 @@ class UserPage extends Component{
               <XAxis dataKey="week" >
                 <Label value="Week Number" offset={0} position="insideBottom" />
               </XAxis>
-              <YAxis label={{ value: 'Number of Exercises', angle: -90, position: 'insideLeft' }} />
+              <YAxis label={{ value: 'Number of Exercises', angle: -90, position: 'insideBottomLeft' }} />
             <Legend />
             <Bar name="Completed Exercises" dataKey="completed" stackId="a" fill="#3d6363" />
               <Bar name="Incomplete Exercises" dataKey="incomplete" stackId="a" fill="#d2d2d4" />

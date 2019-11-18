@@ -244,3 +244,14 @@ input {
     margin: 0 auto;
     display: flex;
 }
+
+.admin-compliance-chart {
+    display: flex;
+    height: 100%;
+    justify-content: center;
+}
+
+.admin-compliance-h4 {
+    font-family: 'Roboto Slab', serif;
+    text-align: left;
+}
