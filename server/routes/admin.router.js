@@ -139,7 +139,6 @@ router.get('/goals/:id', (req, res) =>{
 //Admin GET request to get injuries for a specific user
 router.get('/injuries/:id', (req, res) =>{
     const queryText = `SELECT * FROM "injuries" WHERE "user_id" = $1;`
-    console.log(req.params.id)
     pool.query(queryText, [req.params.id])
         .then((result) =>{
             res.send((result.rows))
