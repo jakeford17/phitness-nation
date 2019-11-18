@@ -38,9 +38,9 @@ class WorkoutCards extends Component {
         return (
         <div >
             {/* {JSON.stringify(this.props.reduxState.workouts.workoutsReducer)} */}
-            {this.props.reduxState.workouts.workoutsReducer.map((week) =>{
+            {this.props.reduxState.workouts.workoutsReducer.map((week) => {
                 return(
-                    <div >
+                    <div>
                     <ExpansionPanel>
                         <ExpansionPanelSummary
                         expandIcon={<ExpandMoreIcon />}
