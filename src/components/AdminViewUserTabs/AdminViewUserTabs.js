@@ -12,6 +12,11 @@ import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import WorkoutCards from '../WorkoutCards/WorkoutCards';
+import { ProgressBar } from 'react-bootstrap';
+import {
+    BarChart, CartesianGrid, XAxis, YAxis, Tooltip
+    , Legend, Bar, Label
+} from 'recharts';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -44,10 +49,16 @@ function a11yProps(index) {
 }
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        backgroundColor: theme.palette.background.paper,
-        width: 500,
-    },
+        root: {
+        backgroundColor: '#84c8b9',
+            width: "100%",
+            fontFamily: 'PT Sans Narrow',
+        },
+        palette: {
+            color: 'teal',
+            textColor: 'teal',
+            indicatorColor: 'teal'
+        }
 }));
 const mapStateToProps = reduxState => ({
     reduxState,
@@ -66,19 +77,23 @@ export default connect(mapStateToProps)(function FullWidthTabs(props) {
     const handleChangeIndex = index => {
         setValue(index);
     };
+
+    let data = props.reduxState.exerciseWorkouts.complianceReducer
+
     return (
         <div className={classes.root}>
             <AppBar position="static" color="default">
                 <Tabs
+                    class={classes.palette}
                     value={value}
                     onChange={handleChange}
-                    indicatorColor="primary"
-                    textColor="primary"
+                    indicatorColor="inherit"
+                    textColor="teal"
                     variant="fullWidth"
                     aria-label="full width tabs example"
                 >
-                    <Tab label="WORKOUTS" {...a11yProps(0)} icon={<FitnessCenterIcon />} />
-                    <Tab label="DATA" {...a11yProps(1)} icon={<TrendingUpIcon />} />
+                    <Tab className={classes.palette} label="WORKOUTS" {...a11yProps(0)} icon={<FitnessCenterIcon className={classes.palette} />} />
+                    <Tab className={classes.palette} label="DATA" {...a11yProps(1)} icon={<TrendingUpIcon className={classes.palette}/>} />
                 </Tabs>
             </AppBar>
             <SwipeableViews
@@ -88,16 +103,38 @@ export default connect(mapStateToProps)(function FullWidthTabs(props) {
             >
                 <TabPanel value={value} index={0} dir={theme.direction}>
                     {/* <UserInputs /> */}
-                    USER WORKOUTS
                     <WorkoutCards userId = {props.userId}/>
                     <br/>
                     <Link to= {`/admin/addworkout/${props.userId}`}>
-                        <button>Add Workout</button>
+                        <button className="add-workout-btn">ADD WORKOUT</button>
                     </Link>
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
                     {/* <UserGoals /> */}
-                    USER DATA
+                    <h4 className="admin-compliance-h4">Current Streak:</h4>
+                    <div className="streak">
+                        <ProgressBar now={props.reduxState.adminToUserReducer.adminEditUserReducer.current_streak} />
+                        <p>{props.reduxState.adminToUserReducer.adminEditUserReducer.current_streak} workouts in a row!</p>
+                    </div>
+                    <h4 className="admin-compliance-h4">Longest Streak:</h4>
+                    <div className="streak">
+                        <ProgressBar now={props.reduxState.adminToUserReducer.adminEditUserReducer.longest_streak} />
+                        <p>{props.reduxState.adminToUserReducer.adminEditUserReducer.longest_streak} workouts in a row!</p>
+                    </div>
+                    <h4 className="admin-compliance-h4">Compliance:</h4>
+                    <div className="admin-compliance-chart">
+                        <BarChart width={350} height={300} data={data}
+                            margin={ {top: 15, right: 15, bottom: 15, left: 15 }}>
+                            <CartesianGrid strokeDasharray="1 1" />
+                            <XAxis dataKey="week" >
+                                <Label value="Week Number" offset={0} position="insideBottom" />
+                            </XAxis>
+                            <YAxis label={{ value: 'Number of Exercises', angle: -90, position: 'insideBottomLeft' }} />
+                            <Legend />
+                            <Bar name="Completed Exercises" dataKey="completed" stackId="a" fill="#3d6363" />
+                            <Bar name="Incomplete Exercises" dataKey="incomplete" stackId="a" fill="#d2d2d4" />
+                        </BarChart>
+                    </div>
                 </TabPanel>
             </SwipeableViews>
         </div>
