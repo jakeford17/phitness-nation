@@ -208,6 +208,18 @@ router.post('/exerciseWorkouts', (req, res) =>{
             console.log('ERROR POSTING EXERCISE WORKOUTS:', error)
         })
 })
+//Admin POST request to add exercise workouts for a user, send: { workout_id: int, exercise_id: int, assigned_sets: int, assigned_reps: int, assigned_weight: int, tips: "String" }
+router.post('/newExerciseWorkouts', (req, res) =>{
+    const queryText = 'INSERT INTO "exercise_workouts" ("workout_id", "exercise_id", "assigned_sets", "assigned_reps", "assigned_weight", "tips") VALUES ( $1, $2, $3, $4, $5, $6);';
+    const queryInfo = [ req.body.workout_id, req.body.exercise_id, req.body.assigned_sets, req.body.assigned_reps, req.body.assigned_weight, req.body.tips ]
+    pool.query(queryText, queryInfo)
+        .then(() =>{
+            res.sendStatus(201)
+        }).catch((error) =>{
+            res.sendStatus(500)
+            console.log('ERROR POSTING EXERCISE WORKOUTS:', error)
+        })
+})
 //Admin PUT request to exercise workouts for a user, send: { id: int, assigned_sets: int, assigned_reps: int, assigned_weight: int, tips: "String" }
 router.put('/exerciseWorkouts', (req, res) =>{
     const queryText = 'UPDATE "exercise_workouts" SET "assigned_sets" = $1, "assigned_reps" = $2, "assigned_weight" = $3, "tips" = $4 WHERE "id" = $5;';

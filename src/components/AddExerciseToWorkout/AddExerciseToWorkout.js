@@ -10,6 +10,7 @@ import Modal from '@material-ui/core/Modal';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import CreatableSelect from 'react-select/creatable';
 
 const MyCard = styled(Card)({
     background: '#d2d2d4',
@@ -36,53 +37,85 @@ const MyModal = styled(Modal)({
     top: `50%`,
     left: `50%`,
 })
-class ExerciseWorkoutCard extends Component {
+
+class AddExerciseToWorkout extends Component {
     state = {
         open: false,
+        listExercises: [  
+
+        ],
+        exercise_id: 0,
+        assigned_sets: '',
+        assigned_reps: '',
+        assigned_weight: '',
+        tips: ''
+
     }
     componentDidMount = () =>{
-        this.setExercises();
+        this.getExercises();
     }
-    setExercises = () =>{
-        this.setState({ ...this.props.exercise })
+    getExercises = () =>{
+        this.props.dispatch({ type: 'FETCH_EXERCISES', payload: {active: true}})
+        setTimeout(() =>{
+            this.props.reduxState.exerciseWorkouts.exerciseReducer.map((exercise) =>{
+                this.setState({
+                    listExercises: [...this.state.listExercises, {value: exercise.id, label: exercise.name }]
+                })
+            })
+        }, 1000)
     }
+    handleCreate = (exerciseName) => {
+        this.props.dispatch({type: 'ADD_EXERCISE', payload: {name: exerciseName}})
+        setTimeout(() =>{
+            this.setState({ listExercises: []})
+            this.props.reduxState.exerciseWorkouts.exerciseReducer.map((exercise) =>{
+                this.setState({
+                    listExercises: [...this.state.listExercises, {value: exercise.id, label: exercise.name }]
+                })
+            })
+        }, 1000)
+    }
+    handleChange = (event, propertyName) =>{
+        this.setState({ [propertyName]: event.target.value })
+    }
+    handleSelectChange = (value) => {
+        if(value != null){
+            this.setState({
+                exercise_id: value.value
+            })
+        }else{
+            this.setState({
+                exercise_id: 0 
+            })
+        }
+        console.log(this.state.exercise_id)
+      };
     setOpen = () =>{
         this.setState({ open: true })
     }
     setClose = () =>{
         this.setState({ open: false })
     }
-    handleChange = (event, propertyName) =>{
-        this.setState({ [propertyName]: event.target.value })
-    }
     handleSubmit = () =>{
-        this.props.dispatch({ 
-            type: 'ADMIN_UPDATE_EXERCISE_WORKOUTS', 
+        this.props.dispatch({
+            type: 'POST_EXERCISE_WORKOUTS', 
             payload: {
                 user_id: this.props.userId,
-                exercise: {
-                    id: this.state.id, 
-                    assigned_reps: this.state.assigned_reps, 
-                    assigned_sets: this.state.assigned_sets, 
-                    tips: this.state.tips 
+                exercise:{
+                    workout_id: this.props.workout_id, 
+                    exercise_id: this.state.exercise_id,
+                    assigned_reps: this.state.assigned_reps,
+                    assigned_sets: this.state.assigned_sets,
+                    assigned_weight: this.state.assigned_weight,
+                    tips: this.state.tips,
                 }
-            }
-        })
+            }})
         this.setClose();
-    }
-    handleDelete = () =>{
-        if(window.confirm('Are you sure you want to delete this exercise?')){
-            this.props.dispatch({ type: 'DELETE_EXERCISE_WORKOUTS', payload: {id: this.state.id, user_id: this.props.userId }})
-        }
     }
     render() {
         return (
             <div>
-                <MyCard>
-                    <Typography>{this.props.exercise.name}: {this.state.tips}</Typography>
-                    <EditIcon onClick = {this.setOpen}/>
-                    <DeleteIcon onClick = {this.handleDelete}/>
-                </MyCard>
+                <Button onClick = {this.setOpen} variant="contained" >Add Exercise</Button>
                 <MyModal
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description"
@@ -91,8 +124,14 @@ class ExerciseWorkoutCard extends Component {
                 >
                     <MyPaper>
                         <Typography variant="h5" component="h3">
-                            Exercise Overview
+                            New Exercise
                         </Typography>
+                        <CreatableSelect
+                            isClearable
+                            onChange={this.handleSelectChange}
+                            onCreateOption ={this.handleCreate}
+                            options={this.state.listExercises}
+                        />
                         <MyTextField
                             label="Sets"
                             value={this.state.assigned_sets}
@@ -121,10 +160,6 @@ class ExerciseWorkoutCard extends Component {
                             onChange={(event) => this.handleChange(event, 'tips')}
                             margin="normal"
                         />
-                        <Typography>Completed Sets: {this.state.completed_sets}</Typography>
-                        <Typography>Completed Reps: {this.state.completed_reps}</Typography>
-                        <Typography>Completed Weight: {this.state.completed_weight}</Typography>
-                        <Typography>Feedback: {this.state.feedback}</Typography>
                         <Button variant="contained" color="primary" onClick={this.handleSubmit}>
                             Save Changes
                         </Button>
@@ -141,4 +176,4 @@ const mapStateToProps = reduxState => ({
     reduxState,
 });
 
-export default connect(mapStateToProps)(ExerciseWorkoutCard);
+export default connect(mapStateToProps)(AddExerciseToWorkout);

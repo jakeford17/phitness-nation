@@ -23,7 +23,8 @@ const MyTextField = styled(TextField)({
 class AdminAddWorkout extends Component {
     state = {
         user_id: this.props.match.params.id,
-        week: 1,
+        week: 0,
+        maxWeek: 0,
         //exercise_id, assigned_reps, assigned_sets, assigned_weight, tips
         exercises: [
 
@@ -65,6 +66,10 @@ class AdminAddWorkout extends Component {
     }
     getWeeks = () =>{
         this.props.dispatch({ type: 'FETCH_WEEKS', payload: {id: this.state.user_id}})
+        setTimeout(() =>{
+            let weekLength = this.props.reduxState.exerciseWorkouts.weeksReducer.length - 1
+            this.setState({ maxWeek: (this.props.reduxState.exerciseWorkouts.weeksReducer[weekLength].week + 1)})
+        }, 1000)
     }
     handleSelectChange = (value) => {
         if(value != null){
@@ -76,6 +81,7 @@ class AdminAddWorkout extends Component {
                 tempExercise: {...this.state.tempExercise, exercise_id: 0 }
             })
         }
+        console.log(this.state.tempExercise.exercise_id)
       };
     
     handleCreate = (exerciseName) => {
@@ -131,7 +137,7 @@ class AdminAddWorkout extends Component {
     render() {
         return (
             <>
-            {/* {JSON.stringify(this.state)} */}
+            {JSON.stringify(this.state)}
             {/* {JSON.stringify(this.props.reduxState.injuries.injuriesReducer)} */}
             {this.props.reduxState.injuries.injuriesReducer.map((injury)=>{
                     return(
@@ -218,13 +224,13 @@ class AdminAddWorkout extends Component {
                 id="demo-simple-select-outlined"
                 value={this.state.week}
                 onChange={this.setWeek}
-                labelWidth={3999}
                 >
                 {this.props.reduxState.exerciseWorkouts.weeksReducer.map((week, index)=>{
                     return(
-                        <MenuItem value = {week.week}>Week {index + 1}</MenuItem>
+                        <MenuItem value = {week.week}>Week {week.week}</MenuItem>
                     )
                 })}
+                <MenuItem value = {this.state.maxWeek}>Create New: Week {this.state.maxWeek}</MenuItem>
                 </SelectDrop>
             </FormControl>
             <Button 
