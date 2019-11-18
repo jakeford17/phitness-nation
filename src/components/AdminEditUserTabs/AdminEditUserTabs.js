@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, } from 'react';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -10,6 +10,8 @@ import Box from '@material-ui/core/Box';
 import AdminEditUserProfile from '../AdminEditUserProfile/AdminEditUserProfile';
 import AdminEditUserGoals from '../AdminEditUserGoals/AdminEditUserGoals';
 import AdminEditUserInjuries from '../AdminEditUserInjuries/AdminEditUserInjuries';
+import { connect } from 'react-redux';
+
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -47,8 +49,10 @@ const useStyles = makeStyles(theme => ({
         width: 500,
     },
 }));
-
-export default function FullWidthTabs() {
+const mapStateToProps = reduxState => ({
+    reduxState,
+});
+export default connect(mapStateToProps)(function FullWidthTabs(props) {
     const classes = useStyles();
     const theme = useTheme();
     const [value, setValue] = React.useState(0);
@@ -56,11 +60,12 @@ export default function FullWidthTabs() {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-
     const handleChangeIndex = index => {
         setValue(index);
     };
-
+    useEffect(() => {
+        props.dispatch({ type: 'ADMIN_FETCH_USER', payload: props.userId })
+    }, []);
     return (
         <div className={classes.root}>
             <AppBar position="static" color="default">
@@ -83,15 +88,15 @@ export default function FullWidthTabs() {
                 onChangeIndex={handleChangeIndex}
             >
                 <TabPanel value={value} index={0} dir={theme.direction}>
-                    <AdminEditUserProfile />
+                    <AdminEditUserProfile userId ={props.userId}/>
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
-                    <AdminEditUserGoals />
+                    <AdminEditUserGoals userId ={props.userId}/>
                 </TabPanel>
                 <TabPanel value={value} index={2} dir={theme.direction}>
-                    <AdminEditUserInjuries />
+                    <AdminEditUserInjuries userId ={props.userId}/>
                 </TabPanel>
             </SwipeableViews>
         </div>
     );
-}
+})
