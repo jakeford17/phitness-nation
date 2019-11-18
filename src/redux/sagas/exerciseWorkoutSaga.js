@@ -62,7 +62,7 @@ function* adminUpdatedExerciseWorkouts(action){
 // admin delete exercise, send the id of the exercise you want to delete from the exercises table
 function* deleteExercise(action){
     try {
-        yield axios.delete('/api/admin/exercise/' + action.payload)
+        yield axios.delete('/api/admin/exerciseDetail/' + action.payload)
     } catch (error) {
         console.log('ADMIN DELETE EXERCISE ERROR:', error)
     }
