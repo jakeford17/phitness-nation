@@ -37,6 +37,7 @@ import AdminAddUser from '../AdminAddUser/AdminAddUser';
 import ExerciseDetail from '../ExerciseDetail/ExerciseDetail';
 import DropDrawer from '../DropDrawer/DropDrawer';
 import AdminUserProfile from '../AdminUserProfile/AdminUserProfile';
+import History from '../History/History'
 
 class App extends Component {
   componentDidMount() {
@@ -161,6 +162,11 @@ class App extends Component {
             <ProtectedRoute
               path="/exerciseDetail/:id"
               component={ExerciseDetail}
+              exact
+            />
+            <ProtectedRoute
+              path="/history"
+              component={History}
               exact
             />
             {/* If none of the other routes matched, we will show a 404. */}

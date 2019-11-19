@@ -10,11 +10,15 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
+import SearchIcon from '@material-ui/icons/Search';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 const styles = {
     palette: {
         backgroundColor: "teal",
-        color: "white"
+        color: "white",
+        marginLeft: 50,
     },
     fab: {
         width: "100%",
@@ -30,7 +34,12 @@ const styles = {
         fontSize: "large"
     }
 };
-
+const MyTextField = styled(TextField)({
+    padding: 10,
+    margin: 5,
+    textAlign: "center",
+    fontFamily: 'PT Sans Narrow',
+  });
 class AdminExerciseList extends Component {
 
     state = {
@@ -42,7 +51,8 @@ class AdminExerciseList extends Component {
         exerciseDetails: {},
         editModal: false,
         updateName: '',
-        updateDescription: ''
+        updateDescription: '',
+        filterValue: '',
     }
 
     handleChange = (event) => {
@@ -159,7 +169,9 @@ class AdminExerciseList extends Component {
             console.log('error when archiving exercise', err)
         })
     }
-
+    setFilter = (event) =>{
+        this.setState({ filterValue: event.target.value})
+    }
     render() {
         let editModal;
        if (this.state.editModal == false) {
@@ -207,27 +219,54 @@ class AdminExerciseList extends Component {
             <div className="admin-exercise-wrapper">
                 <h4>Click the exercise to see details.</h4>
                 <div>
-                    <input placeholder="Search Exercise" /> <button>Search</button></div>
+                    <div style = {{display: 'inline'}}>
+                        <MyTextField
+                            label="Search Exercises"
+                            value={this.state.filterValue}
+                            onChange={this.setFilter}
+                            margin="normal"
+                            InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                <SearchIcon />
+                                </InputAdornment>
+                            ),
+                            }}
+                        />
+                        <Fab style={styles.palette} aria-label="Add" onClick={() => this.handleNewExerciseOpen()}>
+                            <AddIcon color={styles.palette.color} size="large" />
+                        </Fab>
+                    </div>
                 <table className="admin-exercises">
                     <tbody>
                         {this.state.listExercises.map((exercise) => {
-                            return (
-                                <>
-                                <tr key={exercise.id} className="admin-exercises-tr">
-                                    <td className="admin-exercises-td" onClick={() => this.handleExerciseDescriptionOpen(exercise)}>{exercise.name}</td>
-                                    <td className="admin-exercises-td">
-                                        <button className="archive-exercise" onClick={() => this.archiveExercise(exercise, false)}>ARCHIVE</button>
-                                    </td>
-                                </tr>
-                                </>
-                            );
+                            if(exercise.name.indexOf(this.state.filterValue) > -1){
+                                return (
+                                    <>
+                                    <tr key={exercise.id} className="admin-exercises-tr">
+                                        <td className="admin-exercises-td" onClick={() => this.handleExerciseDescriptionOpen(exercise)}>{exercise.name}</td>
+                                        <td className="admin-exercises-td">
+                                            <button className="archive-exercise" onClick={() => this.archiveExercise(exercise, false)}>ARCHIVE</button>
+                                        </td>
+                                    </tr>
+                                    </>
+                                );
+                            }else if(this.state.filterValue === ''){
+                                return (
+                                    <>
+                                    <tr key={exercise.id} className="admin-exercises-tr">
+                                        <td className="admin-exercises-td" onClick={() => this.handleExerciseDescriptionOpen(exercise)}>{exercise.name}</td>
+                                        <td className="admin-exercises-td">
+                                            <button className="archive-exercise" onClick={() => this.archiveExercise(exercise, false)}>ARCHIVE</button>
+                                        </td>
+                                    </tr>
+                                    </>
+                                );
+                            }
                         })}
                     </tbody>
                 </table>
                 <div className="add-exercise-wrapper">
-                <Fab style={styles.palette} aria-label="Add" onClick={() => this.handleNewExerciseOpen()}>
-                    <AddIcon color={styles.palette.color} size="large" />
-                </Fab>
                 </div>
                 <Dialog open={this.state.newExerciseOpen} onClose={this.handleNewExerciseClose}>
                     <DialogTitle id="form-dialog-title"><h3>Add New Exercise:</h3></DialogTitle>
@@ -248,6 +287,7 @@ class AdminExerciseList extends Component {
                     {editModal}
                 </Dialog>
             </div>
+        </div>
         )
     }
 }
