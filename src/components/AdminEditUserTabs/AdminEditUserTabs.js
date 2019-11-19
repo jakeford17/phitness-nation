@@ -11,6 +11,9 @@ import AdminEditUserProfile from '../AdminEditUserProfile/AdminEditUserProfile';
 import AdminEditUserGoals from '../AdminEditUserGoals/AdminEditUserGoals';
 import AdminEditUserInjuries from '../AdminEditUserInjuries/AdminEditUserInjuries';
 import { connect } from 'react-redux';
+import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
+import TrendingUpIcon from '@material-ui/icons/TrendingUp';
+import HealingIcon from '@material-ui/icons/Healing';
 
 
 function TabPanel(props) {
@@ -45,9 +48,14 @@ function a11yProps(index) {
 
 const useStyles = makeStyles(theme => ({
     root: {
-        backgroundColor: theme.palette.background.paper,
-        width: '100%',
+        backgroundColor: '#84c8b9',
+        width: "101%",
     },
+    palette: {
+        color: 'teal',
+        textColor: 'teal',
+        indicatorColor: 'teal'
+    }
 }));
 const mapStateToProps = reduxState => ({
     reduxState,
@@ -68,18 +76,19 @@ export default connect(mapStateToProps)(function FullWidthTabs(props) {
     }, []);
     return (
         <div className={classes.root}>
-            <AppBar position="static" color="default">
+            <AppBar position="static" color="default" className={classes.palette}>
                 <Tabs
+                    className={classes.palette}
                     value={value}
                     onChange={handleChange}
-                    indicatorColor="primary"
-                    textColor="primary"
+                    indicatorColor="inherit"
+                    textColor="inherit"
                     variant="fullWidth"
                     aria-label="full width tabs example"
                 >
-                    <Tab label="PROFILE" {...a11yProps(0)} />
-                    <Tab label="GOALS" {...a11yProps(1)} />
-                    <Tab label="INJURIES" {...a11yProps(2)} />
+                    <Tab label="PROFILE" {...a11yProps(0)} className={classes.palette} icon={<ContactPhoneIcon className={classes.palette} />}/>
+                    <Tab label="GOALS" {...a11yProps(1)} className={classes.palette} icon={<TrendingUpIcon className={classes.palette} />}/>
+                    <Tab label="INJURIES" {...a11yProps(2)} className={classes.palette} icon={<HealingIcon className={classes.palette} />}/>
                 </Tabs>
             </AppBar>
             <SwipeableViews

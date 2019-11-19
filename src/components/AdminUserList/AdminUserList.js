@@ -225,44 +225,33 @@ class AdminUserList extends Component {
                                             <button value={user.id}  style={styles.palette} aria-label="PHIL" onClick={this.fetchClientIDPhil}>
                                                + 
                                             </button>
-                                            <Dialog open={this.state.newPhilOpen} onClose={this.handleNewPhilClose}  >
-                                                <DialogTitle id="form-dialog-title"><h1>Add New philosophy:</h1></DialogTitle>
+                                            <Dialog open={this.state.newPhilOpen} onClose={this.handleNewPhilClose}  className="philolog">
+                                                <DialogTitle><h3>
+                                                    Add New Philosophy:
+                                                            </h3></DialogTitle>
                                                 <DialogContent >
-                                                    {this.props.errors.registrationMessage && (
-                                                        <h2
-                                                            className="alert"
-                                                            role="alert"
-                                                        >
-                                                            {this.props.errors.registrationMessage}
-                                                        </h2>
-                                                    )}
                                                     <form onSubmit={this.addPhil}>
-                                                        <div>
-                                                           
-                                                            <label htmlFor="phil">
-                                                                philosophy:
-                                                                <input
-                                                                    type="text"
+                                                                <textarea
+                                                                    rows="5"
                                                                     name="phil"
                                                                     placeholder={this.state.philosophy}
                                                                     value={this.state.philosophy}
                                                                     onChange={this.handleInputChangeForPhil('philosophy')}
                                                                     className="newPhilInput"
+                                                                    className="philput"
                                                                 />
-                                                            </label>
-                                                        </div>
-                                                        <div>
+                                                                <div className="newPhilBtnWrapper">
                                                             <input
                                                                 className="addPhil"
                                                                 type="submit"
                                                                 name="submit"
                                                                 value="ADD PHIL"
-                                                                className="newUserBtns"
+                                                                className="newPhilBtns"
                                                             />
                                                             <input
                                                                 type="button"
                                                                 value="CANCEL"
-                                                                className="newUserBtns"
+                                                                className="newPhilBtns"
                                                                 onClick={(e) => this.handleNewPhilClose()}
                                                             />
                                                         </div>
@@ -284,7 +273,7 @@ class AdminUserList extends Component {
                         )
                         }
                     }
-                }else if(this.state.filterValue === ''){
+                    else if(this.state.filterValue === ''){
                     if (user.active === true) {
                         if (user.name === null){
                             return (

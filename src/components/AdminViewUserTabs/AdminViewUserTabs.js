@@ -17,6 +17,8 @@ import {
     BarChart, CartesianGrid, XAxis, YAxis, Tooltip
     , Legend, Bar, Label
 } from 'recharts';
+import AddIcon from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab';
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -58,8 +60,18 @@ const useStyles = makeStyles(theme => ({
             color: 'teal',
             textColor: 'teal',
             indicatorColor: 'teal'
-        }
+        },
+        fab: {
+        backgroundColor: "teal",
+        size: "large",
+        color: "white",
+    },
+    add: {
+        color: "teal",
+        fontSize: "large"
+    }
 }));
+
 const mapStateToProps = reduxState => ({
     reduxState,
 });
@@ -102,9 +114,16 @@ export default connect(mapStateToProps)(function FullWidthTabs(props) {
                 onChangeIndex={handleChangeIndex}
             >
                 <TabPanel value={value} index={0} dir={theme.direction}>
+<<<<<<< HEAD
+=======
+                    <div className="add-workout-wrapper">
+>>>>>>> final-styling
                     <Link to= {`/admin/addworkout/${props.userId}`}>
-                        <button className="add-workout-btn">ADD WORKOUT</button>
+                        <Fab className={classes.fab} aria-label="Add">
+                        <AddIcon color={classes.palette.color} size="large" />
+                        </Fab>
                     </Link>
+                    </div>
                     <br/>
                     <WorkoutCards userId = {props.userId}/>
                 </TabPanel>

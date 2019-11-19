@@ -282,3 +282,47 @@ input {
     justify-content: center;
     padding-top: 10%;
 }
+
+.history-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+.philolog {
+    height: 100%;
+    width: 100%;
+}
+
+.philput {
+    border: 1px solid #3d6363;
+    width: 100%
+}
+
+.phil-wrapper {
+    display: flex;
+    width: 100%;
+}
+
+.newPhilBtns {
+        background-color: #3d6363;
+    color: #d2d2d4;
+}
+
+.newPhilBtnWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.add-workout-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 2%
+}
+
+h2 {
+        font-family: 'Roboto Slab', serif;
+}
+
+.about-page {
+    display: flex;
+    padding: 5%;
+}

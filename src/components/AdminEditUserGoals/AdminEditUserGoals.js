@@ -25,7 +25,8 @@ const MyCard = styled(Card)({
     margin: 5,
     fontSize: 16,
     display: flexbox,
-    textAlign: "center"
+    textAlign: "center",
+    fontFamily: "'PT Sans Narrow', sans-serif;"
 });
 
 class Goals extends Component {
