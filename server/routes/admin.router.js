@@ -336,7 +336,6 @@ router.get('/exercises/:id', rejectUnauthenticated, (req, res) =>{
     const queryText = 'SELECT "exercise_workouts".*, "exercises".name FROM "exercise_workouts" JOIN "exercises" ON "exercise_workouts".exercise_id = "exercises".id WHERE "workout_id" = $1;';
     pool.query(queryText, [req.params.id])
         .then((result) =>{
-            console.log('the result is:', result.rows)
             res.send(result.rows)
         }).catch((error) =>{
             console.log('GET EXERCISES FOR ONE WOKROUT ERROR:', error)
