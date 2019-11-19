@@ -7,9 +7,12 @@ import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Modal from '@material-ui/core/Modal';
-import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const MyCard = styled(Card)({
     background: '#d2d2d4',
@@ -17,25 +20,17 @@ const MyCard = styled(Card)({
     borderRadius: 3,
     width: "100%",
     padding: 10,
-    margin: 5,
     fontSize: 100,
-    display: flexbox,
-    textAlign: "left",
+    height: "100%",
+    textAlign: "center",
+    fontFamily: 'PT Sans Narrow'
 });
 const MyTextField = styled(TextField)({
     padding: 10,
     margin: 5,
     textAlign: "center"
 });
-const MyPaper = styled(Paper)({
-    position: 'absolute',
-    width: 400,
-    border: '2px solid #000',
-})
-const MyModal = styled(Modal)({
-    top: `50%`,
-    left: `50%`,
-})
+
 class ExerciseWorkoutCard extends Component {
     state = {
         open: false,
@@ -77,22 +72,22 @@ class ExerciseWorkoutCard extends Component {
     }
     render() {
         return (
-            <div>
+            <div className="exercise-workout-card">
                 <MyCard>
+                    <div className="exercise-workout-int">
                     <Typography>{this.props.exercise.name}: {this.state.tips}</Typography>
                     <EditIcon onClick = {this.setOpen}/>
                     <DeleteIcon onClick = {this.handleDelete}/>
+                    </div>
                 </MyCard>
-                <MyModal
+                <Dialog
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description"
                     open={this.state.open}
                     onClose={this.setClose}
                 >
-                    <MyPaper>
-                        <Typography variant="h5" component="h3">
-                            Exercise Overview
-                        </Typography>
+                    <DialogTitle id="form-dialog-title"><h1>Exercise Overview:</h1></DialogTitle>
+                    <DialogContent>
                         <MyTextField
                             label="Sets"
                             value={this.state.assigned_sets}
@@ -121,18 +116,22 @@ class ExerciseWorkoutCard extends Component {
                             onChange={(event) => this.handleChange(event, 'tips')}
                             margin="normal"
                         />
-                        <Typography>Completed Sets: {this.state.completed_sets}</Typography>
-                        <Typography>Completed Reps: {this.state.completed_reps}</Typography>
-                        <Typography>Completed Weight: {this.state.completed_weight}</Typography>
-                        <Typography>Feedback: {this.state.feedback}</Typography>
-                        <Button variant="contained" color="primary" onClick={this.handleSubmit}>
-                            Save Changes
-                        </Button>
-                        <Button variant="contained" color="secondary" onClick = {this.setClose }>
-                            Cancel
-                        </Button>
-                    </MyPaper>
-                </MyModal>
+                        Completed Sets: {this.state.completed_sets}
+                        <br></br>
+                        Completed Reps: {this.state.completed_reps}
+                        <br></br>
+                        Completed Weight: {this.state.completed_weight}
+                        <br></br>
+                        Feedback: {this.state.feedback}
+                        <br></br>
+                        <button onClick={this.handleSubmit}>
+                            SAVE CHANGES
+                        </button>
+                        <button onClick = {this.setClose }>
+                            CANCEL
+                        </button>
+                   </DialogContent>
+                </Dialog>
             </div>
         )
     }

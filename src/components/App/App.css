@@ -255,3 +255,30 @@ input {
     font-family: 'Roboto Slab', serif;
     text-align: left;
 }
+
+.exercise-workout-card {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 5%;
+}
+
+.exercise-workout-card-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.exercise-workout-int {
+    display: flex;
+    flex-direction: row;
+}
+
+.add-ex-wrapper {
+    display: flex;
+    justify-content: center;
+    padding-top: 10%;
+}
