@@ -114,6 +114,21 @@ router.put('/phil', (req, res) => {
     })
 })
 
+router.put('/profilePic', (req, res) =>{
+  console.log(req.body.img)
+  let userid = req.body.userId;
+  let img = req.body.img
+  let queryText = `UPDATE "user" SET "img" = $1 WHERE "id" = $2;`;
+  let queryValues = [img, userid]
+  pool.query(queryText, queryValues)
+      .then(() =>{
+          res.sendStatus(200);
+      }).catch((error) =>{
+          res.sendStatus(500);
+          console.log('UPDATE USER PROFILE ERROR:', error);
+      })
+})
+
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
   const queryText = `DELETE FROM "user" WHERE "id" = $1;`;
   pool.query(queryText, [req.params.id])
@@ -135,6 +150,17 @@ router.get('/exercise/:id', (req, res) => {
   WHERE "workouts".user_id = $1 GROUP BY "exercises".name;`;
   pool.query(queryText, [user]).then((response) => {
       res.send(response.rows)
+  }).catch((err) => {
+      console.log(`Error ---------> GETTING user's list of Exercises`, err);
+      res.sendStatus(500);
+  });
+})
+
+router.get('/profile/:id', (req, res) => {
+  const user = req.params.id;
+  const queryText = `SELECT "user".img FROM "user" WHERE "id" = $1;`;
+  pool.query(queryText, [user]).then((response) => {
+      res.send(response.rows[0])
   }).catch((err) => {
       console.log(`Error ---------> GETTING user's list of Exercises`, err);
       res.sendStatus(500);

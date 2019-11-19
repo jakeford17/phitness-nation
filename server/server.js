@@ -20,7 +20,7 @@ const workoutsRouter = require('./routes/workouts.router');
 const exerciseWorkoutRouter = require('./routes/exerciseWorkout.router');
 
 // Body parser middleware
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '900kb'}));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Passport Session Configuration //
