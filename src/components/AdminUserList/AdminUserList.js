@@ -284,7 +284,7 @@ class AdminUserList extends Component {
                         )
                         }
                     }
-                }else if(this.state.filterValue === ''){
+                    else if(this.state.filterValue === ''){
                     if (user.active === true) {
                         if (user.name === null){
                             return (
