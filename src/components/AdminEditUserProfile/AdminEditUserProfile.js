@@ -57,21 +57,19 @@ class AdminEditUserProfile extends Component {
                 emergencyContactPhone: this.state.emergencyContactPhone,
                 dateOfBirth: this.state.dateOfBirth,
             }})
+        this.props.history.push('/adminviewuser/' + this.props.userId)
     };
 
     handleCancel = event => {
-        // props.history.push('/adminviewuser/' + this.props.match.params.id)
+        this.props.history.push('/adminviewuser/' + this.props.userId)
     }
     archiveUser = (id) => {
-        // props.dispatch({ type: 'UPDATE_USER', payload : {id: props.match.params.id, ...values}})
-        console.log("ARCHIVE", this.props.userId);
         this.props.dispatch({ type: 'ARCHIVE_USER', payload: [id] });
         this.props.history.push('/admin')
     };
     render(){
         return (
         <div className="inputs-wrapper">
-            {JSON.stringify(this.state)}
             <MyTextField
                 label="Name"
                 value={this.state.name}
@@ -125,7 +123,7 @@ class AdminEditUserProfile extends Component {
             </Button>
             </div>
             <div className="save-buttons">
-            <Button variant="contained" color="secondary">
+            <Button variant="contained" color="secondary" onClick={this.handleCancel}>
                 Cancel
             </Button>
             </div>

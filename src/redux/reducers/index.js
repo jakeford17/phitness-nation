@@ -26,7 +26,6 @@ const rootReducer = combineReducers({
   workouts,
   exerciseWorkouts,
   adminToUserReducer,
-   historyBranch
   userExerciseReducer,
   userExerciseHistoryReducer,
   philReducer
