@@ -8,7 +8,8 @@ import {withRouter} from 'react-router-dom';
 const MyTextField = styled(TextField)({
     padding: 10,
     margin: 5,
-    textAlign: "center"
+    textAlign: "center",
+    fontFamily: "'PT Sans Narrow', sans-serif;"
 });
 class AdminEditUserProfile extends Component {
     state = {
@@ -118,19 +119,19 @@ class AdminEditUserProfile extends Component {
                 // }}
             />
             <div className="save-buttons">
-            <Button variant="contained" color="primary" onClick={this.handleSubmit}>
-                Save Changes
-            </Button>
+            <button onClick={this.handleSubmit}>
+                SAVE CHANGES
+            </button>
             </div>
             <div className="save-buttons">
-            <Button variant="contained" color="secondary" onClick={this.handleCancel}>
-                Cancel
-            </Button>
+            <button onClick={this.handleCancel}>
+                CANCEL
+            </button>
             </div>
             <div className="save-buttons">
-            <Button variant="contained" color="secondary" onClick={() => this.archiveUser(this.props.userId)}>
-                Archive User
-            </Button>
+            <button onClick={() => this.archiveUser(this.props.userId)}>
+                ARCHIVE USER
+            </button>
             </div>
          </div>
         );

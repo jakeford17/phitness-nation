@@ -47,7 +47,7 @@ class History extends Component {
 
     render() {
         return (
-            <div className="workout-history">
+            <div className="history-wrapper">
                 <h1>Workout History</h1>
                 {/* {JSON.stringify(this.state)}
             {JSON.stringify(this.props.reduxState)} */}

@@ -130,7 +130,6 @@ class ArchivedUsers extends Component {
                                                 </div>
                                             </MyCard>)
                                     }
-                                }
                                 else {
                                 return (
                                     <MyCard>
@@ -143,6 +142,8 @@ class ArchivedUsers extends Component {
                                     </div>
                                     </MyCard>)
                                 }
+                            
+                            }
                             }else if(this.state.filterValue === ''){
                                 if (user.active === false) { 
                                     if (user.name === null) {
