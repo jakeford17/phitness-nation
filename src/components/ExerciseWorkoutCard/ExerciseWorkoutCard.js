@@ -10,6 +10,10 @@ import Modal from '@material-ui/core/Modal';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import Dialog from '@material-ui/core/Dialog';
 
 const MyCard = styled(Card)({
     background: '#d2d2d4',
@@ -39,6 +43,7 @@ const MyModal = styled(Modal)({
 class ExerciseWorkoutCard extends Component {
     state = {
         open: false,
+        confirm: false,
     }
     componentDidMount = () =>{
         this.setExercises();
@@ -71,9 +76,11 @@ class ExerciseWorkoutCard extends Component {
         this.setClose();
     }
     handleDelete = () =>{
-        if(window.confirm('Are you sure you want to delete this exercise?')){
-            this.props.dispatch({ type: 'DELETE_EXERCISE_WORKOUTS', payload: {id: this.state.id, user_id: this.props.userId }})
-        }
+        this.props.dispatch({ type: 'DELETE_EXERCISE_WORKOUTS', payload: {id: this.state.id, user_id: this.props.userId }})
+        this.confirmToggle();
+    }
+    confirmToggle = () =>{
+        this.setState({confirm: !this.state.confirm })
     }
     render() {
         return (
@@ -81,7 +88,7 @@ class ExerciseWorkoutCard extends Component {
                 <MyCard>
                     <Typography>{this.props.exercise.name}: {this.state.tips}</Typography>
                     <EditIcon onClick = {this.setOpen}/>
-                    <DeleteIcon onClick = {this.handleDelete}/>
+                    <DeleteIcon onClick = {this.confirmToggle}/>
                 </MyCard>
                 <MyModal
                     aria-labelledby="simple-modal-title"
@@ -133,6 +140,26 @@ class ExerciseWorkoutCard extends Component {
                         </Button>
                     </MyPaper>
                 </MyModal>
+                <Dialog
+                disableBackdropClick
+                disableEscapeKeyDown
+                maxWidth="xs"
+                aria-labelledby="confirmation-dialog-title"
+                open={this.state.confirm}
+                >
+                <DialogTitle id="confirmation-dialog-title">Phone Ringtone</DialogTitle>
+                <DialogContent dividers>
+                   <Typography>Are you sure you want to delete this exercise?</Typography>
+                </DialogContent>
+                <DialogActions>
+                    <Button autoFocus onClick={this.confirmToggle} color="primary">
+                    Cancel
+                    </Button>
+                    <Button onClick={this.handleDelete} color="primary">
+                    Ok
+                    </Button>
+                </DialogActions>
+                </Dialog>
             </div>
         )
     }

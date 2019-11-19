@@ -21,7 +21,6 @@ import WorkoutsPage from '../WorkoutsPage/WorkoutsPage';
 import WorkoutSummary from '../WorkoutSummary/WorkoutSummary';
 import WorkoutPreview from '../WorkoutPreview/WorkoutPreview';
 import WeeksPage from '../WeeksPage/weeksPage';
-import Test from '../testRoutesPage/testRoutesPage';
 import Archived from '../Archived/Archived';
 import AdminEditUser from '../AdminEditUser/AdminEditUser';
 import AdminAddWorkout from '../AdminAddWorkout/AdminAddWorkout';
@@ -102,16 +101,20 @@ class App extends Component {
               path="/summary/:id"
               component={WorkoutSummary}
             />
+            {(!this.props.user.admin) ? 
+            <Redirect exact from="/admin/edituser/:id" to="/home" /> :
             <ProtectedRoute
               exact
               path="/admin/edituser/:id"
               component={AdminEditUser}
-            />
+            />}
+            {(!this.props.user.admin) ? 
+            <Redirect exact from="/admin/addworkout/:id" to="/home" /> :
             <ProtectedRoute
               exact
               path="/admin/addworkout/:id"
               component={AdminAddWorkout}
-            />
+            />}
             {/* This route is to show all the routes to the user
             */}
             <ProtectedRoute
@@ -119,51 +122,62 @@ class App extends Component {
               path="/weeks"
               component={WeeksPage}
             />
+            {(!this.props.user.admin) ? 
+            <Redirect exact from="/admin" to="/home" /> :
              <ProtectedRoute
               exact
               path="/admin"
               component={adminLandPage}
-              />
-            <ProtectedRoute
-              exact
-              path="/test"
-              component={Test}
-            />
+              />}
+            {(!this.props.user.admin) ? 
+            <Redirect exact from="/archived" to="/home" /> :
             <ProtectedRoute
               exact
               path="/archived"
               component={Archived}
-            />
+            />}
+            {(!this.props.user.admin) ? 
+            <Redirect exact from="/adminviewuser" to="/home" /> :
             <ProtectedRoute
               exact
               path="/adminviewuser"
               component={AdminViewUser}
-            />
+            />}
+            {(!this.props.user.admin) ? 
+            <Redirect exact from="/addExercise" to="/home" /> :
             <ProtectedRoute
               path="/addExercise"
               component={AddExercise}
               exact
-            />
+            />}
+            {(!this.props.user.admin) ? 
+            <Redirect exact from="/adminadduser" to="/home" /> :
             <ProtectedRoute
               path="/adminadduser"
               component={AdminAddUser}
               exact
-            />
+            />}
+            {(!this.props.user.admin) ? 
+            <Redirect exact from="/adminviewuser/:id" to="/home" /> :
             <ProtectedRoute
               path="/adminviewuser/:id"
               component={AdminViewUser}
               exact
-            />
+            />}
+            {(!this.props.user.admin) ? 
+            <Redirect exact from="/adminuserprofile/:id" to="/home" /> :
             <ProtectedRoute
               path="/adminuserprofile/:id"
               component={AdminUserProfile}
               exact
-            />
+            />}
+            {(!this.props.user.admin) ? 
+            <Redirect exact from="/exerciseDetail/:id" to="/home" /> :
             <ProtectedRoute
               path="/exerciseDetail/:id"
               component={ExerciseDetail}
               exact
-            />
+            />}
             <ProtectedRoute
               path="/history"
               component={History}
