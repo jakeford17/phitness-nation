@@ -47,7 +47,7 @@ function a11yProps(index) {
 
 const useStyles = makeStyles(theme => ({
     root: {
-        backgroundColor: '#d2d2d4',
+        backgroundColor: '#84c8b9',
         width: "100%",
         fontFamily: 'PT Sans Narrow'
     },
