@@ -115,15 +115,11 @@ class ArchivedUsers extends Component {
     permanentlyRctvUser = (id) => {
         this.props.dispatch({ type: 'REACTIVATE_USER', payload: id });
         this.listUsers();
+        this.listUsers();
         this.handleRctvClose();
     }
 
-    reactivateUser = (id) => {
-        this.props.dispatch({ type: 'REACTIVATE_USER', payload: id });
-        this.listUsers();
-        this.listUsers();
-        this.handleRctvClose();
-    }
+
 
     setFilter = (event) =>{
         this.setState({ filterValue: event.target.value})
