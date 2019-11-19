@@ -282,3 +282,9 @@ input {
     justify-content: center;
     padding-top: 10%;
 }
+
+.workout-history {
+    display: flex;
+    flex-direction: column;
+    padding: 5%;
+}
