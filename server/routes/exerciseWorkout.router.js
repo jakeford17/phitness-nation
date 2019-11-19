@@ -1,10 +1,10 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
-
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 //get workouts router, automatically gets the currently logged in users workouts
-router.get('/:id', (req, res) => {
+router.get('/:id', rejectUnauthenticated, (req, res) => {
     let queryText = `SELECT * FROM "exercise_workouts"
                     JOIN "exercises" on "exercises".id = "exercise_workouts".exercise_id
                     WHERE workout_id = $1
@@ -18,7 +18,7 @@ router.get('/:id', (req, res) => {
         })
 });
 //put workouts router, send: { id of exercise workout: int, completed_reps: int, completed_sets: int, completed_weight: int, feedback: int }
-router.put('/', (req, res) =>{
+router.put('/', rejectUnauthenticated, (req, res) =>{
     let queryText = `UPDATE "exercise_workouts" 
                     SET "completed_reps" = $1, "completed_sets" = $2, 
                     "completed_weight" = $3, "feedback" = $4, "completed" = 'true'
@@ -35,7 +35,7 @@ router.put('/', (req, res) =>{
 })
 
 //admin add exercises into a workout
-router.post('/addExercise', (req, res) =>{
+router.post('/addExercise', rejectUnauthenticated, (req, res) =>{
     let queryText = `INSERT INTO "exercises" ("name", "links") VALUES ($1, $2);`;
     let queryValues = [req.body.name, req.body.description]
     pool.query(queryText, queryValues)
