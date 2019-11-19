@@ -47,6 +47,7 @@ class WorkoutCards extends Component {
                         >
                         <Typography>Week {week.week}</Typography>
                         </ExpansionPanelSummary>
+                        {week.workouts ? 
                         <ExpansionPanelDetails>
                             {week.workouts.map((workout) =>{
                                 return(
@@ -60,11 +61,15 @@ class WorkoutCards extends Component {
                                         <Typography>Workout {workout.id}: {workout.feedback}</Typography>
                                         </ExpansionPanelSummary>
                                         <ExpansionPanelDetails>
+                                            {workout.exercises ?
+                                            <>
                                             {workout.exercises.map((exercise) =>{
                                                 return(
                                                 <ExerciseWorkoutCard userId = {this.props.userId} exercise = {exercise}/>
                                                 )
                                             })}
+                                            </>
+                                            : '' }
                                             <AddExerciseToWorkout workout_id = {workout.id} userId = {this.props.userId} />
                                         </ExpansionPanelDetails>
                                     </ExpansionPanel>
@@ -72,6 +77,7 @@ class WorkoutCards extends Component {
                                 )
                             })}
                         </ExpansionPanelDetails>
+                        : '' }
                     </ExpansionPanel>
                     <br/>
                     </div>
