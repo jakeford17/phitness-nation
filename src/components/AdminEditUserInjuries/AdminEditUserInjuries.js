@@ -24,7 +24,8 @@ const MildInjuryCard = styled(Card)({
     margin: 5,
     fontSize: 16,
     display: flexbox,
-    textAlign: "center"
+    textAlign: "center",
+    fontFamily: "'PT Sans Narrow', sans-serif;"
 });
 
 const ModerateInjuryCard = styled(Card)({
@@ -39,7 +40,8 @@ const ModerateInjuryCard = styled(Card)({
     margin: 5,
     fontSize: 16,
     display: flexbox,
-    textAlign: "center"
+    textAlign: "center",
+    fontFamily: "'PT Sans Narrow', sans-serif;"
 });
 
 const SevereInjuryCard = styled(Card)({
@@ -54,7 +56,8 @@ const SevereInjuryCard = styled(Card)({
     margin: 5,
     fontSize: 16,
     display: flexbox,
-    textAlign: "center"
+    textAlign: "center",
+    fontFamily: "'PT Sans Narrow', sans-serif;"
 });
 const HealedInjuryCard = styled(Card)({
     background: '#84c8b9',
@@ -68,7 +71,8 @@ const HealedInjuryCard = styled(Card)({
     margin: 5,
     fontSize: 16,
     display: flexbox,
-    textAlign: "center"
+    textAlign: "center",
+    fontFamily: "'PT Sans Narrow', sans-serif;"
 });
 
 class Injuries extends Component {

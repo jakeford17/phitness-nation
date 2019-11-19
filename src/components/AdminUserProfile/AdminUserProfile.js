@@ -129,14 +129,14 @@ class AdminUserProfile extends Component {
                     }}
                 />
                 <div className="save-buttons">
-                    <Button variant="contained" color="primary" onClick={handleSubmit}>
-                        Save Changes
-            </Button>
+                    <button onClick={handleSubmit}>
+                        SAVE CHANGES
+                     </button>
                 </div>
                 <div className="save-buttons">
-                    <Button variant="contained" color="secondary">
-                        Cancel
-            </Button>
+                    <button>
+                        CANCEL
+            </button>
                 </div>
 
 
