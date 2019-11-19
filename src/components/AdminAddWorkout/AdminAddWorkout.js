@@ -24,7 +24,7 @@ class AdminAddWorkout extends Component {
     state = {
         user_id: this.props.match.params.id,
         week: 0,
-        maxWeek: 0,
+        maxWeek: 1,
         //exercise_id, assigned_reps, assigned_sets, assigned_weight, tips
         exercises: [
 
@@ -67,8 +67,10 @@ class AdminAddWorkout extends Component {
     getWeeks = () =>{
         this.props.dispatch({ type: 'FETCH_WEEKS', payload: {id: this.state.user_id}})
         setTimeout(() =>{
+            if(this.props.reduxState.exerciseWorkouts.weeksReducer.length > 0){
             let weekLength = this.props.reduxState.exerciseWorkouts.weeksReducer.length - 1
             this.setState({ maxWeek: (this.props.reduxState.exerciseWorkouts.weeksReducer[weekLength].week + 1)})
+            }
         }, 1000)
     }
     handleSelectChange = (value) => {

@@ -4,7 +4,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 // const userStrategy = require('../strategies/user.strategy');
 const router = express.Router();
-
+require('dotenv').config();
 const nodemailer = require('nodemailer')
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
@@ -181,7 +181,6 @@ router.get('/workouts/exerciseWorkouts/:id', rejectUnauthenticated, (req, res) =
     const queryText = 'SELECT "workouts".id FROM "workouts" WHERE "user_id" = $1 AND "week" = $2;';
     pool.query(queryText, [queryInfo[0], week])
         .then((result) =>{
-            res.send(result.rows)
             console.log(result.rows)
         }).catch((error) =>{
             res.sendStatus(500)
@@ -303,9 +302,15 @@ router.get('/email/:id', rejectUnauthenticated, (req, res) =>{
     pool.query(queryText, [req.params.id])
         .then((result) =>{
             let to = result.rows[0]
-            emailSender(to).catch(console.error)
+            if(to.email_option){
+                emailSender(to).catch(console.error)
+            }else{
+                console.log('opted out')
+            }
+            res.sendStatus(200)
         }).catch((error)=>{
             console.log('SEND EMAIL ERROR:', error)
+            res.sendStatus(500)
         })
 })
 async function emailSender(user) {
@@ -314,8 +319,8 @@ async function emailSender(user) {
     const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         auth: {
-            user: 'PhitnessNationEmailBot',
-            pass: 'PhitnessPhun1234'
+            user: process.env.EMAILUSER,
+            pass: process.env.PASS
         }
     });
     let info = await transporter.sendMail({
