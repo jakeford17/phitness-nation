@@ -81,6 +81,7 @@ class ExerciseWorkoutCard extends Component {
                     <Typography>{this.props.exercise.name}: {this.state.tips}</Typography>
                     <EditIcon onClick = {this.setOpen}/>
                     <DeleteIcon onClick = {this.confirmToggle}/>
+                    </div>
                 </MyCard>
                 <Dialog
                     aria-labelledby="simple-modal-title"
@@ -119,24 +120,24 @@ class ExerciseWorkoutCard extends Component {
                             margin="normal"
                         />
                 <Dialog
-                disableBackdropClick
-                disableEscapeKeyDown
-                maxWidth="xs"
-                aria-labelledby="confirmation-dialog-title"
-                open={this.state.confirm}
-                >
-                <DialogTitle id="confirmation-dialog-title">Phone Ringtone</DialogTitle>
-                <DialogContent dividers>
-                   <Typography>Are you sure you want to delete this exercise?</Typography>
-                </DialogContent>
-                <DialogActions>
-                    <Button autoFocus onClick={this.confirmToggle} color="primary">
-                    Cancel
-                    </Button>
-                    <Button onClick={this.handleDelete} color="primary">
-                    Ok
-                    </Button>
-                </DialogActions>
+                    disableBackdropClick
+                    disableEscapeKeyDown
+                    maxWidth="xs"
+                    aria-labelledby="confirmation-dialog-title"
+                    open={this.state.confirm}
+                    >
+                    <DialogTitle id="confirmation-dialog-title">Phone Ringtone</DialogTitle>
+                    <DialogContent dividers>
+                    <Typography>Are you sure you want to delete this exercise?</Typography>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button autoFocus onClick={this.confirmToggle} color="primary">
+                        Cancel
+                        </Button>
+                        <Button onClick={this.handleDelete} color="primary">
+                        Ok
+                        </Button>
+                    </DialogActions>
                    </Dialog>
                         Completed Sets: {this.state.completed_sets}
                         <br></br>

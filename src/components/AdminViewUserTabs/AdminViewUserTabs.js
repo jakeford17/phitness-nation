@@ -114,10 +114,7 @@ export default connect(mapStateToProps)(function FullWidthTabs(props) {
                 onChangeIndex={handleChangeIndex}
             >
                 <TabPanel value={value} index={0} dir={theme.direction}>
-<<<<<<< HEAD
-=======
                     <div className="add-workout-wrapper">
->>>>>>> final-styling
                     <Link to= {`/admin/addworkout/${props.userId}`}>
                         <Fab className={classes.fab} aria-label="Add">
                         <AddIcon color={classes.palette.color} size="large" />

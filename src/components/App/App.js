@@ -35,7 +35,6 @@ import AddExercise from '../AddExercise/AddExercise';
 import AdminAddUser from '../AdminAddUser/AdminAddUser';
 import ExerciseDetail from '../ExerciseDetail/ExerciseDetail';
 import DropDrawer from '../DropDrawer/DropDrawer';
-import AdminUserProfile from '../AdminUserProfile/AdminUserProfile';
 import History from '../History/History'
 
 class App extends Component {
@@ -162,13 +161,6 @@ class App extends Component {
             <ProtectedRoute
               path="/adminviewuser/:id"
               component={AdminViewUser}
-              exact
-            />}
-            {(!this.props.user.admin) ? 
-            <Redirect exact from="/adminuserprofile/:id" to="/home" /> :
-            <ProtectedRoute
-              path="/adminuserprofile/:id"
-              component={AdminUserProfile}
               exact
             />}
             {(!this.props.user.admin) ? 
