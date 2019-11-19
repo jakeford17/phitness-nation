@@ -75,13 +75,16 @@ class ExerciseWorkoutCard extends Component {
     }
     render() {
         return (
+            <>
             <div className="exercise-workout-card">
                 <MyCard>
                     <div className="exercise-workout-int">
                     <Typography>{this.props.exercise.name}: {this.state.tips}</Typography>
                     <EditIcon onClick = {this.setOpen}/>
                     <DeleteIcon onClick = {this.confirmToggle}/>
+                    </div>
                 </MyCard>
+                </div>
                 <Dialog
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description"
@@ -154,7 +157,7 @@ class ExerciseWorkoutCard extends Component {
                         </button>
                    </DialogContent>
                 </Dialog>
-            </div>
+            </>
         )
     }
 }
