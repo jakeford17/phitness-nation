@@ -100,6 +100,8 @@ class AdminUserList extends Component {
     }
     componentDidMount() {
         this.listUsers();
+        this.listUsers();
+
     }
 
     listUsers = () => {
