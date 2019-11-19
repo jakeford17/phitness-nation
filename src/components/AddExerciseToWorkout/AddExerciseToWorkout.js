@@ -6,11 +6,13 @@ import { flexbox } from '@material-ui/system';
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Modal from '@material-ui/core/Modal';
-import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CreatableSelect from 'react-select/creatable';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const MyCard = styled(Card)({
     background: '#d2d2d4',
@@ -28,16 +30,6 @@ const MyTextField = styled(TextField)({
     margin: 5,
     textAlign: "center"
 });
-const MyPaper = styled(Paper)({
-    position: 'absolute',
-    width: 400,
-    border: '2px solid #000',
-})
-const MyModal = styled(Modal)({
-    top: `50%`,
-    left: `50%`,
-})
-
 class AddExerciseToWorkout extends Component {
     state = {
         open: false,
@@ -122,16 +114,14 @@ class AddExerciseToWorkout extends Component {
         return (
             <div>
                 <Button onClick = {this.setOpen} variant="contained" >Add Exercise</Button>
-                <MyModal
+                <Dialog
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description"
                     open={this.state.open}
                     onClose={this.setClose}
                 >
-                    <MyPaper>
-                        <Typography variant="h5" component="h3">
-                            New Exercise
-                        </Typography>
+                    <DialogTitle id="form-dialog-title"><h5>Add Exercise to Workout:</h5></DialogTitle>
+                    <DialogContent>
                         <CreatableSelect
                             isClearable
                             onChange={this.handleSelectChange}
@@ -166,14 +156,15 @@ class AddExerciseToWorkout extends Component {
                             onChange={(event) => this.handleChange(event, 'tips')}
                             margin="normal"
                         />
-                        <Button variant="contained" color="primary" onClick={this.handleSubmit}>
-                            Save Changes
-                        </Button>
-                        <Button variant="contained" color="secondary" onClick = {this.setClose }>
-                            Cancel
-                        </Button>
-                    </MyPaper>
-                </MyModal>
+                        <br></br>
+                        <button variant="contained" color="primary" onClick={this.handleSubmit}>
+                            SAVE CHANGES
+                        </button>
+                        <button onClick = {this.setClose }>
+                            CANCEL
+                        </button>
+                    </DialogContent>
+                </Dialog>
             </div>
         )
     }
