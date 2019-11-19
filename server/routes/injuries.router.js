@@ -1,9 +1,10 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 //get injury router, automatically fetches the logged in users injuries
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
     let queryText = `SELECT * FROM "injuries" WHERE user_id = $1`
     pool.query(queryText, [req.user.id])
         .then((result) =>{
@@ -14,7 +15,7 @@ router.get('/', (req, res) => {
         })
 });
 //post injury router, send: {user_id: int, type: "String", description: "String", severity: int }
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
     let queryText = `INSERT INTO "injuries" ( "user_id", "type", "description", "severity" ) VALUES ( $1, $2, $3, $4 );`;
     let queryInfo = [ req.user.id, req.body.type, req.body.description, req.body.severity ];
     console.log(queryInfo);
@@ -27,7 +28,7 @@ router.post('/', (req, res) => {
         })
 });
 //update goals route, send: { description: "String", type: "String", severity: int, id: int}
-router.put('/', (req, res) =>{
+router.put('/', rejectUnauthenticated, (req, res) =>{
     let queryText = `UPDATE "injuries" SET "description" = $1, "type" = $2, "severity" = $3 WHERE "id" = $4;`
     let queryInfo = [req.body.description, req.body.type, req.body.severity, req.body.id];
     console.log(queryInfo)
@@ -40,7 +41,7 @@ router.put('/', (req, res) =>{
         })
 })
 //DELETE GOALS ROUTE, SEND GOAL ID
-router.delete('/:id', (req, res) =>{
+router.delete('/:id', rejectUnauthenticated, (req, res) =>{
     let queryText = `DELETE FROM "injuries" WHERE "id" = $1;`;
     pool.query(queryText, [req.params.id])
         .then(() =>{

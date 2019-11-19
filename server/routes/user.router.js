@@ -15,7 +15,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
-router.post('/register', (req, res, next) => {  
+router.post('/register', rejectUnauthenticated, (req, res, next) => {  
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
 
@@ -40,7 +40,7 @@ router.post('/logout', (req, res) => {
   res.sendStatus(200);
 });
 //user: update user profile send: { id: int, name: "String", pronouns: "String", phone: "String", email: "String", emergency contact name: "String", emergency contact phone: "String", age/DOB: "String"}
-router.put('/', (req, res) =>{
+router.put('/', rejectUnauthenticated, (req, res) =>{
   let queryText = `UPDATE "user" SET "name" = $1, "pronouns" = $2, "phone" = $3, "email" = $4, "emergency_contact_name" = $5, "emergency_contact_phone" = $6, "age" = $7, "email_option" = $8 WHERE "id" = $9;`
   let queryInfo = [req.body.name, req.body.pronouns, req.body.phone, req.body.email, req.body.emergencyContactName, req.body.emergencyContactPhone, req.body.dateOfBirth, req.body.email_option, req.body.id ];
 
@@ -54,7 +54,7 @@ router.put('/', (req, res) =>{
 })
 
 //req.body is an array with one just index (the user's id)
-router.put('/reactivate', (req, res) =>{
+router.put('/reactivate', rejectUnauthenticated, (req, res) =>{
   console.log("req: ", req.body);
   let userid = req.body;
   let queryText = `UPDATE "user" SET "active" = true WHERE id = $1`
@@ -69,7 +69,7 @@ router.put('/reactivate', (req, res) =>{
 })
 
 //req.body is an array with one just index (the user's id)
-router.put('/archive', (req, res) =>{
+router.put('/archive', rejectUnauthenticated, (req, res) =>{
   console.log("req: ", req.body);
   let userid = req.body;
   let queryText = `UPDATE "user" SET "active" = false WHERE id = $1`
@@ -83,7 +83,7 @@ router.put('/archive', (req, res) =>{
       })
 })
 
-router.post('/phil', (req, res) => {
+router.post('/phil', rejectUnauthenticated, (req, res) => {
   console.log("req: ", req.body.philosophy.philosophy, req.body.philosophy.selectedId);
   let userid = req.body.philosophy.selectedId;
   let philosophy = req.body.philosophy.philosophy
@@ -100,7 +100,7 @@ router.post('/phil', (req, res) => {
 })
 
 
-router.put('/phil', (req, res) => {
+router.put('/phil', rejectUnauthenticated, (req, res) => {
   console.log("req: ", req.body);
   let userid = req.body;
   let queryText = `UPDATE "user" SET "philosophy" = $1 WHERE id = $2`
@@ -125,7 +125,7 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
       })
 })
 
-router.get('/exercise/:id', (req, res) => {
+router.get('/exercise/:id', rejectUnauthenticated, (req, res) => {
   // const user = req.params.id;
   const user = req.params.id;
 
@@ -143,7 +143,7 @@ router.get('/exercise/:id', (req, res) => {
 
 
 
-router.get('/exercise/history/:id', (req, res) => {
+router.get('/exercise/history/:id', rejectUnauthenticated, (req, res) => {
   // const user = req.params.id;
   const exercise = req.params.id;
 
