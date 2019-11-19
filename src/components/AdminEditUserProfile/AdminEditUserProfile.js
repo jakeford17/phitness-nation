@@ -8,7 +8,8 @@ import {withRouter} from 'react-router-dom';
 const MyTextField = styled(TextField)({
     padding: 10,
     margin: 5,
-    textAlign: "center"
+    textAlign: "center",
+    fontFamily: "'PT Sans Narrow', sans-serif;"
 });
 class AdminEditUserProfile extends Component {
     state = {
