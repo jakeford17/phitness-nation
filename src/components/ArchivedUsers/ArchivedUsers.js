@@ -9,7 +9,9 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
+import TextField from '@material-ui/core/TextField';
+import SearchIcon from '@material-ui/icons/Search';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 const MyCard = styled(Card)({
     background: '#d2d2d4',
@@ -25,12 +27,18 @@ const MyCard = styled(Card)({
     display: flexbox,
     fontFamily: 'PT Sans Narrow'
 });
-
+const MyTextField = styled(TextField)({
+    padding: 10,
+    margin: 5,
+    textAlign: "center",
+    fontFamily: 'PT Sans Narrow',
+  });
 class ArchivedUsers extends Component {
 
     state = {
         listUser: [],
-        deleteOpen: false
+        deleteOpen: false,
+        filterValue: '',
     }
 
     componentDidMount() {
@@ -87,24 +95,68 @@ class ArchivedUsers extends Component {
             ]
         })
     };
-
+    setFilter = (event) =>{
+        this.setState({ filterValue: event.target.value})
+    }
     render() {
         return (
             <div>
                  <div className="archived-users-wrapper">
-                        {this.state.listUser.map((user) => {
-                            if (user.active === false) { 
-                                if (user.name === null) {
-                                    return (
-                                        <MyCard>
-                                            <div key={user.id}>
-                                                <h5 className="styled-h5">Name:</h5> {user.username} <br />
-                                                <h5 className="styled-h5">DOB:</h5> {user.age}<br />
-                                                <h5 className="styled-h5">Phone:</h5> {user.phone}<br />
-                                                <button className="archived-btns" onClick={() => this.handleReactivateUser(user.id)}>REACTIVATE</button>
-                                                <button className="archived-btns" onClick={() => this.handleDeleteOpen(user.id)}>PERMANENTLY DELETE</button>
-                                            </div>
-                                        </MyCard>)
+                     <MyTextField
+                        label="Search Exercises"
+                        value={this.state.filterValue}
+                        onChange={this.setFilter}
+                        margin="normal"
+                        InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
+                            <SearchIcon />
+                            </InputAdornment>
+                        ),
+                        }}
+                        />
+                        {this.state.listUser.map((user) => { 
+                            if(user.name.indexOf(this.state.filterValue) > -1){
+                                if (user.active === false) { 
+                                    if (user.name === null) {
+                                        return (
+                                            <MyCard>
+                                                <div key={user.id}>
+                                                    <h5 className="styled-h5">Name:</h5> {user.username} <br />
+                                                    <h5 className="styled-h5">DOB:</h5> {user.age}<br />
+                                                    <h5 className="styled-h5">Phone:</h5> {user.phone}<br />
+                                                    <button className="archived-btns" onClick={() => this.handleReactivateUser(user.id)}>REACTIVATE</button>
+                                                    <button className="archived-btns" onClick={() => this.handleDeleteOpen(user.id)}>PERMANENTLY DELETE</button>
+                                                </div>
+                                            </MyCard>)
+                                    }
+                                }
+                                else {
+                                return (
+                                    <MyCard>
+                                    <div key={user.id}>
+                                    <h5 className="styled-h5">Name:</h5> {user.name} <br/>
+                                        <h5 className="styled-h5">DOB:</h5> {user.age}<br/>
+                                        <h5 className="styled-h5">Phone:</h5> {user.phone}<br/>
+                                            <button className="archived-btns" onClick={() => this.handleReactivateUser(user.id)}>REACTIVATE</button>
+                                            <button className="archived-btns" onClick={() => this.handleDeleteOpen(user.id)}>PERMANENTLY DELETE</button>
+                                    </div>
+                                    </MyCard>)
+                                }
+                            }else if(this.state.filterValue === ''){
+                                if (user.active === false) { 
+                                    if (user.name === null) {
+                                        return (
+                                            <MyCard>
+                                                <div key={user.id}>
+                                                    <h5 className="styled-h5">Name:</h5> {user.username} <br />
+                                                    <h5 className="styled-h5">DOB:</h5> {user.age}<br />
+                                                    <h5 className="styled-h5">Phone:</h5> {user.phone}<br />
+                                                    <button className="archived-btns" onClick={() => this.handleReactivateUser(user.id)}>REACTIVATE</button>
+                                                    <button className="archived-btns" onClick={() => this.handleDeleteOpen(user.id)}>PERMANENTLY DELETE</button>
+                                                </div>
+                                            </MyCard>)
+                                    }
                                 }
                                 else {
                                 return (

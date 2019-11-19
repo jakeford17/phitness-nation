@@ -1,117 +1,142 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import { styled } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-// import 'date-fns';
-
-const mapStateToProps = reduxState => ({
-    reduxState,
-});
+import {withRouter} from 'react-router-dom';
 
 const MyTextField = styled(TextField)({
     padding: 10,
     margin: 5,
     textAlign: "center"
 });
-
-export default connect(mapStateToProps)(function TextFields(props) {
-
-    const [values, setValues] = React.useState({
-        id: props.reduxState.adminToUserReducer.adminEditUserReducer.id,
-        name: props.reduxState.adminToUserReducer.adminEditUserReducer.name,
-        pronouns: props.reduxState.adminToUserReducer.adminEditUserReducer.pronouns,
-        phone: props.reduxState.adminToUserReducer.adminEditUserReducer.phone,
-        email: props.reduxState.adminToUserReducer.adminEditUserReducer.email,
-        emergencyContactName: props.reduxState.adminToUserReducer.adminEditUserReducer.emergency_contact_name,
-        emergencyContactPhone: props.reduxState.adminToUserReducer.adminEditUserReducer.emergency_contact_phone,
-        dateOfBirth: props.reduxState.adminToUserReducer.adminEditUserReducer.age
-    });
-
-    const handleChange = name => event => {
-        setValues({ ...values, [name]: event.target.value });
-    };
-
-    const handleSubmit = event => {
-        props.dispatch({ type: 'UPDATE_USER', payload: {id: props.match.params.id, ...values}})
-        // props.history.push('/adminviewuser/' + this.props.match.params.id)
-    };
-
-    const handleCancel = event => {
-        // props.history.push('/adminviewuser/' + this.props.match.params.id)
+class AdminEditUserProfile extends Component {
+    state = {
+        name: '',
+        pronouns: '',
+        phone: '',
+        email: '',
+        emergencyContactName: '',
+        emergencyContactPhone: '',
+        dateOfBirth: '',
     }
 
-    const archiveUser = (id) => {
-        // props.dispatch({ type: 'UPDATE_USER', payload: {id: props.match.params.id, ...values}})
-        console.log("ARCHIVE", values.id);
-        props.dispatch({ type: 'ARCHIVE_USER', payload: [id] });
-        props.history.push('/admin')
+    componentDidMount = () =>{
+        this.getInfo();
+    }
+    getInfo = () =>{
+        this.props.dispatch({ type: 'ADMIN_FETCH_USER', action: this.props.userId })
+        setTimeout(() =>{
+            this.setState({ 
+                name: this.props.reduxState.adminToUserReducer.adminEditUserReducer.name,
+                pronouns: this.props.reduxState.adminToUserReducer.adminEditUserReducer.pronouns,
+                phone: this.props.reduxState.adminToUserReducer.adminEditUserReducer.phone,
+                email: this.props.reduxState.adminToUserReducer.adminEditUserReducer.email,
+                emergencyContactName: this.props.reduxState.adminToUserReducer.adminEditUserReducer.emergency_contact_name,
+                emergencyContactPhone: this.props.reduxState.adminToUserReducer.adminEditUserReducer.emergency_contact_phone,
+                dateOfBirth: this.props.reduxState.adminToUserReducer.adminEditUserReducer.age,
+            })
+        }, 1200)
+    }
+    handleChange = (event, propertyName) => {
+        this.setState({
+            [propertyName]: event.target.value
+        })
     };
 
-    return (
+    handleSubmit = event => {
+        this.props.dispatch({ 
+            type: 'ADMIN_UPDATE_USER', 
+            payload: {
+                id: this.props.userId,
+                name: this.state.name,
+                pronouns: this.state.pronouns,
+                phone: this.state.phone,
+                email: this.state.email,
+                emergencyContactName: this.state.emergencyContactName,
+                emergencyContactPhone: this.state.emergencyContactPhone,
+                dateOfBirth: this.state.dateOfBirth,
+            }})
+        this.props.history.push('/adminviewuser/' + this.props.userId)
+    };
+
+    handleCancel = event => {
+        this.props.history.push('/adminviewuser/' + this.props.userId)
+    }
+    archiveUser = (id) => {
+        this.props.dispatch({ type: 'ARCHIVE_USER', payload: [id] });
+        this.props.history.push('/admin')
+    };
+    render(){
+        return (
         <div className="inputs-wrapper">
             <MyTextField
                 label="Name"
-                value={values.name}
-                onChange={handleChange('name')}
+                value={this.state.name}
+                onChange={(event) => this.handleChange(event, 'name')}
                 margin="normal"
             />
             <MyTextField
                 label="Pronouns (ex.: she/her/hers)"
-                value={values.pronouns}
-                onChange={handleChange('pronouns')}
+                value={this.state.pronouns}
+                onChange={(event) => this.handleChange(event, 'pronouns')}
                 margin="normal"
             />
             <MyTextField
                 label="Phone"
-                value={values.phone}
-                onChange={handleChange('phone')}
+                value={this.state.phone}
+                onChange={(event) => this.handleChange(event, 'phone')}
                 margin="normal"
             />
             <MyTextField
                 label="Email"
-                value={values.email}
-                onChange={handleChange('email')}
+                value={this.state.email}
+                onChange={(event) => this.handleChange(event, 'email')}
                 margin="normal"
             />
             <MyTextField
                 label="Emergency Contact Name"
-                value={values.emergencyContactName}
-                onChange={handleChange('emergencyContactName')}
+                value={this.state.emergencyContactName}
+                onChange={(event) => this.handleChange(event, 'emergencyContactName')}
                 margin="normal"
             />
             <MyTextField
                 label="Emergency Contact Phone"
-                value={values.emergencyContactPhone}
-                onChange={handleChange('emergencyContactPhone')}
+                value={this.state.emergencyContactPhone}
+                onChange={(event) => this.handleChange(event, 'emergencyContactPhone')}
                 margin="normal"
             />
             <MyTextField
                 // id="date"
                 label="Date of Birth"
                 // type="date"
-                value={values.dateOfBirth}
-                onChange={handleChange('dateOfBirth')}
+                value={this.state.dateOfBirth}
+                onChange={(event) => this.handleChange(event, 'dateOfBirth')}
                 margin="normal"
                 // InputLabelProps={{
                 //     shrink: true,
                 // }}
             />
             <div className="save-buttons">
-            <Button variant="contained" color="primary" onClick={handleSubmit}>
+            <Button variant="contained" color="primary" onClick={this.handleSubmit}>
                 Save Changes
             </Button>
             </div>
             <div className="save-buttons">
-            <Button variant="contained" color="secondary">
+            <Button variant="contained" color="secondary" onClick={this.handleCancel}>
                 Cancel
             </Button>
             </div>
             <div className="save-buttons">
-            <Button variant="contained" color="secondary" onClick={() => archiveUser(values.id)}>
+            <Button variant="contained" color="secondary" onClick={() => this.archiveUser(this.props.userId)}>
                 Archive User
             </Button>
             </div>
          </div>
-    );
-})
+        );
+    }
+}
+const mapStateToProps = reduxState => ({
+    reduxState,
+});
+export default withRouter(connect(mapStateToProps)(AdminEditUserProfile));
