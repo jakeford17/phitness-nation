@@ -275,18 +275,6 @@ class AdminUserList extends Component {
                     }
                     else if(this.state.filterValue === ''){
                     if (user.active === true) {
-                        if (user.name === null){
-                            return (
-                                <MyCard className="client-card-wrapper">
-                                    <p><h1 className="client-header1">{user.username}</h1>
-                                        <div className="client-profile-wrapper">
-                                            <button className="clientCard" onClick={this.fetchClientID} value={user.id} >USER PROFILE</button>
-                                        </div>
-                                    </p>
-                                </MyCard>
-                            );
-                        }
-                        else {
                         return (
                                 <MyCard className="client-card-wrapper">
                                 <p><h1 className="client-header1">{user.name} ({user.username})</h1>
@@ -355,9 +343,7 @@ class AdminUserList extends Component {
                                 </MyCard>
                         )
                         }
-                    }
-                }
-                })}
+                    }})}
                 <div className="add-client-wrapper">
                     <Dialog open={this.state.newUserOpen} onClose={this.handleNewUserClose}>
                         <DialogTitle id="form-dialog-title"><h1>Add New User:</h1></DialogTitle>
@@ -414,9 +400,9 @@ class AdminUserList extends Component {
                         </DialogContent>
                     </Dialog>
             </div>
-            </div>
-        );
-    }
+        })}
+        </div>
+        )}
 }
 
 const mapStateToProps = state => ({

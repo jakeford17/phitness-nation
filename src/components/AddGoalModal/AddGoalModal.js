@@ -38,6 +38,9 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: "teal",
         color: "white"
     },
+    button: {
+        color: "teal"
+    },
     extendedIcon: {
         marginRight: theme.spacing(1),
     },
@@ -112,10 +115,10 @@ export default connect(mapStateToProps)(function FormDialog(props) {
           </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary">
+                    <Button onClick={handleClose} className={classes.button}>
                         Cancel
           </Button>
-                    <Button onClick={handleSubmit} color="primary">
+                    <Button onClick={handleSubmit} className={classes.button}>
                         Save
           </Button>
                 </DialogActions>
