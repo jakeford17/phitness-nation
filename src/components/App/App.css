@@ -290,3 +290,8 @@ input {
 h2 {
         font-family: 'Roboto Slab', serif;
 }
+
+.about-page {
+    display: flex;
+    padding: 5%;
+}
