@@ -24,7 +24,7 @@ class AdminViewUser extends Component {
             <>
             <div className="placeholder-wrapper">
 
-                <img onClick={() => this.goEditUser(this.props.match.params.id)} className="placeholder" src={Placeholder}></img>
+                <img onClick={() => this.goEditUser(this.props.match.params.id)} className="placeholder" src={this.props.reduxState.user.img}></img>
 
             </div>
                 <AdminViewUserTabs userId = {this.props.match.params.id}/>
