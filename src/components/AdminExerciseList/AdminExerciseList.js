@@ -79,6 +79,11 @@ class AdminExerciseList extends Component {
         this.listExercises();
     }
 
+
+    exerciseDescription = (exercise) => {
+                this.props.history.push(`/exerciseDetail/${exercise.id}`)
+            }
+
     handleNewExerciseOpen = () => {
         this.setState({
             ...this.state,

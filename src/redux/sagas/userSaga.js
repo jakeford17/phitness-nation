@@ -52,11 +52,22 @@ function* adminUpdateUser(action){
     console.log('ADMIN UPDATE USER ERROR:', error)
   }
 }
+//update user's profile picture
+function* updateUserImg(action){
+  try{
+    yield axios.put('/api/user/profilePic', action.payload )
+    yield put ({ type: 'FETCH_USER'})
+  }catch(error){
+    console.log('USER UPDATE PROFILE PIC ERROR:', error)
+  }
+}
+
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
   yield takeLatest('UPDATE_USER', updateUserSaga);
   yield takeLatest('ADMIN_FETCH_USER', adminFetchUser);
-  yield takeLatest('ADMIN_UPDATE_USER', adminUpdateUser)
+  yield takeLatest('ADMIN_UPDATE_USER', adminUpdateUser);
+  yield takeLatest('UPDATE_USER_IMG', updateUserImg);
 }
 
 export default userSaga;
