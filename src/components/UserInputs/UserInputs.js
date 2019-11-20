@@ -98,14 +98,15 @@ export default connect(mapStateToProps)(function TextFields(props) {
                 margin="normal"
             />
             <MyTextField
-                id="date"
+                // id="date"
                 label="Date of Birth"
-                type="date"
+                // type="date"
                 value={values.dateOfBirth}
                 onChange={handleChange('dateOfBirth')}
-                InputLabelProps={{
-                    shrink: true,
-                }}
+                margin="normal"
+                // InputLabelProps={{
+                //     shrink: true,
+                // }}
             />
             <FormControlLabel
                 control = {
