@@ -143,7 +143,7 @@ class ArchivedUsers extends Component {
                         />
                         {this.state.listUser.map((user) => { 
                             if(user.name.indexOf(this.state.filterValue) > -1){
-                                if (user.active === true) { 
+                                if (user.active === false) { 
                                     if (user.name === null) {
                                         return (
                                             <MyCard>
@@ -171,7 +171,7 @@ class ArchivedUsers extends Component {
                             
                             }
                             }else if(this.state.filterValue === ''){
-                                if (user.active === true) { 
+                                if (user.active === false) { 
                                     if (user.name === null) {
                                         return (
                                             <MyCard>
