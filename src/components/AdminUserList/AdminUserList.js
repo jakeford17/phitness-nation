@@ -16,20 +16,21 @@ import { retry } from 'redux-saga/effects';
 import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import Avatar from '@material-ui/core/Avatar';
 
 const MyTextField = styled(TextField)({
     padding: 10,
     margin: 5,
     textAlign: "center",
     fontFamily: 'PT Sans Narrow',
-  });
+});
 const MyCard = styled(Card)({
     background: '#d2d2d4',
     border: 0,
     borderRadius: 3,
     // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
     // // color: 'white',
-    height: 125,
+    height: 150,
     width: 150,
     padding: 10,
     margin: 5,
@@ -56,6 +57,10 @@ const styles = {
     add: {
         color: "white",
         fontSize: "large"
+    },
+    bigAvatar: {
+        width: "200%",
+        height: "200%"
     }
 };
 
@@ -65,11 +70,11 @@ class AdminUserList extends Component {
         listUser: [],
         newUserOpen: false,
         newPhilOpen: false,
-        phil:'',
+        phil: '',
         username: '',
         password: '',
         selectedId: '',
-        philosophy:'',
+        philosophy: '',
         filterValue: '',
     }
 
@@ -107,17 +112,19 @@ class AdminUserList extends Component {
     listUsers = () => {
         axios.get('/api/admin').then((response) => {
             console.log("grabbing user list:", response.data)
-            this.setState({...this.state,
+            this.setState({
+                ...this.state,
                 listUser: response.data
             })
         })
     }
 
     handleNewUserOpen = () => {
-        this.setState({...this.state,
-        newUserOpen: true,
+        this.setState({
+            ...this.state,
+            newUserOpen: true,
         })
-      
+
     }
 
     handleNewUserClose = () => {
@@ -164,13 +171,13 @@ class AdminUserList extends Component {
     }
 
     fetchClientID = (event) => {
-        this.props.dispatch({ type: 'ACCESS_USER_INFO', payload: event.target.value });
-        this.props.history.push(`/adminviewuser/${event.target.value}`);
+        this.props.dispatch({ type: 'ACCESS_USER_INFO', payload: event });
+        this.props.history.push(`/adminviewuser/${event}`);
     }
 
     fetchClientIDPhil = (event) => {
         // this.props.dispatch({ type: 'ACCESS_USER_INFO', payload: event.target.value });
-       console.log(event.target);
+        console.log(event.target);
         this.setState({
             selectedId: event.target.value,
         });
@@ -180,34 +187,34 @@ class AdminUserList extends Component {
                 this.setState({
                     philosophy: element.philosophy
                 })
-                // return console.log('yay', element.philosophy);
-                
+            // return console.log('yay', element.philosophy);
+
         })
     }
 
 
     test = () => {
         console.log(this.state);
-        
+
     }
-    setFilter = (event) =>{
-        this.setState({ filterValue: event.target.value})
+    setFilter = (event) => {
+        this.setState({ filterValue: event.target.value })
     }
     render() {
         return (
             <div className="clients-wrapper">
-                <div style={{display: 'inline'}}>
+                <div style={{ display: 'inline' }}>
                     <MyTextField
                         label="Search Users"
                         value={this.state.filterValue}
                         onChange={this.setFilter}
                         margin="normal"
                         InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <SearchIcon />
-                            </InputAdornment>
-                        ),
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <SearchIcon />
+                                </InputAdornment>
+                            ),
                         }}
                     />
                     <Fab style={styles.palette} aria-label="Add" onClick={() => this.handleNewUserOpen()}>
@@ -215,51 +222,52 @@ class AdminUserList extends Component {
                     </Fab>
                 </div>
                 {this.state.listUser.map((user) => {
-                    if(user.name.indexOf(this.state.filterValue) > -1){
-                    if (user.active === true) {
-                        return (
+                    if (user.name.indexOf(this.state.filterValue) > -1) {
+                        if (user.active === true) {
+                            return (
                                 <MyCard className="client-card-wrapper">
-                                <p><h1 className="client-header1">{user.name} ({user.username})</h1>
-                                    <div className="client-profile-wrapper">
-                                        <button className="clientCard" onClick={this.fetchClientID} value={user.id} >USER PROFILE</button>
-                                        <div className="add-phil-wrapper">
-
-                                            <button value={user.id}  style={styles.palette} aria-label="PHIL" onClick={this.fetchClientIDPhil}>
-                                               + 
+                                    <p><h1 className="client-header1">{user.name} ({user.username})</h1>
+                                        <div className="client-profile-wrapper">
+                                        <img onClick= {() => {this.fetchClientID(user.id)}} className="bigAvatar" src={user.img}/>
+                                            {/* <button className="clientCard" onClick={this.fetchClientID} value={user.id} >USER PROFILE</button> */}
+                                            <div className="add-phil-wrapper">
+                                            
+                                                <button value={user.id} style={styles.palette} aria-label="PHIL" onClick={this.fetchClientIDPhil}>
+                                                    +
                                             </button>
-                                            <Dialog open={this.state.newPhilOpen} onClose={this.handleNewPhilClose}  className="philolog">
-                                                <DialogTitle><h3>
-                                                    Add New Philosophy:
+                                                <Dialog open={this.state.newPhilOpen} onClose={this.handleNewPhilClose} className="philolog">
+                                                    <DialogTitle><h3>
+                                                        Add New Philosophy:
                                                             </h3></DialogTitle>
-                                                <DialogContent >
-                                                    <form onSubmit={this.addPhil}>
-                                                                <textarea
-                                                                    rows="5"
-                                                                    name="phil"
-                                                                    placeholder={this.state.philosophy}
-                                                                    value={this.state.philosophy}
-                                                                    onChange={this.handleInputChangeForPhil('philosophy')}
-                                                                    className="newPhilInput"
-                                                                    className="philput"
+                                                    <DialogContent >
+                                                        <form onSubmit={this.addPhil}>
+                                                            <textarea
+                                                                rows="5"
+                                                                name="phil"
+                                                                placeholder={this.state.philosophy}
+                                                                value={this.state.philosophy}
+                                                                onChange={this.handleInputChangeForPhil('philosophy')}
+                                                                className="newPhilInput"
+                                                                className="philput"
+                                                            />
+                                                            <div className="newPhilBtnWrapper">
+                                                                <input
+                                                                    className="addPhil"
+                                                                    type="submit"
+                                                                    name="submit"
+                                                                    value="ADD PHIL"
+                                                                    className="newPhilBtns"
                                                                 />
-                                                                <div className="newPhilBtnWrapper">
-                                                            <input
-                                                                className="addPhil"
-                                                                type="submit"
-                                                                name="submit"
-                                                                value="ADD PHIL"
-                                                                className="newPhilBtns"
-                                                            />
-                                                            <input
-                                                                type="button"
-                                                                value="CANCEL"
-                                                                className="newPhilBtns"
-                                                                onClick={(e) => this.handleNewPhilClose()}
-                                                            />
-                                                        </div>
-                                                    </form>
-                                                </DialogContent>
-                                                {/* <DialogActions>
+                                                                <input
+                                                                    type="button"
+                                                                    value="CANCEL"
+                                                                    className="newPhilBtns"
+                                                                    onClick={(e) => this.handleNewPhilClose()}
+                                                                />
+                                                            </div>
+                                                        </form>
+                                                    </DialogContent>
+                                                    {/* <DialogActions>
                             <button onClick={this.handleNewUserClose}>
                                 CANCEL
                                         </button>
@@ -267,69 +275,69 @@ class AdminUserList extends Component {
                                 YES
                                         </button>
                         </DialogActions> */}
-                                            </Dialog>
+                                                </Dialog>
+                                            </div>
                                         </div>
-                                    </div>
-                                </p>
+                                    </p>
                                 </MyCard>
-                        )
+                            )
                         }
                     }
-                    else if(this.state.filterValue === ''){
-                    if (user.active === true) {
-                        return (
-                                <MyCard className="client-card-wrapper">                                 
-                                <p><h1 className="client-header1">{user.name} ({user.username})</h1>
-                                    <div className="client-profile-wrapper">
-                                        <button className="clientCard" onClick={this.fetchClientID} value={user.id} >USER PROFILE</button>                                       
-                                        <div className="add-phil-wrapper">
-                                            <button value={user.id}  style={styles.palette} aria-label="PHIL" onClick={this.fetchClientIDPhil}>
-                                               + 
+                    else if (this.state.filterValue === '') {
+                        if (user.active === true) {
+                            return (
+                                <MyCard className="client-card-wrapper">
+                                    <p><h1 className="client-header1">{user.name} ({user.username})</h1>
+                                        <div className="client-profile-wrapper">
+                                            <button className="clientCard" onClick={this.fetchClientID} value={user.id} >USER PROFILE</button>
+                                            <div className="add-phil-wrapper">
+                                                <button value={user.id} style={styles.palette} aria-label="PHIL" onClick={this.fetchClientIDPhil}>
+                                                    +
                                             </button>
-                                            <Dialog open={this.state.newPhilOpen} onClose={this.handleNewPhilClose}  >
-                                                <DialogTitle id="form-dialog-title"><h1>Add New philosophy:</h1></DialogTitle>
-                                                <DialogContent >
-                                                    {this.props.errors.registrationMessage && (
-                                                        <h2
-                                                            className="alert"
-                                                            role="alert"
-                                                        >
-                                                            {this.props.errors.registrationMessage}
-                                                        </h2>
-                                                    )}
-                                                    <form onSubmit={this.addPhil}>
-                                                        <div>
-                                                           
-                                                            <label htmlFor="phil">
-                                                                philosophy:
+                                                <Dialog open={this.state.newPhilOpen} onClose={this.handleNewPhilClose}  >
+                                                    <DialogTitle id="form-dialog-title"><h1>Add New philosophy:</h1></DialogTitle>
+                                                    <DialogContent >
+                                                        {this.props.errors.registrationMessage && (
+                                                            <h2
+                                                                className="alert"
+                                                                role="alert"
+                                                            >
+                                                                {this.props.errors.registrationMessage}
+                                                            </h2>
+                                                        )}
+                                                        <form onSubmit={this.addPhil}>
+                                                            <div>
+
+                                                                <label htmlFor="phil">
+                                                                    philosophy:
                                                                 <input
-                                                                    type="text"
-                                                                    name="phil"
-                                                                    placeholder={this.state.philosophy}
-                                                                    value={this.state.philosophy}
-                                                                    onChange={this.handleInputChangeForPhil('philosophy')}
-                                                                    className="newPhilInput"
+                                                                        type="text"
+                                                                        name="phil"
+                                                                        placeholder={this.state.philosophy}
+                                                                        value={this.state.philosophy}
+                                                                        onChange={this.handleInputChangeForPhil('philosophy')}
+                                                                        className="newPhilInput"
+                                                                    />
+                                                                </label>
+                                                            </div>
+                                                            <div>
+                                                                <input
+                                                                    className="addPhil"
+                                                                    type="submit"
+                                                                    name="submit"
+                                                                    value="ADD PHIL"
+                                                                    className="newUserBtns"
                                                                 />
-                                                            </label>
-                                                        </div>
-                                                        <div>
-                                                            <input
-                                                                className="addPhil"
-                                                                type="submit"
-                                                                name="submit"
-                                                                value="ADD PHIL"
-                                                                className="newUserBtns"
-                                                            />
-                                                            <input
-                                                                type="button"
-                                                                value="CANCEL"
-                                                                className="newUserBtns"
-                                                                onClick={(e) => this.handleNewPhilClose()}
-                                                            />
-                                                        </div>
-                                                    </form>
-                                                </DialogContent>
-                                                {/* <DialogActions>
+                                                                <input
+                                                                    type="button"
+                                                                    value="CANCEL"
+                                                                    className="newUserBtns"
+                                                                    onClick={(e) => this.handleNewPhilClose()}
+                                                                />
+                                                            </div>
+                                                        </form>
+                                                    </DialogContent>
+                                                    {/* <DialogActions>
                             <button onClick={this.handleNewUserClose}>
                                 CANCEL
                                         </button>
@@ -337,14 +345,15 @@ class AdminUserList extends Component {
                                 YES
                                         </button>
                         </DialogActions> */}
-                                            </Dialog>
+                                                </Dialog>
+                                            </div>
                                         </div>
-                                    </div>
-                                </p>
+                                    </p>
                                 </MyCard>
-                        )
+                            )
                         }
-                    }})}
+                    }
+                })}
                 <div className="add-client-wrapper">
                     <Dialog open={this.state.newUserOpen} onClose={this.handleNewUserClose}>
                         <DialogTitle id="form-dialog-title"><h1>Add New User:</h1></DialogTitle>
@@ -391,24 +400,26 @@ class AdminUserList extends Component {
                                         className="newUserBtns"
                                     />
                                     <input
-                                    type="button"
-                                    value="CANCEL"
-                                    className="newUserBtns"
-                                    onClick={(e) => this.handleNewUserClose()}
+                                        type="button"
+                                        value="CANCEL"
+                                        className="newUserBtns"
+                                        onClick={(e) => this.handleNewUserClose()}
                                     />
                                 </div>
                             </form>
                         </DialogContent>
                     </Dialog>
+                </div>
             </div>
-        })}
-        </div>
-        )}
+        )
+    }
 }
+
+
 
 const mapStateToProps = state => ({
     user: state.user,
-        errors: state.errors,
+    errors: state.errors,
 });
 
 export default withRouter(connect(mapStateToProps)(AdminUserList));

@@ -159,6 +159,11 @@ input {
     justify-content: center;
 }
 
+.bigAvatar {
+    width: 100px;
+    border-radius: 100%
+}
+
 .client-card-wrapper {
     display: flex;
     justify-content: center;
