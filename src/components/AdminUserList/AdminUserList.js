@@ -278,12 +278,11 @@ class AdminUserList extends Component {
                     else if(this.state.filterValue === ''){
                     if (user.active === true) {
                         return (
-                                <MyCard className="client-card-wrapper">
+                                <MyCard className="client-card-wrapper">                                 
                                 <p><h1 className="client-header1">{user.name} ({user.username})</h1>
                                     <div className="client-profile-wrapper">
-                                        <button className="clientCard" onClick={this.fetchClientID} value={user.id} >USER PROFILE</button>
+                                        <button className="clientCard" onClick={this.fetchClientID} value={user.id} >USER PROFILE</button>                                       
                                         <div className="add-phil-wrapper">
-
                                             <button value={user.id}  style={styles.palette} aria-label="PHIL" onClick={this.fetchClientIDPhil}>
                                                + 
                                             </button>
@@ -402,7 +401,6 @@ class AdminUserList extends Component {
                         </DialogContent>
                     </Dialog>
             </div>
-        })}
         </div>
         )}
 }
