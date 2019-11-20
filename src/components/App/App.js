@@ -49,6 +49,7 @@ class App extends Component {
           <header className="app-header">
           <DropDrawer/>
           </header>
+          <div className="content">
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             {(!this.props.user.admin) ? <Redirect exact from="/" to="/home" /> : <Redirect exact from="/home" to="/admin" />}
@@ -178,6 +179,7 @@ class App extends Component {
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>
+          </div>
           <Footer />
         </div>
       </Router>

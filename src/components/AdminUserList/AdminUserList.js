@@ -401,7 +401,6 @@ class AdminUserList extends Component {
                         </DialogContent>
                     </Dialog>
             </div>
-        })}
         </div>
         )}
 }
