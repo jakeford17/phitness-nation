@@ -53,9 +53,10 @@ router.put('/', rejectUnauthenticated, (req, res) =>{
       })
 })
 
-router.put('/streak', rejectUnauthenticated, (req, res) => {
+router.put('/streak/:id', rejectUnauthenticated, (req, res) => {
+  console.log('the user id is:', req.params.id)
   let queryText = `UPDATE "user" SET "current_streak" = "current_streak"+1 WHERE "id" = $1;`
-  let queryInfo = [req.body];
+  let queryInfo = [req.params.id];
   pool.query(queryText, queryInfo)
     .then(() => {
       res.sendStatus(200);

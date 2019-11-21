@@ -64,7 +64,7 @@ function* updateUserImg(action){
 
 function* updateStreak(action){
   try {
-    yield axios.put('/api/user/streak', action.payload)
+    yield axios.put('/api/user/streak/'+action.payload)
     yield put({ type: 'FETCH_USER' })
   } catch (error) {
     console.log('UPDATE STREAK ERROR:', error)
