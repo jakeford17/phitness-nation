@@ -178,7 +178,7 @@ class AdminAddWorkout extends Component {
     render() {
         return (
             <div className="admin-add-workout">
-            <h3>Add Exercises to Workout:</h3>
+                <h3 onClick={() => this.magicButton()}>Add Exercises to Workout:</h3>
             {/* {JSON.stringify(this.state)} */}
             {/* {JSON.stringify(this.props.reduxState.injuries.injuriesReducer)} */}
             <CreatableSelect
@@ -223,7 +223,7 @@ class AdminAddWorkout extends Component {
                 </div>
             <br/>
 
-            <h3 onClick = {() => this.magicButton()}>Exercises:</h3>
+            <h3 onClick = {() => this.magicButton2()}>Exercises:</h3>
             <ul>
             {this.state.exercises.map(exercise =>{
                 let exerciseName;
