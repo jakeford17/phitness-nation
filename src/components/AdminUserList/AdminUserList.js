@@ -228,7 +228,7 @@ class AdminUserList extends Component {
                                 <MyCard className="client-card-wrapper">
                                     <p><h1 className="client-header1">{user.name} ({user.username})</h1>
                                         <div className="client-profile-wrapper">
-                                        <img onClick= {() => {this.fetchClientID(user.id)}} className="bigAvatar" src={user.img}/>
+                                            <img onClick={() => { this.fetchClientID(user.id) }} className="bigAvatar" src={user.img} />
                                             {/* <button className="clientCard" onClick={this.fetchClientID} value={user.id} >USER PROFILE</button> */}
                                             <div className="add-phil-wrapper">
                                             
@@ -414,7 +414,7 @@ class AdminUserList extends Component {
         )
     }
 
-
+}
 
 const mapStateToProps = state => ({
     user: state.user,
