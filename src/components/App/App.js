@@ -180,7 +180,11 @@ class App extends Component {
             <Route render={() => <h1>404</h1>} />
           </Switch>
           </div>
-          <Footer />
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          {(!this.props.user.id) ? <Footer /> : <div></div>}
         </div>
       </Router>
     )

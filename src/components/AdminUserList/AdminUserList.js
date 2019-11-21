@@ -228,10 +228,10 @@ class AdminUserList extends Component {
                                 <MyCard className="client-card-wrapper">
                                     <p><h1 className="client-header1">{user.name} ({user.username})</h1>
                                         <div className="client-profile-wrapper">
-                                        <img onClick= {() => {this.fetchClientID(user.id)}} className="bigAvatar" src={user.img}/>
+                                            <img onClick={() => { this.fetchClientID(user.id) }} className="bigAvatar" src={user.img} />
                                             {/* <button className="clientCard" onClick={this.fetchClientID} value={user.id} >USER PROFILE</button> */}
                                             <div className="add-phil-wrapper">
-                                            
+
                                                 <button value={user.id} style={styles.palette} aria-label="PHIL" onClick={this.fetchClientIDPhil}>
                                                     +
                                             </button>
@@ -370,7 +370,7 @@ class AdminUserList extends Component {
                                 <div>
                                     <label htmlFor="username">
                                         Name:
-              <input
+                                        <input
                                             type="text"
                                             name="username"
                                             value={this.state.username}
@@ -382,7 +382,7 @@ class AdminUserList extends Component {
                                 <div>
                                     <label htmlFor="password">
                                         Password:
-              <input
+                                        <input
                                             type="password"
                                             name="password"
                                             value={this.state.password}
@@ -414,7 +414,6 @@ class AdminUserList extends Component {
         )
     }
 }
-
 
 const mapStateToProps = state => ({
     user: state.user,
