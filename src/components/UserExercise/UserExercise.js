@@ -62,16 +62,16 @@ class UserExercise extends Component {
             ...this.state,
             feedback: parseInt(event.target.value)
         })
-        console.log('the feedback is:', event.target.value)
     }
 
-    handleSubmit = () => {
+    handleSubmit = (idIn) => {
         this.props.dispatch({ type: 'UPDATE_EXERCISE_WORKOUTS', payload:{
-            id: this.state.exerciseId,
+            id: idIn,
             completed_reps: this.state.repsAchieved,
             completed_sets: this.state.setsAchieved,
             completed_weight: this.state.weightAchieved,
-            feedback: this.state.feedback}});
+            feedback: this.state.feedback,
+            completed: true}});
         this.handleClick();
         this.handleClose();
     }
@@ -83,7 +83,7 @@ class UserExercise extends Component {
 
     handleRepsChange = (name, value) => {
         let newReps = parseInt(value.target.innerText)
-        this.setState({ ...this.state, [name]: newReps });
+        this.setState({ ...this.state, repsAchieved: newReps });
     };
 
     handleSetsChange = (name, value) => {
@@ -96,9 +96,8 @@ class UserExercise extends Component {
             this.props.history.push(`/summary/${this.state.workoutId}`)
         }
         else {
-        this.props.history.push(`/exercise/${this.state.workoutId}-${this.state.exerciseId + 1}-${this.state.exerciseOrder + 1}`);
+        this.props.history.push(`/exercise/${this.state.workoutId}-${this.state.exerciseOrder + 1}`);
         this.setState({...this.state,
-            exerciseId: this.state.exerciseId += 1,
             workoutId: this.state.workoutId,
             exerciseOrder: this.state.exerciseOrder +=1,
             weightAchieved: 0,
@@ -114,10 +113,9 @@ class UserExercise extends Component {
                 this.props.history.push(`/preview/${this.state.workoutId}`)
             }
             else {
-                this.props.history.push(`/exercise/${this.state.workoutId}-${this.state.exerciseId - 1}-${this.state.exerciseOrder - 1}`)
+                this.props.history.push(`/exercise/${this.state.workoutId}-${this.state.exerciseOrder - 1}`)
             }
         this.setState({...this.state,
-            exerciseId: this.state.exerciseId -= 1,
             workoutId: this.state.workoutId,
             exerciseOrder: this.state.exerciseOrder -= 1
         })
@@ -126,10 +124,8 @@ class UserExercise extends Component {
     componentDidMount = () => {
         let workoutExerciseIds = this.props.match.params.id.split('-')
         let workoutId = parseInt(workoutExerciseIds[0])
-        let exerciseId = parseInt(workoutExerciseIds[1])
-        let exerciseOrder = parseInt(workoutExerciseIds[2])
+        let exerciseOrder = parseInt(workoutExerciseIds[1])
         this.setState({...this.state,
-            exerciseId: exerciseId,
             workoutId: workoutId,
             exerciseOrder: exerciseOrder
         })
@@ -140,7 +136,7 @@ class UserExercise extends Component {
         return (
             <div className="exercise-page">
                 {this.props.reduxState.exerciseWorkouts.exerciseWorkoutReducer.map((exercise) => {
-                    if (exercise.id == this.state.exerciseId)
+                    if (exercise.order == this.state.exerciseOrder)
                     return (<>
                     <MyCard>
                             <h1>{exercise.name}</h1>
@@ -236,7 +232,7 @@ class UserExercise extends Component {
                                     <button onClick={this.handleClose}>
                                         CANCEL
                                         </button>
-                                    <button onClick={this.handleSubmit}>
+                                    <button onClick={(event) => this.handleSubmit(exercise.id)}>
                                         SAVE
                                         </button>
                                 </DialogActions>

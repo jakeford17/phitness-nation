@@ -13,12 +13,26 @@ import FormControl from '@material-ui/core/FormControl';
 import SelectDrop from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
+import Card from '@material-ui/core/Card';
 
 const MyTextField = styled(TextField)({
     padding: 10,
     margin: 5,
     textAlign: "center"
 });
+
+const MySelectDrop = styled(SelectDrop)({
+    width: 200,
+    margin: 10
+})
+
+const MyCard = styled(Card)({
+    padding: 5,
+    margin: 5,
+    textAlign: "center",
+    height: 80,
+    backgroundColor: '#d2d2d4'
+})
 
 class AdminAddWorkout extends Component {
     state = {
@@ -138,18 +152,10 @@ class AdminAddWorkout extends Component {
     }
     render() {
         return (
-            <>
+            <div className="admin-add-workout">
+            <h3>Add Exercises to Workout:</h3>
             {/* {JSON.stringify(this.state)} */}
             {/* {JSON.stringify(this.props.reduxState.injuries.injuriesReducer)} */}
-            {this.props.reduxState.injuries.injuriesReducer.map((injury)=>{
-                    return(
-                        <>
-                        <p>injury type: {injury.type}</p>
-                        <p>injury Description: {injury.description}</p>
-                        <p>injury severity: {injury.severity}</p>
-                       </>
-                    )
-                })}
             <CreatableSelect
                 isClearable
                 onChange={this.handleSelectChange}
@@ -184,13 +190,14 @@ class AdminAddWorkout extends Component {
                 onChange={(event) => this.handleChange(event, 'tips')}
                 margin="normal"
             />
-            <Button 
-                variant="contained" 
+            <div className="add-exercise-workout-btn">
+            <button
                 onClick = {this.addExercise}>
-                Add Exercise
-            </Button>
+                ADD EXERCISE
+            </button>
+                </div>
             <br/>
-            <h2>Exercises:</h2>
+            <h3>Exercises:</h3>
             <ul>
             {this.state.exercises.map(exercise =>{
                 let exerciseName;
@@ -204,24 +211,13 @@ class AdminAddWorkout extends Component {
                 )
             })}
             </ul>
-            <br/>
-            <FormControlLabel
-            
-            control = {
-            <Checkbox
-                color="default"
-                checked={this.state.email}
-                onChange={this.emailToggle}
-                value={false}
-            />}
-            label = "Email Client?"
-            labelPlacement="end"
-            />
+            <br></br>
+                <div className="add-exercise-workout-btn">
             <FormControl variant="outlined">
                 <InputLabel id="demo-simple-select-outlined-label">
                 Week
                 </InputLabel>
-                <SelectDrop
+                <MySelectDrop
                 labelId="demo-simple-select-outlined-label"
                 id="demo-simple-select-outlined"
                 value={this.state.week}
@@ -233,14 +229,53 @@ class AdminAddWorkout extends Component {
                     )
                 })}
                 <MenuItem value = {this.state.maxWeek}>Create New: Week {this.state.maxWeek}</MenuItem>
-                </SelectDrop>
+                </MySelectDrop>
             </FormControl>
-            <Button 
-                variant="contained" 
+            </div>
+            <div className="add-exercise-workout-btn">
+                    <FormControlLabel
+
+                        control={
+                            <Checkbox
+                                color="default"
+                                checked={this.state.email}
+                                onChange={this.emailToggle}
+                                value={false}
+                            />}
+                        label="Email Client?"
+                        labelPlacement="end"
+                    />
+            <button
                 onClick = {this.addWorkout}>
-                Add Workout
-            </Button>
-            </>
+                ADD WORKOUT
+            </button>
+                </div>
+                <h3>User Injuries:</h3>
+                {this.props.reduxState.injuries.injuriesReducer.map((injury) => {
+                    let severity = ""
+                    if (injury.severity == 1) {
+                        severity = "Mild"
+                    }
+                    else if (injury.severity == 2) {
+                        severity = "Moderate"
+                    }
+                    else if (injury.severity == 3) {
+                        severity = "Severe"
+                    }
+                    else if (injury.severity == 0) {
+                        severity = "Healed"
+                    }
+                    return (
+                        <>
+                            <MyCard>
+                                <p>Type: {injury.type}<br></br>
+                                    Description: {injury.description}<br></br>
+                                    Severity: {severity}</p>
+                            </MyCard>
+                        </>
+                    )
+                })}
+            </div>
         )
     }
 }

@@ -288,6 +288,10 @@ input {
     justify-content: center;
 }
 
+.admin-add-workout {
+    padding: 5%;
+}
+
 .exercise-workout-int {
     display: flex;
     flex-direction: row;
@@ -340,4 +344,10 @@ h2 {
 .about-page {
     display: flex;
     padding: 5%;
+}
+
+.add-exercise-workout-btn{
+    display: flex;
+    justify-content: center;
+    margin: 3%;
 }
