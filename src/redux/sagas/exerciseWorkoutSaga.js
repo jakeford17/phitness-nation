@@ -43,6 +43,7 @@ function* fetchExerciseWorkouts(action){
 //update exercise workouts, send: { id of exercise workout: int, completed_reps: int, completed_sets: int, completed_weight: int, feedback: int }
 function* updateExerciseWorkouts(action){
     try{
+        console.log('the exercise results are:', action.payload)
         yield axios.put('/api/exerciseWorkouts', action.payload)
     }catch (error) {
         console.log('UPDATE EXERCISE WORKOUTS ERROR')

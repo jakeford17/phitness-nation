@@ -62,16 +62,16 @@ class UserExercise extends Component {
             ...this.state,
             feedback: parseInt(event.target.value)
         })
-        console.log('the feedback is:', event.target.value)
     }
 
-    handleSubmit = () => {
+    handleSubmit = (idIn) => {
         this.props.dispatch({ type: 'UPDATE_EXERCISE_WORKOUTS', payload:{
-            id: this.state.exerciseId,
+            id: idIn,
             completed_reps: this.state.repsAchieved,
             completed_sets: this.state.setsAchieved,
             completed_weight: this.state.weightAchieved,
-            feedback: this.state.feedback}});
+            feedback: this.state.feedback,
+            completed: true}});
         this.handleClick();
         this.handleClose();
     }
@@ -83,7 +83,7 @@ class UserExercise extends Component {
 
     handleRepsChange = (name, value) => {
         let newReps = parseInt(value.target.innerText)
-        this.setState({ ...this.state, [name]: newReps });
+        this.setState({ ...this.state, repsAchieved: newReps });
     };
 
     handleSetsChange = (name, value) => {
@@ -232,7 +232,7 @@ class UserExercise extends Component {
                                     <button onClick={this.handleClose}>
                                         CANCEL
                                         </button>
-                                    <button onClick={this.handleSubmit}>
+                                    <button onClick={(event) => this.handleSubmit(exercise.id)}>
                                         SAVE
                                         </button>
                                 </DialogActions>
