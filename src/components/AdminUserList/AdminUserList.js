@@ -30,7 +30,7 @@ const MyCard = styled(Card)({
     borderRadius: 3,
     // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
     // // color: 'white',
-    height: 150,
+    height: 200,
     width: 150,
     padding: 10,
     margin: 5,
@@ -232,8 +232,8 @@ class AdminUserList extends Component {
                                             {/* <button className="clientCard" onClick={this.fetchClientID} value={user.id} >USER PROFILE</button> */}
                                             <div className="add-phil-wrapper">
 
-                                                <button value={user.id} style={styles.palette} aria-label="PHIL" onClick={this.fetchClientIDPhil}>
-                                                    +
+                                                <button value={user.id} aria-label="PHIL" onClick={this.fetchClientIDPhil}>
+                                                    ADD PHILOSOPHY
                                             </button>
                                                 <Dialog open={this.state.newPhilOpen} onClose={this.handleNewPhilClose} className="philolog">
                                                     <DialogTitle><h3>
@@ -291,8 +291,8 @@ class AdminUserList extends Component {
                                         <div className="client-profile-wrapper">
                                             <button className="clientCard" onClick={this.fetchClientID} value={user.id} >USER PROFILE</button>
                                             <div className="add-phil-wrapper">
-                                                <button value={user.id} style={styles.palette} aria-label="PHIL" onClick={this.fetchClientIDPhil}>
-                                                    +
+                                                <button value={user.id} aria-label="PHIL" onClick={this.fetchClientIDPhil}>
+                                                    ADD PHILOSOPHY
                                             </button>
                                                 <Dialog open={this.state.newPhilOpen} onClose={this.handleNewPhilClose}  >
                                                     <DialogTitle id="form-dialog-title"><h1>Add New philosophy:</h1></DialogTitle>
@@ -309,7 +309,7 @@ class AdminUserList extends Component {
                                                             <div>
 
                                                                 <label htmlFor="phil">
-                                                                    philosophy:
+                                                                    Philosophy:
                                                                 <input
                                                                         type="text"
                                                                         name="phil"
