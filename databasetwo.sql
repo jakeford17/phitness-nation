@@ -103,3 +103,17 @@ INSERT INTO "goals" ("user_id", "type", "description") VALUES ( 1, 'short
 --insert injuries
 INSERT INTO "injuries" ("user_id", "type", "description", "severity") VALUES (1, 'legs', 'the steamroller didnt stop', 3), 
 (2, 'foot', 'burned it in a foreman grill', 2), (3, 'neck', 'i done broke it', 3), (4, 'everywhere', 'fell into a quarry', 1);
+
+--insert exercises
+INSERT INTO "exercises" ("name", "default_sets", "default_reps", "default_weight", "links", "units")
+VALUES ('Goblet Squat', 4, 15, 65, 'https://www.youtube.com/gobletsquat', 'reps'), 
+('Cable Rows', 3, 12, 22, 'https://www.youtube.com/cableRows', 'reps'), 
+('Overhead Press', 4, 8, 105, 'https://www.youtube.com/OverheadPress', 'reps'), 
+('Bench Press', 4, 5, 225, 'https://www.youtube.com/BenchPress', 'reps'), 
+('Crunches', 4, 12, 5, 'https://www.youtube.com/Crunches', 'reps'), 
+('Deadlift', 4, 5, 200, 'https://www.youtube.com/Deadlift', 'reps'), 
+('Cable Flies', 4, 15, 15, 'https://www.youtube.com/Cableflies', 'reps'), 
+('Lunges (Dumbbell)', 4, 15, 30, 'https://www.youtube.com/LungesDB', 'reps'), 
+('Skull Crushers', 4, 10, 30, 'https://www.youtube.com/SkullCrushers', 'reps'), 
+('Tricep Dips', 4, 15, 5, 'https://www.youtube.com/TricepDips', 'reps'), 
+('Pelvic Thrusts (Barbell)', 4, 15, 65, 'https://www.youtube.com/PelvicThrusts', 'reps');
