@@ -155,7 +155,7 @@ class AdminAddWorkout extends Component {
     magicButton = () => {
         this.setState ({
             tempExercise: {
-                exercise_id: '',
+                exercise_id: this.state.tempExercise.exercise_id,
                 assigned_reps: 5,
                 assigned_sets: 4,
                 assigned_weight: 225,
@@ -167,18 +167,34 @@ class AdminAddWorkout extends Component {
     magicButton2 = () => {
         this.setState ({
             tempExercise: {
-                exercise_id: '',
-                assigned_reps: 8,
-                assigned_sets: 3,
-                assigned_weight: 45,
-                tips: 'Engage the glutes, feel the burn'
+                exercise_id: this.state.tempExercise.exercise_id,
+                assigned_reps: 3,
+                assigned_sets: 15,
+                assigned_weight: 40,
+                tips: 'Dont go too fast'
+            }
+        })
+    }
+    magicButton3 = () => {
+        this.setState({
+            tempExercise: {
+                exercise_id: this.state.tempExercise.exercise_id,
+                assigned_reps: 4,
+                assigned_sets: 20,
+                assigned_weight: 40,
+                tips: 'Feel the burn'
             }
         })
     }
     render() {
         return (
             <div className="admin-add-workout">
+                <center><h200 onClick={() => this.magicButton3()}>  - </h200></center>
                 <h3 onClick={() => this.magicButton()}>Add Exercises to Workout:</h3>
+               <center> <h200 onClick={() => this.magicButton2()}>  -  </h200></center>
+
+
+
             {/* {JSON.stringify(this.state)} */}
             {/* {JSON.stringify(this.props.reduxState.injuries.injuriesReducer)} */}
             <CreatableSelect
