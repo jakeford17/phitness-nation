@@ -96,9 +96,8 @@ class UserExercise extends Component {
             this.props.history.push(`/summary/${this.state.workoutId}`)
         }
         else {
-        this.props.history.push(`/exercise/${this.state.workoutId}-${this.state.exerciseId + 1}-${this.state.exerciseOrder + 1}`);
+        this.props.history.push(`/exercise/${this.state.workoutId}-${this.state.exerciseOrder + 1}`);
         this.setState({...this.state,
-            exerciseId: this.state.exerciseId += 1,
             workoutId: this.state.workoutId,
             exerciseOrder: this.state.exerciseOrder +=1,
             weightAchieved: 0,
@@ -114,10 +113,9 @@ class UserExercise extends Component {
                 this.props.history.push(`/preview/${this.state.workoutId}`)
             }
             else {
-                this.props.history.push(`/exercise/${this.state.workoutId}-${this.state.exerciseId - 1}-${this.state.exerciseOrder - 1}`)
+                this.props.history.push(`/exercise/${this.state.workoutId}-${this.state.exerciseOrder - 1}`)
             }
         this.setState({...this.state,
-            exerciseId: this.state.exerciseId -= 1,
             workoutId: this.state.workoutId,
             exerciseOrder: this.state.exerciseOrder -= 1
         })
@@ -126,10 +124,8 @@ class UserExercise extends Component {
     componentDidMount = () => {
         let workoutExerciseIds = this.props.match.params.id.split('-')
         let workoutId = parseInt(workoutExerciseIds[0])
-        let exerciseId = parseInt(workoutExerciseIds[1])
-        let exerciseOrder = parseInt(workoutExerciseIds[2])
+        let exerciseOrder = parseInt(workoutExerciseIds[1])
         this.setState({...this.state,
-            exerciseId: exerciseId,
             workoutId: workoutId,
             exerciseOrder: exerciseOrder
         })
@@ -140,7 +136,7 @@ class UserExercise extends Component {
         return (
             <div className="exercise-page">
                 {this.props.reduxState.exerciseWorkouts.exerciseWorkoutReducer.map((exercise) => {
-                    if (exercise.id == this.state.exerciseId)
+                    if (exercise.order == this.state.exerciseOrder)
                     return (<>
                     <MyCard>
                             <h1>{exercise.name}</h1>

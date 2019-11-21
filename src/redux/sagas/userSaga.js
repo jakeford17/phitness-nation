@@ -77,7 +77,7 @@ function* userSaga() {
   yield takeLatest('ADMIN_FETCH_USER', adminFetchUser);
   yield takeLatest('ADMIN_UPDATE_USER', adminUpdateUser);
   yield takeLatest('UPDATE_USER_IMG', updateUserImg);
-  yield takeLatest('UPDATE_STREAK', updateUserStreak)
+  yield takeLatest('UPDATE_STREAK', updateStreak)
 }
 
 export default userSaga;
