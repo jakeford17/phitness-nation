@@ -182,6 +182,7 @@ router.get('/workouts/exerciseWorkouts/:id', rejectUnauthenticated, (req, res) =
     pool.query(queryText, [queryInfo[0], week])
         .then((result) =>{
             console.log(result.rows)
+            res.send(result.rows)
         }).catch((error) =>{
             res.sendStatus(500)
             console.log('ERROR GETTING WORKOUT ID:', error )
@@ -288,7 +289,7 @@ function determineCompliance(array){
 }
 
 router.get('/weeks/:id', rejectUnauthenticated, (req, res) =>{
-    const queryText = 'SELECT "workouts".week FROM "workouts" JOIN "user" ON "workouts".user_id = "user".id WHERE "user".id = $1;';
+    const queryText = 'SELECT "workouts".week FROM "workouts" JOIN "user" ON "workouts".user_id = "user".id WHERE "user".id = $1 ORDER BY "workouts".week;';
     pool.query(queryText, [req.params.id])
         .then((result) =>{
             res.send(result.rows)
