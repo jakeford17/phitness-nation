@@ -14,7 +14,8 @@ CREATE TABLE "user" (
     "philosophy" VARCHAR (300),
     "admin" BOOLEAN DEFAULT FALSE,
     "pronouns" VARCHAR (100),
-    "email_option" BOOLEAN DEFAULT TRUE
+    "email_option" BOOLEAN DEFAULT TRUE,
+    "img" VARCHAR(10000000) DEFAULT 
 );
 
 --Adds 4 users
