@@ -34,10 +34,15 @@ class History extends Component {
 
     //Storing value in select box in local store to fetch workout history
     handleSelectChange = (value) => {
-        this.setState({
-            tempExercise: value.label
-        })
-
+        if(value != null){
+            this.setState({
+                tempExercise: value.label
+            })
+        }else{
+            this.setState({
+                tempExercise: ''
+            })
+        }
     };
 
     //fetch workout history
