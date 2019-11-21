@@ -151,6 +151,30 @@ class AdminAddWorkout extends Component {
         this.props.dispatch({ type: 'POST_WORKOUTS', payload: newWorkout })
         this.props.history.push('/adminviewuser/' + this.state.user_id)
     }
+
+    magicButton = () => {
+        this.setState ({
+            tempExercise: {
+                exercise_id: '',
+                assigned_reps: 5,
+                assigned_sets: 4,
+                assigned_weight: 225,
+                tips: 'Keep your back neutral, core tight, and engage hamstrings'
+            }
+        })
+    }
+
+    magicButton2 = () => {
+        this.setState ({
+            tempExercise: {
+                exercise_id: '',
+                assigned_reps: 8,
+                assigned_sets: 3,
+                assigned_weight: 45,
+                tips: 'Engage the glutes, feel the burn'
+            }
+        })
+    }
     render() {
         return (
             <div className="admin-add-workout">
@@ -198,7 +222,8 @@ class AdminAddWorkout extends Component {
             </button>
                 </div>
             <br/>
-            <h3>Exercises:</h3>
+
+            <h3 onClick = {() => this.magicButton()}>Exercises:</h3>
             <ul>
             {this.state.exercises.map(exercise =>{
                 let exerciseName;
