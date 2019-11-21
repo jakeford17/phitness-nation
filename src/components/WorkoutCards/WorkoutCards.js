@@ -82,7 +82,7 @@ class WorkoutCards extends Component {
                                             </>
                                             : '' }
                                             <div className="add-ex-wrapper">
-                                            <AddExerciseToWorkout workout_id = {workout.id} userId = {this.props.userId} />
+                                            <AddExerciseToWorkout workout_id = {workout.id} userId = {this.props.userId} order = {workout.exercises ? workout.exercises.length : 1}/>
                                                     </div>
                                             </div>
                                         </ExpansionPanelDetails>

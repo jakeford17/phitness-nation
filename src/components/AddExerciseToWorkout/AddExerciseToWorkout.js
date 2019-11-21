@@ -99,6 +99,7 @@ class AddExerciseToWorkout extends Component {
                     assigned_sets: this.state.assigned_sets,
                     assigned_weight: this.state.assigned_weight,
                     tips: this.state.tips,
+                    order: this.props.order
                 }
             }})
         this.setState({

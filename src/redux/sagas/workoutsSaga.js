@@ -37,7 +37,7 @@ function* postWorkouts(action){
             id = response.data[0].id
         }
         for(let i = 0; i<action.payload.exercises.length; i++){
-            yield axios.post('/api/admin/exerciseWorkouts', {workout_id: id, exercise: action.payload.exercises[i]})
+            yield axios.post('/api/admin/exerciseWorkouts', {workout_id: id, exercise: action.payload.exercises[i], order: (i + 1)})
         }
         if(action.payload.email){
             yield axios.get('/api/admin/email/' + action.payload.user_id)
