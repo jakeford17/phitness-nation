@@ -183,7 +183,11 @@ class App extends Component {
           <br/>
           <br/>
           </div>
-          <Footer />
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          {(!this.props.user.id) ? <Footer /> : <div></div>}
         </div>
       </Router>
     )

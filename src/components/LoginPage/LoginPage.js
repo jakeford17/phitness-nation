@@ -31,7 +31,7 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className = "purpleGradient">
         {this.props.errors.loginMessage && (
           <h2
             className="alert"
@@ -41,30 +41,35 @@ class LoginPage extends Component {
           </h2>
         )}
         <form onSubmit={this.login}>
-          <h1>Login</h1>
-          <div>
+          <h1 className ="center">Phitness</h1>
+          <h1 className = "center">Nation</h1>
+          <div className="formFull">
             <label htmlFor="username">
               Username:
+              <div className="formText">
               <input
                 type="text"
                 name="username"
                 value={this.state.username}
                 onChange={this.handleInputChangeFor('username')}
               />
+              </div>
             </label>
           </div>
-          <div>
+          <div className="formFull">
             <label htmlFor="password">
               Password:
+              <div className="formText">
               <input
                 type="password"
                 name="password"
                 value={this.state.password}
                 onChange={this.handleInputChangeFor('password')}
               />
+              </div>
             </label>
           </div>
-          <div>
+          <div className = "center">
             <input
               className="log-in"
               type="submit"
