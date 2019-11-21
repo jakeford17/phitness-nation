@@ -31,7 +31,8 @@ class WorkoutSummary extends Component {
 
   state = {
     feedback: 'Add any overall workout feedback you have here: what felt good, what felt not so good, what you liked, etc.',
-    confirmOpen: false
+    confirmOpen: false,
+    userId: this.props.reduxState.user.id
   }
 
   handleClickOpen = () => {
@@ -55,8 +56,8 @@ class WorkoutSummary extends Component {
   }
 
   handleSubmit = () => {
-    console.log('handling submit')
     this.props.dispatch({ type: 'UPDATE_WORKOUTS', payload: {id: this.props.match.params.id, feedback: this.state.feedback}})
+    this.props.dispatch({type: 'UPDATE_STREAK', payload: this.state.userId})
     this.props.history.push(`/home`)
   }
 

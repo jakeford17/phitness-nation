@@ -5,7 +5,8 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 
 //get workouts router, automatically gets the currently logged in users workouts
 router.get('/:id', rejectUnauthenticated, (req, res) => {
-    let queryText = `SELECT * FROM "exercise_workouts"
+    let queryText = `SELECT "exercise_workouts".id, "exercise_workouts".workout_id, "exercise_workouts".exercise_id, "exercise_workouts".completed, "exercise_workouts".assigned_sets, "exercise_workouts".assigned_reps, "exercise_workouts".assigned_weight, "exercise_workouts".tips, "exercise_workouts".order, "exercises".name, "exercises".links,
+    "exercise_workouts".completed_sets, "exercise_workouts".completed_reps, "exercise_workouts".completed_weight, "exercise_workouts".feedback FROM "exercise_workouts"
                     JOIN "exercises" on "exercises".id = "exercise_workouts".exercise_id
                     WHERE workout_id = $1
                     ORDER BY "exercise_workouts".order;`
@@ -19,6 +20,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 });
 //put workouts router, send: { id of exercise workout: int, completed_reps: int, completed_sets: int, completed_weight: int, feedback: int }
 router.put('/', rejectUnauthenticated, (req, res) =>{
+    console.log('the update info is:', req.body)
     let queryText = `UPDATE "exercise_workouts" 
                     SET "completed_reps" = $1, "completed_sets" = $2, 
                     "completed_weight" = $3, "feedback" = $4, "completed" = 'true'
