@@ -288,6 +288,10 @@ input {
     justify-content: center;
 }
 
+.admin-add-workout {
+    padding: 5%;
+}
+
 .exercise-workout-int {
     display: flex;
     flex-direction: row;
@@ -342,14 +346,23 @@ h2 {
     padding: 5%;
 }
 
-.purpleGradient {
+
+.add-exercise-workout-btn{
     display: flex;
+    justify-content: center;
+    margin: 3%;
+}
+
+.purpleGradient {
+   display: flex;
   flex-direction: column;
   justify-content: center;
 }
+
 .formFull {
     text-align: left;
 }
+
 .center {
     text-align: center;
     font-Family: "'PT Sans Narrow', sans-serif;"
