@@ -413,7 +413,7 @@ class AdminUserList extends Component {
             </div>
         )
     }
-
+}
 
 
 const mapStateToProps = state => ({

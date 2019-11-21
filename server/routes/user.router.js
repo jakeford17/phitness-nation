@@ -53,6 +53,18 @@ router.put('/', rejectUnauthenticated, (req, res) =>{
       })
 })
 
+router.put('/streak', rejectUnauthenticated, (req, res) => {
+  let queryText = `UPDATE "user" SET "streak" += 1 WHERE "id" = $1;`
+  let queryInfo = [req.body];
+  pool.query(queryText, queryInfo)
+    .then(() => {
+      res.sendStatus(200);
+    }).catch((error) => {
+      res.sendStatus(500);
+      console.log('USER STREAK UPDATE ERROR:', error);
+    })
+})
+
 router.put('/reactivate/:id', (req, res) => {
   console.log("req: ", req.body, req.params.id);
   const userId = req.params.id;

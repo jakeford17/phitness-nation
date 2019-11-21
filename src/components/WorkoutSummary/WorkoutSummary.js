@@ -57,6 +57,7 @@ class WorkoutSummary extends Component {
   handleSubmit = () => {
     console.log('handling submit')
     this.props.dispatch({ type: 'UPDATE_WORKOUTS', payload: {id: this.props.match.params.id, feedback: this.state.feedback}})
+    this.props.dispatch({type: 'UPDATE_STREAK', payload: this.props.reduxState.user.id})
     this.props.history.push(`/home`)
   }
 
