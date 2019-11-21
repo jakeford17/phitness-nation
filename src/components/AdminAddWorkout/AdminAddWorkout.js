@@ -23,7 +23,7 @@ const MyTextField = styled(TextField)({
 class AdminAddWorkout extends Component {
     state = {
         user_id: this.props.match.params.id,
-        week: 0,
+        week: 1,
         maxWeek: 1,
         //exercise_id, assigned_reps, assigned_sets, assigned_weight, tips
         exercises: [
@@ -70,6 +70,7 @@ class AdminAddWorkout extends Component {
             if(this.props.reduxState.exerciseWorkouts.weeksReducer.length > 0){
             let weekLength = this.props.reduxState.exerciseWorkouts.weeksReducer.length - 1
             this.setState({ maxWeek: (this.props.reduxState.exerciseWorkouts.weeksReducer[weekLength].week + 1)})
+            this.setState({ week: (this.props.reduxState.exerciseWorkouts.weeksReducer[0].week)})
             }
         }, 1000)
     }
@@ -235,6 +236,7 @@ class AdminAddWorkout extends Component {
                 <MenuItem value = {this.state.maxWeek}>Create New: Week {this.state.maxWeek}</MenuItem>
                 </SelectDrop>
             </FormControl>
+            <br/>
             <Button 
                 variant="contained" 
                 onClick = {this.addWorkout}>
