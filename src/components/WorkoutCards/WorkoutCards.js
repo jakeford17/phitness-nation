@@ -13,6 +13,7 @@ import axios from 'axios';
 import ExerciseWorkoutCard from '../ExerciseWorkoutCard/ExerciseWorkoutCard';
 import AddExerciseToWorkout from '../AddExerciseToWorkout/AddExerciseToWorkout';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import './WorkoutCards.css'
 
 const MyCard = styled(Card)({
   background: '#d2d2d4',
@@ -30,6 +31,7 @@ const MyCard = styled(Card)({
 
 const MyExpansionPanel = styled(ExpansionPanel)({
     width: "100%",
+    flexDirection: 'column'
 });
 
 
@@ -57,9 +59,10 @@ class WorkoutCards extends Component {
                         </ExpansionPanelSummary>
                         {week.workouts ? 
                         <ExpansionPanelDetails>
+                            <div className="expansion-wrapper">
                             {week.workouts.map((workout) =>{
                                 return(
-                                    <>
+                                    <div className="expansion-single">
                                     <MyExpansionPanel>
                                         <ExpansionPanelSummary
                                         expandIcon={<ExpandMoreIcon />}
@@ -87,9 +90,10 @@ class WorkoutCards extends Component {
                                             </div>
                                         </ExpansionPanelDetails>
                                     </MyExpansionPanel>
-                                    </>
+                                    </div>
                                 )
                             })}
+                            </div>
                         </ExpansionPanelDetails>
                         : '' }
                     </MyExpansionPanel>

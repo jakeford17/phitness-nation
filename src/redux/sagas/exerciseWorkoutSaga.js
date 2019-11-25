@@ -6,7 +6,13 @@ import connect from './connect';
 function* fetchWeeks(action){
     try{
         const response = yield axios.get('/api/admin/weeks/' + action.payload.id)
-        yield put ({ type: 'SET_WEEKS', payload: response.data })
+        let weeks = []
+        for(let i=0; i<response.data.length; i++){
+            if(weeks.map(function(e) { return e.week; }).indexOf(response.data[i].week) < 0){
+                weeks.push(response.data[i])
+            }
+        }
+        yield put ({ type: 'SET_WEEKS', payload: weeks })
     }catch (error) {
         console.log('FETCH WEEKS ERROR:', error)
     }

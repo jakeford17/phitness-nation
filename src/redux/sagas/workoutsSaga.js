@@ -28,14 +28,10 @@ function* updateWorkouts(action){
 function* postWorkouts(action){
     try{
         let id = 0;
-        const response = yield axios.get('/api/admin/workouts/exerciseWorkouts/' + action.payload.user_id + action.payload.week)
-        if(response.data.length === 0){
-            yield axios.post('/api/admin/workouts', {user_id: action.payload.user_id, week: action.payload.week})
-            const newId = yield axios.get('/api/admin/workouts/exerciseWorkouts/' + action.payload.user_id + action.payload.week)
-            id = newId.data[0].id
-        }else{
-            id = response.data[0].id
-        }
+        yield axios.post('/api/admin/workouts', {user_id: action.payload.user_id, week: action.payload.week})
+        const newId = yield axios.get('/api/admin/workouts/exerciseWorkouts/' + action.payload.user_id + '-' + action.payload.week)
+        let max = newId.data.length - 1
+        id = newId.data[max].id
         for(let i = 0; i<action.payload.exercises.length; i++){
             yield axios.post('/api/admin/exerciseWorkouts', {workout_id: id, exercise: action.payload.exercises[i], order: (i + 1)})
         }
@@ -91,15 +87,23 @@ function* workoutsSaga(){
     yield takeLatest('ADMIN_UPDATE_WORKOUTS', adminUpdateWorkouts);
     yield takeLatest('ADMIN_FETCH_WORKOUTS_TRANSFORMED', adminGetWorkoutsTransformed);
 }
+
+// (weeks.map(function(e) { return e.week; }).indexOf(response.data[i].week) < 0)
 function transform(workouts, exercises){
     let weeks = []
-    let currentWeek = 0;
-    let z = weeks.length
     for(let i = 0; i<workouts.length; i++){
-        if(workouts[i].week === currentWeek){
-            weeks[z].workouts.push({ id: workouts[i].id, user_id: workouts[i].user_id, feedback: workouts[i].feedback, complete: workouts[i].complete })
+        let z = weeks.map(function(e) { return e.week; }).indexOf(workouts[i].week)
+        if(z > -1){
+            weeks[z].workouts.push({ 
+                id: workouts[i].id, 
+                user_id: workouts[i].user_id, 
+                feedback: workouts[i].feedback, 
+                complete: workouts[i].complete,
+                exercises: [
+
+                ], 
+            })
         }else{
-            currentWeek = workouts[i].week
             weeks.push({
                 week: workouts[i].week,
                 workouts: [{
