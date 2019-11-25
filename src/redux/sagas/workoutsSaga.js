@@ -28,14 +28,10 @@ function* updateWorkouts(action){
 function* postWorkouts(action){
     try{
         let id = 0;
-        const response = yield axios.get('/api/admin/workouts/exerciseWorkouts/' + action.payload.user_id + action.payload.week)
-        if(response.data.length === 0){
-            yield axios.post('/api/admin/workouts', {user_id: action.payload.user_id, week: action.payload.week})
-            const newId = yield axios.get('/api/admin/workouts/exerciseWorkouts/' + action.payload.user_id + action.payload.week)
-            id = newId.data[0].id
-        }else{
-            id = response.data[0].id
-        }
+        yield axios.post('/api/admin/workouts', {user_id: action.payload.user_id, week: action.payload.week})
+        const newId = yield axios.get('/api/admin/workouts/exerciseWorkouts/' + action.payload.user_id + '-' + action.payload.week)
+        let max = newId.data.length - 1
+        id = newId.data[max].id
         for(let i = 0; i<action.payload.exercises.length; i++){
             yield axios.post('/api/admin/exerciseWorkouts', {workout_id: id, exercise: action.payload.exercises[i], order: (i + 1)})
         }
@@ -97,7 +93,15 @@ function transform(workouts, exercises){
     let z = weeks.length
     for(let i = 0; i<workouts.length; i++){
         if(workouts[i].week === currentWeek){
-            weeks[z].workouts.push({ id: workouts[i].id, user_id: workouts[i].user_id, feedback: workouts[i].feedback, complete: workouts[i].complete })
+            weeks[z].workouts.push({ 
+                id: workouts[i].id, 
+                user_id: workouts[i].user_id, 
+                feedback: workouts[i].feedback, 
+                complete: workouts[i].complete,
+                exercises: [
+
+                ], 
+            })
         }else{
             currentWeek = workouts[i].week
             weeks.push({

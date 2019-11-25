@@ -173,13 +173,9 @@ router.get('/workouts/:id', rejectUnauthenticated, (req, res) =>{
 })
 //admin GET request to get the id of the workout that was just created with the post request, send{ user_id: int, week: int }
 router.get('/workouts/exerciseWorkouts/:id', rejectUnauthenticated, (req, res) =>{
-    const queryInfo = req.params.id.split('')
-    let week = '';
-    for(let i = 1; i<queryInfo.length; i++){
-        week = week + queryInfo[i]
-    }
+    const queryInfo = req.params.id.split('-')
     const queryText = 'SELECT "workouts".id FROM "workouts" WHERE "user_id" = $1 AND "week" = $2;';
-    pool.query(queryText, [queryInfo[0], week])
+    pool.query(queryText, [queryInfo[0], queryInfo[1]])
         .then((result) =>{
             console.log(result.rows)
             res.send(result.rows)
