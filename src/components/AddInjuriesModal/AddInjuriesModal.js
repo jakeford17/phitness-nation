@@ -41,8 +41,8 @@ const MyTextField = styled(TextField)({
 
 const useStyles = makeStyles(theme => ({
     palette: {
-            backgroundColor: "teal",
-            color: "white"
+        backgroundColor: "teal",
+        color: "white"
     },
     fab: {
         margin: theme.spacing(1),
@@ -60,24 +60,29 @@ export default connect(mapStateToProps)(function FormDialog(props) {
 
     const [open, setOpen] = React.useState(false);
 
+    //activate/deactivate modal
     const handleClickOpen = () => {
         setOpen(true);
     };
 
+    //activate/deactivate modal
     const handleClose = () => {
         setOpen(false);
     };
 
+    //Defining the local state 
     const [values, setValues] = React.useState({
         type: '',
         severity: 0,
         description: '',
     });
 
+    //changed values stored in the local state
     const handleChange = name => event => {
         setValues({ ...values, [name]: event.target.value });
     };
 
+    //Dispatch call posting new user's injuries
     const handleSubmit = () => {
         props.dispatch({ type: 'POST_INJURY', payload: values });
         handleClose();
@@ -93,7 +98,7 @@ export default connect(mapStateToProps)(function FormDialog(props) {
     return (
         <>
             <div className="add-injury"><Fab className={classes.palette} onClick={handleClickOpen}>
-                <AddIcon/>
+                <AddIcon />
             </Fab>
             </div>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">

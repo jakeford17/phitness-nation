@@ -43,9 +43,13 @@ class AddExerciseToWorkout extends Component {
         tips: ''
 
     }
+
+    //display all user's list of exercises
     componentDidMount = () =>{
         this.getExercises();
     }
+
+    //SAGA dispatch to fetch user's list of exercises
     getExercises = () =>{
         this.props.dispatch({ type: 'FETCH_EXERCISES', payload: {active: true}})
         setTimeout(() =>{
@@ -56,6 +60,8 @@ class AddExerciseToWorkout extends Component {
             })
         }, 1000)
     }
+
+    //create new exercise in the input field
     handleCreate = (exerciseName) => {
         this.props.dispatch({type: 'ADD_EXERCISE', payload: {name: exerciseName}})
         setTimeout(() =>{
@@ -67,9 +73,13 @@ class AddExerciseToWorkout extends Component {
             })
         }, 1000)
     }
+
+    //values typed in the input field stored in the local state
     handleChange = (event, propertyName) =>{
         this.setState({ [propertyName]: event.target.value })
     }
+
+    //change the local state of exercise id to value if exercise_id !== 0
     handleSelectChange = (value) => {
         if(value != null){
             this.setState({
@@ -81,12 +91,19 @@ class AddExerciseToWorkout extends Component {
             })
         }
       };
+
+    //set local state open as true/false to activate/deactivate material UI modal
     setOpen = () =>{
         this.setState({ open: true })
     }
+    //set local state open as true/false to activate/deactivate material UI modal
     setClose = () =>{
         this.setState({ open: false })
     }
+
+    //DISPATCH for posting workout for user
+    //Set the local state as default empty strings ''
+    //Close modal
     handleSubmit = () =>{
         this.props.dispatch({
             type: 'POST_EXERCISE_WORKOUTS', 

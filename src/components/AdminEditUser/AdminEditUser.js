@@ -4,15 +4,17 @@ import './AdminEditUser.css';
 import { connect } from 'react-redux';
 
 class AdminEditUser extends Component {
-    componentDidMount = () =>{
+
+    //Display user's information
+    componentDidMount = () => {
         this.props.dispatch({ type: 'ADMIN_FETCH_USER', payload: this.props.match.params.id })
     }
     render() {
         return (
             <>
-            <div>
-                <AdminEditUserTabs userId = {this.props.match.params.id}/>
-            </div>
+                <div>
+                    <AdminEditUserTabs userId={this.props.match.params.id} />
+                </div>
             </>
         )
     }

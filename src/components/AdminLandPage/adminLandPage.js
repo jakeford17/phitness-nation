@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import AdminLandTabs from '../AdminLandTabs/AdminLandTabs';
 import './Admin.css';
 
+//Admin's main home page allowing admin to see list of users and exercises
 class AdminLandPage extends Component {
     render() {
         return (
