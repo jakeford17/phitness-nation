@@ -1,7 +1,7 @@
 
 ## Phitness Nation
 
-Groovies is a social site which recommends new movies to groups of users based on their personal preferences. Users can upload their individual likes and dislikes, add new movies they've watched, and create groups with their friends. Once a group is created, user preferences are cross-referenced to generate a random suggestion of a movie you all might like.
+Phitness Nation is a mobile-first web application custom built for personal trainer Phil Putratz and his clients. It allows personal trainers to assign custom workouts to their clients, track their clients' progress, and leave personalized notes to keep them motivated throughout the week.
 
 ## Built With
 
