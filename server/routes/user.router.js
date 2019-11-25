@@ -204,7 +204,7 @@ router.get('/exercise/history/:id', rejectUnauthenticated, (req, res) => {
   "exercise_workouts".completed_reps FROM "workouts"
   JOIN "exercise_workouts" ON "exercise_workouts".workout_id = "workouts".id
   JOIN "exercises" ON "exercises".id = "exercise_workouts".exercise_id 
-  WHERE "exercises".name = $1 ORDER BY "workouts".week DESC;;`;
+  WHERE "exercises".name = $1 ORDER BY "workouts".week DESC;`;
   pool.query(queryText, [exercise]).then((response) => {
       res.send(response.rows)
   }).catch((err) => {
