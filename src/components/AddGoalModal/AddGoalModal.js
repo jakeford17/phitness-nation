@@ -14,14 +14,13 @@ import { connect } from 'react-redux';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
+
+
 const mapStateToProps = reduxState => ({
     reduxState,
 });
 
 const MySelect = styled(Select)({
-    // background: '#F1EDBF',
-    // border: 0,
-    // borderRadius: 3,
     padding: 10,
     margin: 5,
     textAlign: "center",
@@ -47,9 +46,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const MyTextField = styled(TextField)({
-    // background: '#F1EDBF',
-    // border: 0,
-    // borderRadius: 3,
     padding: 10,
     margin: 5,
     width: "75%",
@@ -61,24 +57,29 @@ export default connect(mapStateToProps)(function FormDialog(props) {
 
     const classes = useStyles();
 
+    //activate/deactivate material UI modal
     const handleClickOpen = () => {
         setOpen(true);
     };
 
+    //activate/deactivate material UI modal
     const handleClose = () => {
         setOpen(false);
     };
 
+    //Dispatch call to post user's new goal
     const handleSubmit = () => {
-        props.dispatch({type:'POST_GOAL', payload: values});
+        props.dispatch({ type: 'POST_GOAL', payload: values });
         handleClose()
     }
 
+    //Defining the local state
     const [values, setValues] = React.useState({
         type: '',
         description: '',
     });
 
+    //changed values entered in the dialog content stored in the local state
     const handleChange = name => event => {
         setValues({ ...values, [name]: event.target.value });
     };
@@ -86,7 +87,7 @@ export default connect(mapStateToProps)(function FormDialog(props) {
     return (
         <div>
             <Fab className={classes.fab} width="100%" onClick={handleClickOpen} size="small">
-                <AddIcon size="small"/>
+                <AddIcon size="small" />
             </Fab>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Add Goal</DialogTitle>
@@ -112,7 +113,7 @@ export default connect(mapStateToProps)(function FormDialog(props) {
                             margin="normal"
                         />
                         <FormHelperText>Add a short description of your goal.</FormHelperText>
-          </DialogContentText>
+                    </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} className={classes.button}>

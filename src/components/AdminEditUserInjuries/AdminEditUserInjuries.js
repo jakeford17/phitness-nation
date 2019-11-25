@@ -16,9 +16,6 @@ const MildInjuryCard = styled(Card)({
     background: '#f5cb42',
     border: 0,
     borderRadius: 3,
-    // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-    // // color: 'white',
-    // height: 60,
     width: "45%",
     padding: 10,
     margin: 5,
@@ -32,9 +29,6 @@ const ModerateInjuryCard = styled(Card)({
     background: '#fc9803',
     border: 0,
     borderRadius: 3,
-    // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-    // // color: 'white',
-    // height: 60,
     width: "45%",
     padding: 10,
     margin: 5,
@@ -48,9 +42,6 @@ const SevereInjuryCard = styled(Card)({
     background: '#801356',
     border: 0,
     borderRadius: 3,
-    // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-    // // color: 'white',
-    // height: 60,
     width: "45%",
     padding: 10,
     margin: 5,
@@ -63,9 +54,6 @@ const HealedInjuryCard = styled(Card)({
     background: '#84c8b9',
     border: 0,
     borderRadius: 3,
-    // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-    // // color: 'white',
-    // height: 60,
     width: "45%",
     padding: 10,
     margin: 5,
@@ -75,6 +63,9 @@ const HealedInjuryCard = styled(Card)({
     fontFamily: "'PT Sans Narrow', sans-serif;"
 });
 
+
+//Display user's list of injuries in the form of cards through mapping
+//card color assigned depending the injury's severity
 class Injuries extends Component {
     componentDidMount() {
         this.props.dispatch({ type: 'ADMIN_FETCH_INJURIES', payload: this.props.userId })

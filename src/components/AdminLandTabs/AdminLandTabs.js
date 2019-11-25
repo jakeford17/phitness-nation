@@ -52,6 +52,8 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+
+//Exercise/User Tabs allowing admin to see list of exercises/users
 export default function FullWidthTabs() {
     const classes = useStyles();
     const theme = useTheme();

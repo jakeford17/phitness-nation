@@ -60,17 +60,25 @@ const useStyles = makeStyles(theme => ({
 const mapStateToProps = reduxState => ({
     reduxState,
 });
+
+//Tabs allowing admin to access user's goals, injuries and profile
 export default connect(mapStateToProps)(function FullWidthTabs(props) {
     const classes = useStyles();
     const theme = useTheme();
     const [value, setValue] = React.useState(0);
 
+    //Store changed values in the local state
+    //In material ui, values cannot exist without index
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+    //Store changed index in the local state
+    //In material ui, values cannot exist without index
     const handleChangeIndex = index => {
         setValue(index);
     };
+
+    //Dispatch call to fetch user's information
     useEffect(() => {
         props.dispatch({ type: 'ADMIN_FETCH_USER', payload: props.userId })
     }, []);
@@ -86,9 +94,9 @@ export default connect(mapStateToProps)(function FullWidthTabs(props) {
                     variant="fullWidth"
                     aria-label="full width tabs example"
                 >
-                    <Tab label="PROFILE" {...a11yProps(0)} className={classes.palette} icon={<ContactPhoneIcon className={classes.palette} />}/>
-                    <Tab label="GOALS" {...a11yProps(1)} className={classes.palette} icon={<TrendingUpIcon className={classes.palette} />}/>
-                    <Tab label="INJURIES" {...a11yProps(2)} className={classes.palette} icon={<HealingIcon className={classes.palette} />}/>
+                    <Tab label="PROFILE" {...a11yProps(0)} className={classes.palette} icon={<ContactPhoneIcon className={classes.palette} />} />
+                    <Tab label="GOALS" {...a11yProps(1)} className={classes.palette} icon={<TrendingUpIcon className={classes.palette} />} />
+                    <Tab label="INJURIES" {...a11yProps(2)} className={classes.palette} icon={<HealingIcon className={classes.palette} />} />
                 </Tabs>
             </AppBar>
             <SwipeableViews
@@ -97,13 +105,13 @@ export default connect(mapStateToProps)(function FullWidthTabs(props) {
                 onChangeIndex={handleChangeIndex}
             >
                 <TabPanel value={value} index={0} dir={theme.direction}>
-                    <AdminEditUserProfile userId ={props.userId}/>
+                    <AdminEditUserProfile userId={props.userId} />
                 </TabPanel>
                 <TabPanel value={value} index={1} dir={theme.direction}>
-                    <AdminEditUserGoals userId ={props.userId}/>
+                    <AdminEditUserGoals userId={props.userId} />
                 </TabPanel>
                 <TabPanel value={value} index={2} dir={theme.direction}>
-                    <AdminEditUserInjuries userId ={props.userId}/>
+                    <AdminEditUserInjuries userId={props.userId} />
                 </TabPanel>
             </SwipeableViews>
         </div>

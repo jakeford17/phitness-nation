@@ -8,15 +8,12 @@ import { styled } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import { flexbox } from '@material-ui/system';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { version } from 'punycode';
-import { retry } from 'redux-saga/effects';
 import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import Avatar from '@material-ui/core/Avatar';
+
 
 const MyTextField = styled(TextField)({
     padding: 10,
@@ -28,8 +25,6 @@ const MyCard = styled(Card)({
     background: '#d2d2d4',
     border: 0,
     borderRadius: 3,
-    // boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-    // // color: 'white',
     height: 200,
     width: 150,
     padding: 10,
@@ -79,6 +74,7 @@ class AdminUserList extends Component {
     }
 
 
+    //Allowing Admin to add user to their user's list
     addUser = (event) => {
         event.preventDefault();
 
@@ -92,23 +88,23 @@ class AdminUserList extends Component {
             })
             this.handleNewUserClose();
             this.listUsers();
-            // this.props.history.push('/adminviewuser');
         } else {
             this.props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
         }
     } // end registerUser
 
+    //Storing input changes in the local state for new user
     handleInputChangeFor = propertyName => (event) => {
         this.setState({
             [propertyName]: event.target.value,
         });
     }
+    //Displaying list of users
     componentDidMount() {
         this.listUsers();
-        this.listUsers();
-
     }
 
+    //Axios request to storing list of users array in the local state
     listUsers = () => {
         axios.get('/api/admin').then((response) => {
             console.log("grabbing user list:", response.data)
@@ -118,15 +114,14 @@ class AdminUserList extends Component {
             })
         })
     }
-
+    //Activate newUser modal
     handleNewUserOpen = () => {
         this.setState({
             ...this.state,
             newUserOpen: true,
         })
-
     }
-
+    //Deactivate newUser modal
     handleNewUserClose = () => {
         this.setState({
             ...this.state,
@@ -137,7 +132,7 @@ class AdminUserList extends Component {
 
     }
 
-
+    //Add admin's philosophy for the user
     addPhil = (event) => {
         event.preventDefault();
         if (this.state.philosophy) {
@@ -148,35 +143,38 @@ class AdminUserList extends Component {
                 },
             })
             this.handleNewPhilClose();
-            // this.props.history.push('/adminviewuser');
         } return
     }
 
+    //Storing edited changes to admin's philosophy in the local state
     handleInputChangeForPhil = propertyName => (event) => {
         this.setState({
             [propertyName]: event.target.value,
         });
     }
 
+    //Activate philosophy modal
     handleNewPhilOpen = () => {
         this.setState({
             newPhilOpen: true,
         })
     }
-
+    //Deactivate philosophy modal
     handleNewPhilClose = () => {
         this.setState({
             newPhilOpen: false,
         });
     }
 
+    //Directing admin to user's information page
+    //Dispatch call to store user's information in the reduxState
     fetchClientID = (event) => {
         this.props.dispatch({ type: 'ACCESS_USER_INFO', payload: event });
         this.props.history.push(`/adminviewuser/${event}`);
     }
 
+    //Storing user/client's id and philosophy in the local state
     fetchClientIDPhil = (event) => {
-        // this.props.dispatch({ type: 'ACCESS_USER_INFO', payload: event.target.value });
         console.log(event.target);
         this.setState({
             selectedId: event.target.value,
@@ -187,16 +185,15 @@ class AdminUserList extends Component {
                 this.setState({
                     philosophy: element.philosophy
                 })
-            // return console.log('yay', element.philosophy);
-
         })
     }
 
-
+    //testing to see local state values
     test = () => {
         console.log(this.state);
 
     }
+    //Filter feature to search for specific user from the list
     setFilter = (event) => {
         this.setState({ filterValue: event.target.value })
     }
@@ -267,14 +264,6 @@ class AdminUserList extends Component {
                                                             </div>
                                                         </form>
                                                     </DialogContent>
-                                                    {/* <DialogActions>
-                            <button onClick={this.handleNewUserClose}>
-                                CANCEL
-                                        </button>
-                            <button onClick={this.handleSubmit}>
-                                YES
-                                        </button>
-                        </DialogActions> */}
                                                 </Dialog>
                                             </div>
                                         </div>
@@ -337,14 +326,6 @@ class AdminUserList extends Component {
                                                             </div>
                                                         </form>
                                                     </DialogContent>
-                                                    {/* <DialogActions>
-                            <button onClick={this.handleNewUserClose}>
-                                CANCEL
-                                        </button>
-                            <button onClick={this.handleSubmit}>
-                                YES
-                                        </button>
-                        </DialogActions> */}
                                                 </Dialog>
                                             </div>
                                         </div>

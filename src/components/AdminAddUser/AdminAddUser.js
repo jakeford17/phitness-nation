@@ -7,6 +7,8 @@ class AdminAddUser extends Component {
         password: '',
     };
 
+    //Dispatch call to add user based on the condition if username/password = true
+    //direct admin to adminviewuser page
     addUser = (event) => {
         event.preventDefault();
 
@@ -24,6 +26,8 @@ class AdminAddUser extends Component {
         }
     } // end registerUser
 
+
+    //store input field values into the local state
     handleInputChangeFor = propertyName => (event) => {
         this.setState({
             [propertyName]: event.target.value,

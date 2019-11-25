@@ -47,7 +47,7 @@ class AdminAddWorkout extends Component {
         injuries: [
 
         ],
-        listExercises: [  
+        listExercises: [
 
         ],
         tempExercise: {
@@ -58,89 +58,112 @@ class AdminAddWorkout extends Component {
             tips: ''
         }
     }
-    componentDidMount = () =>{
+
+    //display user's exercise list, list of workout weeks, and user's injuries
+    componentDidMount = () => {
         this.getExercises();
         this.getWeeks();
         this.injuryDisplay();
     }
 
+    //Dispatch call to display user's list of injuries
     injuryDisplay = () => {
-        this.props.dispatch({ type: 'FETCH_INJURIES'})
+        this.props.dispatch({ type: 'FETCH_INJURIES' })
     }
-
-    getExercises = () =>{
-        this.props.dispatch({ type: 'FETCH_EXERCISES', payload: {active: true}})
-        setTimeout(() =>{
-            this.props.reduxState.exerciseWorkouts.exerciseReducer.map((exercise) =>{
+    //Dispatch call to fetch user's list of exercises for admin to assign/select
+    getExercises = () => {
+        this.props.dispatch({ type: 'FETCH_EXERCISES', payload: { active: true } })
+        setTimeout(() => {
+            this.props.reduxState.exerciseWorkouts.exerciseReducer.map((exercise) => {
                 this.setState({
-                    listExercises: [...this.state.listExercises, {value: exercise.id, label: exercise.name }]
+                    listExercises: [...this.state.listExercises, { value: exercise.id, label: exercise.name }]
                 })
             })
         }, 1000)
     }
-    getWeeks = () =>{
-        this.props.dispatch({ type: 'FETCH_WEEKS', payload: {id: this.state.user_id}})
-        setTimeout(() =>{
-            if(this.props.reduxState.exerciseWorkouts.weeksReducer.length > 0){
-            let weekLength = this.props.reduxState.exerciseWorkouts.weeksReducer.length - 1
-            this.setState({ maxWeek: (this.props.reduxState.exerciseWorkouts.weeksReducer[weekLength].week + 1)})
-            this.setState({ week: (this.props.reduxState.exerciseWorkouts.weeksReducer[0].week)})
+    //Dispatch call to grab user's list of exercise weeks and place array in weeksReducer
+    //store the weeksReducer array in the local state
+    getWeeks = () => {
+        this.props.dispatch({ type: 'FETCH_WEEKS', payload: { id: this.state.user_id } })
+        setTimeout(() => {
+            if (this.props.reduxState.exerciseWorkouts.weeksReducer.length > 0) {
+                let weekLength = this.props.reduxState.exerciseWorkouts.weeksReducer.length - 1
+                this.setState({ maxWeek: (this.props.reduxState.exerciseWorkouts.weeksReducer[weekLength].week + 1) })
+                this.setState({ week: (this.props.reduxState.exerciseWorkouts.weeksReducer[0].week) })
             }
         }, 1000)
     }
+
+    //store value changes in the local state
     handleSelectChange = (value) => {
-        if(value != null){
+        if (value != null) {
             this.setState({
-                tempExercise: {...this.state.tempExercise, exercise_id: value.value }
+                tempExercise: { ...this.state.tempExercise, exercise_id: value.value }
             })
-        }else{
+        } else {
             this.setState({
-                tempExercise: {...this.state.tempExercise, exercise_id: 0 }
+                tempExercise: { ...this.state.tempExercise, exercise_id: 0 }
             })
         }
         console.log(this.state.tempExercise.exercise_id)
-      };
-    
+    };
+
+    //Dispatch call to add exercises to user's list of exercise
     handleCreate = (exerciseName) => {
-        this.props.dispatch({type: 'ADD_EXERCISE', payload: {name: exerciseName}})
-        setTimeout(() =>{
-            this.setState({ listExercises: []})
-            this.props.reduxState.exerciseWorkouts.exerciseReducer.map((exercise) =>{
+        this.props.dispatch({ type: 'ADD_EXERCISE', payload: { name: exerciseName } })
+        setTimeout(() => {
+            this.setState({ listExercises: [] })
+            this.props.reduxState.exerciseWorkouts.exerciseReducer.map((exercise) => {
                 this.setState({
-                    listExercises: [...this.state.listExercises, {value: exercise.id, label: exercise.name }]
+                    listExercises: [...this.state.listExercises, { value: exercise.id, label: exercise.name }]
                 })
             })
         }, 1000)
     }
 
-    handleChange = (event, propertyName) =>{
-        this.setState({ tempExercise: { ...this.state.tempExercise, [propertyName]: event.target.value }})
+    //store exercise info in the local state before posting/saving in database
+    handleChange = (event, propertyName) => {
+        this.setState({ tempExercise: { ...this.state.tempExercise, [propertyName]: event.target.value } })
     }
-    addExercise = () =>{
-        this.setState({ exercises: [
-            ...this.state.exercises, {
-                exercise_id: this.state.tempExercise.exercise_id,
-                assigned_reps: this.state.tempExercise.assigned_reps,
-                assigned_sets: this.state.tempExercise.assigned_sets,
-                assigned_weight: this.state.tempExercise.assigned_weight,
-                tips: this.state.tempExercise.tips
+
+    //add exercise stored in the local state "exercises"
+    //set local state temp exercises to default empty string ''
+    addExercise = () => {
+        this.setState({
+            exercises: [
+                ...this.state.exercises, {
+                    exercise_id: this.state.tempExercise.exercise_id,
+                    assigned_reps: this.state.tempExercise.assigned_reps,
+                    assigned_sets: this.state.tempExercise.assigned_sets,
+                    assigned_weight: this.state.tempExercise.assigned_weight,
+                    tips: this.state.tempExercise.tips
+                }
+            ]
+        })
+        this.setState({
+            tempExercise: {
+                exercise_id: '',
+                assigned_reps: '',
+                assigned_sets: '',
+                assigned_weight: '',
+                tips: ''
             }
-        ]})
-        this.setState({ tempExercise: {
-            exercise_id: '',
-            assigned_reps: '',
-            assigned_sets: '',
-            assigned_weight: '',
-            tips: ''
-        }})
+        })
     }
-    emailToggle = () =>{
+
+    //activate/deactivate email
+    emailToggle = () => {
         this.setState({ email: !this.state.email })
     }
-    setWeek = (event) =>{
+
+    //setting the workout week before creating workingout with exercises
+    setWeek = (event) => {
         this.setState({ week: event.target.value })
     }
 
+    //Admin add workout to user
+    //Dispatch call to post workouts and email
+    //directing admin to adminviewuser page
     addWorkout = () => {
         const newWorkout = {
             user_id: this.state.user_id,
@@ -152,129 +175,91 @@ class AdminAddWorkout extends Component {
         this.props.history.push('/adminviewuser/' + this.state.user_id)
     }
 
-    magicButton = () => {
-        this.setState ({
-            tempExercise: {
-                exercise_id: this.state.tempExercise.exercise_id,
-                assigned_reps: 5,
-                assigned_sets: 4,
-                assigned_weight: 225,
-                tips: 'Keep your back neutral, core tight, and engage hamstrings'
-            }
-        })
-    }
-
-    magicButton2 = () => {
-        this.setState ({
-            tempExercise: {
-                exercise_id: this.state.tempExercise.exercise_id,
-                assigned_reps: 3,
-                assigned_sets: 15,
-                assigned_weight: 40,
-                tips: 'Dont go too fast'
-            }
-        })
-    }
-    magicButton3 = () => {
-        this.setState({
-            tempExercise: {
-                exercise_id: this.state.tempExercise.exercise_id,
-                assigned_reps: 4,
-                assigned_sets: 20,
-                assigned_weight: 40,
-                tips: 'Feel the burn'
-            }
-        })
-    }
     render() {
         return (
             <div className="admin-add-workout">
-                <center><h200 onClick={() => this.magicButton3()}>  - </h200></center>
-                <h3 onClick={() => this.magicButton()}>Add Exercises to Workout:</h3>
-               <center> <h200 onClick={() => this.magicButton2()}>  -  </h200></center>
+                <center><h200>  - </h200></center>
+                <h3>Add Exercises to Workout:</h3>
+                <center> <h200>  -  </h200></center>
 
-
-
-            {/* {JSON.stringify(this.state)} */}
-            {/* {JSON.stringify(this.props.reduxState.injuries.injuriesReducer)} */}
-            <CreatableSelect
-                isClearable
-                onChange={this.handleSelectChange}
-                onCreateOption ={this.handleCreate}
-                options={this.state.listExercises}
-            />
-            <MyTextField
-                label="Sets"
-                value={this.state.tempExercise.assigned_sets}
-                onChange={(event) => this.handleChange(event, 'assigned_sets')}
-                margin="normal"
-            />
-            <MyTextField
-                label="Reps"
-                value={this.state.tempExercise.assigned_reps}
-                onChange={(event) => this.handleChange(event, 'assigned_reps')}
-                margin="normal"
-            />
-            <MyTextField
-                label="Weight"
-                value={this.state.tempExercise.assigned_weight}
-                onChange={(event) => this.handleChange(event, 'assigned_weight')}
-                margin="normal"
-            />
-            <MyTextField
-                multiline={true}
-                rows={2}
-                rowsMax={4}
-                fullWidth
-                label="Tips"
-                value={this.state.tempExercise.tips}
-                onChange={(event) => this.handleChange(event, 'tips')}
-                margin="normal"
-            />
-            <div className="add-exercise-workout-btn">
-            <button
-                onClick = {this.addExercise}>
-                ADD EXERCISE
+                <CreatableSelect
+                    isClearable
+                    onChange={this.handleSelectChange}
+                    onCreateOption={this.handleCreate}
+                    options={this.state.listExercises}
+                />
+                <MyTextField
+                    label="Sets"
+                    value={this.state.tempExercise.assigned_sets}
+                    onChange={(event) => this.handleChange(event, 'assigned_sets')}
+                    margin="normal"
+                />
+                <MyTextField
+                    label="Reps"
+                    value={this.state.tempExercise.assigned_reps}
+                    onChange={(event) => this.handleChange(event, 'assigned_reps')}
+                    margin="normal"
+                />
+                <MyTextField
+                    label="Weight"
+                    value={this.state.tempExercise.assigned_weight}
+                    onChange={(event) => this.handleChange(event, 'assigned_weight')}
+                    margin="normal"
+                />
+                <MyTextField
+                    multiline={true}
+                    rows={2}
+                    rowsMax={4}
+                    fullWidth
+                    label="Tips"
+                    value={this.state.tempExercise.tips}
+                    onChange={(event) => this.handleChange(event, 'tips')}
+                    margin="normal"
+                />
+                <div className="add-exercise-workout-btn">
+                    <button
+                        onClick={this.addExercise}>
+                        ADD EXERCISE
             </button>
                 </div>
-            <br/>
+                <br />
 
-            <h3 onClick = {() => this.magicButton2()}>Exercises:</h3>
-            <ul>
-            {this.state.exercises.map(exercise =>{
-                let exerciseName;
-                for(let i = 0; i<this.state.listExercises.length; i++){
-                    if(this.state.listExercises[i].value === exercise.exercise_id){
-                        exerciseName = this.state.listExercises[i].label
-                    }
-                }
-                return(
-                    <li>{exerciseName}</li>
-                )
-            })}
-            </ul>
-            <br></br>
+                <h3>Exercises:</h3>
+                <ul>
+                    {this.state.exercises.map(exercise => {
+                        let exerciseName;
+                        for (let i = 0; i < this.state.listExercises.length; i++) {
+                            if (this.state.listExercises[i].value === exercise.exercise_id) {
+                                exerciseName = this.state.listExercises[i].label
+                            }
+                        }
+                        return (
+                            <li>{exerciseName}</li>
+                        )
+                    })}
+                </ul>
+                <br></br>
                 <div className="add-exercise-workout-btn">
-            <FormControl variant="outlined">
-                <InputLabel id="demo-simple-select-outlined-label">
-                Week
+                    <FormControl variant="outlined">
+                        <InputLabel id="demo-simple-select-outlined-label">
+                            Week
                 </InputLabel>
-                <MySelectDrop
-                labelId="demo-simple-select-outlined-label"
-                id="demo-simple-select-outlined"
-                value={this.state.week}
-                onChange={this.setWeek}
-                >
-                {this.props.reduxState.exerciseWorkouts.weeksReducer.map((week, index)=>{
-                    return(
-                        <MenuItem value = {week.week}>Week {week.week}</MenuItem>
-                    )
-                })}
-                <MenuItem value = {this.state.maxWeek}>Create New: Week {this.state.maxWeek}</MenuItem>
-                </MySelectDrop>
-            </FormControl>
-            </div>
-            <div className="add-exercise-workout-btn">
+                        <MySelectDrop
+                            labelId="demo-simple-select-outlined-label"
+                            id="demo-simple-select-outlined"
+                            value={this.state.week}
+                            onChange={this.setWeek}
+                        >
+                            {this.props.reduxState.exerciseWorkouts.weeksReducer.map((week, index) => {
+                                return (
+                                    <MenuItem value={week.week}>Week {week.week}</MenuItem>
+                                )
+                            })}
+                            <MenuItem value={this.state.maxWeek}>Create New: Week {this.state.maxWeek}</MenuItem>
+                        </MySelectDrop>
+                    </FormControl>
+                </div>
+                <div className="add-exercise-workout-btn">
                     <FormControlLabel
 
                         control={
@@ -287,9 +272,9 @@ class AdminAddWorkout extends Component {
                         label="Email Client?"
                         labelPlacement="end"
                     />
-            <button
-                onClick = {this.addWorkout}>
-                ADD WORKOUT
+                    <button
+                        onClick={this.addWorkout}>
+                        ADD WORKOUT
             </button>
                 </div>
                 <h3>User Injuries:</h3>
