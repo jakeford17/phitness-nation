@@ -87,12 +87,13 @@ function* workoutsSaga(){
     yield takeLatest('ADMIN_UPDATE_WORKOUTS', adminUpdateWorkouts);
     yield takeLatest('ADMIN_FETCH_WORKOUTS_TRANSFORMED', adminGetWorkoutsTransformed);
 }
+
+// (weeks.map(function(e) { return e.week; }).indexOf(response.data[i].week) < 0)
 function transform(workouts, exercises){
     let weeks = []
-    let currentWeek = 0;
-    let z = weeks.length
     for(let i = 0; i<workouts.length; i++){
-        if(workouts[i].week === currentWeek){
+        let z = weeks.map(function(e) { return e.week; }).indexOf(workouts[i].week)
+        if(z > -1){
             weeks[z].workouts.push({ 
                 id: workouts[i].id, 
                 user_id: workouts[i].user_id, 
@@ -103,7 +104,6 @@ function transform(workouts, exercises){
                 ], 
             })
         }else{
-            currentWeek = workouts[i].week
             weeks.push({
                 week: workouts[i].week,
                 workouts: [{
