@@ -21,7 +21,7 @@ const MyTextField = styled(TextField)({
     textAlign: "center",
     fontFamily: 'PT Sans Narrow'
 });
-
+//inputs for the user to change their informaiton
 export default connect(mapStateToProps)(function TextFields(props) {
 
     const [values, setValues] = React.useState({

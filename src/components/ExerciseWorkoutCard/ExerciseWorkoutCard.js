@@ -30,7 +30,7 @@ const MyTextField = styled(TextField)({
     margin: 5,
     textAlign: "center"
 });
-
+//renders the exercise in the workout card and dialog to edit the exercise
 class ExerciseWorkoutCard extends Component {
     state = {
         open: false,

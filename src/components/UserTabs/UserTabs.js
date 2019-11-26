@@ -57,7 +57,7 @@ const useStyles = makeStyles(theme => ({
         indicatorColor: 'teal'
     }
 }));
-
+//tabs that contain the information for the user
 export default function FullWidthTabs() {
     const classes = useStyles();
     const theme = useTheme();

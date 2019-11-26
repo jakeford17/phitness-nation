@@ -56,7 +56,7 @@ const MyTextField = styled(TextField)({
     width: "100%",
     textAlign: "center"
 });
-
+//modal to edit injuries
 export default connect(mapStateToProps)(function FormDialog(props) {
     const [open, setOpen] = React.useState(false);
 

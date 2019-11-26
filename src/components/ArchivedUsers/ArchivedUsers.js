@@ -33,6 +33,7 @@ const MyTextField = styled(TextField)({
     textAlign: "center",
     fontFamily: 'PT Sans Narrow',
   });
+  //renders the archived users in the archived tabs
 class ArchivedUsers extends Component {
 
     state = {

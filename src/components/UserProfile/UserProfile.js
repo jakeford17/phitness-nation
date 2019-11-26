@@ -13,7 +13,7 @@ import Button from '@material-ui/core/Button';
 const mapStateToProps = reduxState => ({
     reduxState,
 });
-
+//user profile where they can edit their information as well as injuries and goals
 class Profile extends Component {
 
     state = {

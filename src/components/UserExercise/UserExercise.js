@@ -30,7 +30,7 @@ const MyCard = styled(Card)({
     textAlign: "center",
 });
 
-
+//page that walks the user through a workout with the exercise information
 class UserExercise extends Component {
 
     state = {

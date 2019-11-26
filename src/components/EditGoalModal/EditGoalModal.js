@@ -57,7 +57,7 @@ const useStyles = makeStyles(theme => ({
         marginRight: theme.spacing(1),
     },
 }));
-
+//modal to edit goals
 export default connect(mapStateToProps)(function FormDialog(props) {
     const [open, setOpen] = React.useState(false);
 

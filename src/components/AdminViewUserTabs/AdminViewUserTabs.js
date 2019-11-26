@@ -75,7 +75,7 @@ const useStyles = makeStyles(theme => ({
 const mapStateToProps = reduxState => ({
     reduxState,
 });
-
+//tabs for the admin to see the user information
 export default connect(mapStateToProps)(function FullWidthTabs(props) {
     const user_id = props.params
     const classes = useStyles();

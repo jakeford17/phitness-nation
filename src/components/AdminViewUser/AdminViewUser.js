@@ -3,6 +3,7 @@ import AdminViewUserTabs from '../AdminViewUserTabs/AdminViewUserTabs';
 import './AdminViewUser.css';
 import { connect } from 'react-redux';
 
+//container for the tabs that allows the user to view user information, gets all the info
 class AdminViewUser extends Component {
     state = {
         selectedUserId: this.props.match.params.id,

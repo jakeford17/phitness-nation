@@ -30,6 +30,7 @@ const MyTextField = styled(TextField)({
     margin: 5,
     textAlign: "center"
 });
+//add an exercise to a workout, renders as a button until it is clicked and then a dialog box is rendered
 class AddExerciseToWorkout extends Component {
     state = {
         open: false,

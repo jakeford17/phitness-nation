@@ -52,7 +52,7 @@ const useStyles = makeStyles(theme => ({
         indicatorColor: 'teal'
     }
 }));
-
+//tabs that contain the archived users and the archived exercises
 export default function FullWidthTabs() {
     const classes = useStyles();
     const theme = useTheme();

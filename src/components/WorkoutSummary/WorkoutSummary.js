@@ -22,7 +22,7 @@ const MyCard = styled(Card)({
   display: flexbox,
   textAlign: "center",
 });
-
+//when a user is done with a workout they will be directed here to get a summary of the work that they did
 class WorkoutSummary extends Component {
 
   componentDidMount = () => {
