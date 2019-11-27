@@ -33,6 +33,7 @@ const MyTextField = styled(TextField)({
     textAlign: "center",
     fontFamily: 'PT Sans Narrow',
   });
+//renders the archived exercises
 class ArchivedExercises extends Component {
 
     state = {

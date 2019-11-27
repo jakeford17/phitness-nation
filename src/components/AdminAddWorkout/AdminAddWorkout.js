@@ -33,7 +33,7 @@ const MyCard = styled(Card)({
     height: 80,
     backgroundColor: '#d2d2d4'
 })
-
+//a whole page that allows you to add a workout to a week that you specify with a dropdown. 
 class AdminAddWorkout extends Component {
     state = {
         user_id: this.props.match.params.id,

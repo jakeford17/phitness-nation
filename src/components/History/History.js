@@ -11,7 +11,7 @@ const MyTextField = styled(TextField)({
     margin: 5,
     textAlign: "center"
 });
-
+//shows the history of exercises to users
 class History extends Component {
     state = {
         user_id: this.props.reduxState.user.id,

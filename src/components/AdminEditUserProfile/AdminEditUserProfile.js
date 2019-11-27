@@ -11,6 +11,7 @@ const MyTextField = styled(TextField)({
     textAlign: "center",
     fontFamily: "'PT Sans Narrow', sans-serif;"
 });
+//allows the admin to edit a users profile.
 class AdminEditUserProfile extends Component {
     state = {
         name: '',

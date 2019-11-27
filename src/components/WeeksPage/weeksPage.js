@@ -28,7 +28,7 @@ const MyTextField = styled(TextField)({
   textAlign: "center",
   fontFamily: 'PT Sans Narrow',
 });
-
+//renders the weeks for the user so they can choose which one to start
 class  UserDashboard extends Component {
 
   state = {

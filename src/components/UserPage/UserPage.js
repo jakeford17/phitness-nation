@@ -23,7 +23,7 @@ const MyCard = styled(Card)({
   display: flexbox,
   textAlign: "left"
 });
-
+//user landing page
 class UserPage extends Component{
   componentDidMount = () =>{
     this.getWorkouts();

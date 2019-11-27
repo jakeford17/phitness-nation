@@ -20,6 +20,7 @@ const MyCard = styled(Card)({
   textAlign: "center",
 });
 
+//this will give users a preview of the workout before they start it
 class WorkoutPreview extends Component {
   componentDidMount = () => {
     this.props.dispatch({ type: 'FETCH_EXERCISE_WORKOUTS', payload: this.props.match.params.id})

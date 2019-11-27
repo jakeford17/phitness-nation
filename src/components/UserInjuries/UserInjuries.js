@@ -70,7 +70,7 @@ const HealedInjuryCard = styled(Card)({
     display: flexbox,
     textAlign: "center"
 });
-
+//renders the users injuries
 class Injuries extends Component {
     // componentDidMount() {
     //     this.props.dispatch({ type: 'FETCH_USER' })

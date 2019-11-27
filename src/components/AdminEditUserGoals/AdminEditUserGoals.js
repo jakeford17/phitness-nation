@@ -22,7 +22,7 @@ const MyCard = styled(Card)({
     textAlign: "center",
     fontFamily: "'PT Sans Narrow', sans-serif;"
 });
-
+//allows a user to edit their goals
 class Goals extends Component {
 
     //Display user's goals

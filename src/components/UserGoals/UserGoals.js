@@ -27,7 +27,7 @@ const MyCard = styled(Card)({
     display: flexbox,
     textAlign: "center"
 });
-
+//renders the goals for the user to see
 class Goals extends Component {
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_USER' })

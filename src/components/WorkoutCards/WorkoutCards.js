@@ -34,7 +34,7 @@ const MyExpansionPanel = styled(ExpansionPanel)({
     flexDirection: 'column'
 });
 
-
+//renders expansion panels for the admin to see the weeks, workouts, and finally the exercises for each user
 class WorkoutCards extends Component {
     state = {
         

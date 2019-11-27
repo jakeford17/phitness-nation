@@ -51,7 +51,7 @@ const MyTextField = styled(TextField)({
     width: "75%",
     textAlign: "center"
 });
-
+//modal that appears when you hit the plus button that allows you to add a goal
 export default connect(mapStateToProps)(function FormDialog(props) {
     const [open, setOpen] = React.useState(false);
 

@@ -40,6 +40,7 @@ const MyTextField = styled(TextField)({
     textAlign: "center",
     fontFamily: 'PT Sans Narrow',
 });
+//gets the list of the exercises for the admin to perform CRUD
 class AdminExerciseList extends Component {
 
     state = {

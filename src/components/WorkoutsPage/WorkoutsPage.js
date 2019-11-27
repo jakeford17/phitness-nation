@@ -19,7 +19,7 @@ const MyCard = styled(Card)({
   display: flexbox,
   textAlign: "left",
 });
-
+//when a user clicks on a weeks they will see this page with the completed and incompleted workouts
 class  WorkoutsPage extends Component {
   
   componentDidMount = () => {

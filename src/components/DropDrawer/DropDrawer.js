@@ -51,6 +51,7 @@ const useStyles = makeStyles({
         width: 'auto',
     },
 });
+//sidedrawer that opens when you hit the hamburger menu
 function SideDrawer(props) {
     const classes = useStyles();
     const [state, setState] = React.useState({

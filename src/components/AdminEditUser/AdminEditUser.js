@@ -3,6 +3,7 @@ import AdminEditUserTabs from '../AdminEditUserTabs/AdminEditUserTabs';
 import './AdminEditUser.css';
 import { connect } from 'react-redux';
 
+//container of the admineditusertabs component, get the user info and passes id down
 class AdminEditUser extends Component {
 
     //Display user's information

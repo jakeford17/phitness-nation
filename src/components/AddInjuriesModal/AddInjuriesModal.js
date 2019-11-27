@@ -55,7 +55,7 @@ const useStyles = makeStyles(theme => ({
         marginRight: theme.spacing(1),
     },
 }));
-
+//modal that opens when you hit the plus button to add injuries.
 export default connect(mapStateToProps)(function FormDialog(props) {
 
     const [open, setOpen] = React.useState(false);
